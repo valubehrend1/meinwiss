@@ -65,6 +65,8 @@ export const CardsContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const StyledCard = styled(Card)({
+  width: '100%',
+  minHeight: '100%',
   backgroundColor: theme.palette.secondary.main,
   borderRadius: '32px',
   padding: '3rem',
