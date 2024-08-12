@@ -1,6 +1,5 @@
 import React from 'react';
-import { Grid, Card, CardContent, Typography, Box } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Grid, CardContent, Box } from '@mui/material';
 
 import {
   SectionMainContainer,
@@ -8,13 +7,19 @@ import {
   StarsIcon,
   Title,
   HowItWorksText,
+  MainCard,
+  LeftGrid,
+  LeftCardText,
+  LeftCardTextOrange,
+  StyledSearchIcon,
+  OrangeQuestion,
   GradientBorderBox,
   GradientBorderBoxTop,
   QuestionsTextContainer,
   ButtonContainer,
-  SearchMoreButton
+  SearchMoreButton,
+  PurpleQuestion
 } from './HowlupaiWorksSectionStyles';
-import theme, { orange, purple } from '../../../../theme';
 
 const HowlupaiWorksSection: React.FC = () => {
   return (
@@ -27,32 +32,32 @@ const HowlupaiWorksSection: React.FC = () => {
       <Title>
         How Lupai works
       </Title>
-      <Card sx={{ padding: '4rem 5.75rem', borderRadius: '1.25rem', width: '100%' }}>
+      <MainCard>
         <CardContent>
           <Grid container spacing={2} sx={{ width: '100%' }}>
-            <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <LeftGrid item xs={6}>
               <Box sx={{ textAlign: 'center' }}>
-                <Typography sx={{ color: theme.palette.primary.main, fontSize: '36px', lineHeight: '42px' }}>
+                <LeftCardText>
                   Ask Lupai like you would
-                </Typography>
-                <Typography sx={{ color: '#F1683F', fontSize: '36px', lineHeight: '42px' }}>
+                </LeftCardText>
+                <LeftCardTextOrange>
                   ask a friend
-                </Typography>
+                </LeftCardTextOrange>
               </Box>
-            </Grid>
+            </LeftGrid>
 
             <Grid item xs={6}>
               <GradientBorderBox>
                 <GradientBorderBoxTop>
-                  <SearchIcon sx={{ color: theme.palette.primary.main, fontSize: '30px' }} />
+                  <StyledSearchIcon />
 
                   <QuestionsTextContainer>
-                    <Typography sx={{ color: orange, fontSize: '18px' }}>
+                    <OrangeQuestion>
                       “¿Qué papeles necesito para la visa de estudiante?”,
-                    </Typography>
-                    <Typography sx={{ color: purple, fontSize: '18px' }}>
+                    </OrangeQuestion>
+                    <PurpleQuestion>
                       "Wie beantrage ich die Rote Karte?”
-                    </Typography>
+                    </PurpleQuestion>
                   </QuestionsTextContainer>
 
                 </GradientBorderBoxTop>
@@ -63,7 +68,7 @@ const HowlupaiWorksSection: React.FC = () => {
             </Grid>
           </Grid>
         </CardContent>
-      </Card>
+      </MainCard>
     </SectionMainContainer >
   );
 };

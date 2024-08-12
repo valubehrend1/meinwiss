@@ -1,7 +1,11 @@
 import { styled } from '@mui/system';
 
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Card, Grid, Typography } from '@mui/material';
+
+import SearchIcon from '@mui/icons-material/Search';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+
+import theme, { orange, purple } from '../../../../theme';
 
 
 export const SectionMainContainer = styled(Box)(({ theme }) => ({
@@ -20,10 +24,10 @@ export const SectionMainContainer = styled(Box)(({ theme }) => ({
 
 export const HowItWorksTextContainer = styled(Box)({
   display: 'flex',
-  gap: '8px',
+  gap: '0.5rem',
   alignItems: 'center',
   justifyContent: 'center',
-  marginBottom: '16px',
+  marginBottom: '1rem',
 });
 
 export const StarsIcon = styled(AutoAwesomeIcon)({
@@ -31,9 +35,50 @@ export const StarsIcon = styled(AutoAwesomeIcon)({
   fontSize: '1rem'
 });
 
-export const HowItWorksText = styled(Typography)({
-  color: '#ffffff',
-  fontSize: '1rem'
+export const MainCard = styled(Card)({
+  padding: '4rem 5.75rem',
+  borderRadius: '1.25rem',
+  width: '100%'
+});
+
+export const MainCardMobile = styled(Card)({
+  padding: '4rem 1.25rem',
+  borderRadius: '1.25rem',
+  marginBottom: '2rem',
+  width: '100%'
+});
+
+export const LeftGrid = styled(Grid)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+});
+
+export const LeftCardText = styled(Typography)({
+  color: theme.palette.primary.main,
+  fontSize: '2.25rem',
+  lineHeight: '2.625rem'
+});
+
+export const LeftCardTextOrange = styled(Typography)({
+  color: orange,
+  fontSize: '2.25rem',
+  lineHeight: '2.625rem'
+});
+
+export const StyledSearchIcon = styled(SearchIcon)({
+  color: theme.palette.primary.main,
+  fontSize: '30px'
+});
+
+export const OrangeQuestion = styled(Typography)({
+  color: orange,
+  fontSize: '18px'
+});
+
+export const PurpleQuestion = styled(Typography)({
+  color: purple,
+  fontSize: '18px'
 });
 
 export const Title = styled(Typography)(({ theme }) => ({
@@ -54,6 +99,10 @@ export const Title = styled(Typography)(({ theme }) => ({
   },
 }));
 
+export const HowItWorksText = styled(Typography)({
+  color: '#ffffff',
+  fontSize: '1rem'
+});
 
 export const GradientBorderBox = styled(Box)(() => ({
   padding: '3px 3px',
@@ -75,7 +124,7 @@ export const GradientBorderBoxTop = styled(Box)(() => ({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: '42px',
+  gap: '2.625rem',
   padding: '32px 40px',
   borderRadius: '80px',
   backgroundColor: '#FFFF',
