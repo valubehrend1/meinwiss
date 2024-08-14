@@ -4,9 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme';
 /* import '@fontsource/inter'; */
 
-import { Provider } from 'react-redux';
 
-import { store } from './store';
 import {
   createBrowserRouter,
   createRoutesFromElements,
