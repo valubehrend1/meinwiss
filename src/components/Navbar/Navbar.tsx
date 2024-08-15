@@ -31,7 +31,6 @@ const Navbar: React.FC = () => {
     { text: 'How Lupai works' },
     { text: 'About' },
     { text: 'Contact' },
-    { text: 'EN' }
   ];
 
   return (

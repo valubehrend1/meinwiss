@@ -12,17 +12,20 @@ import {
 } from './AboutSectionStyles';
 import { cardsData } from './CardsContent';
 
+import { useTranslation } from 'react-i18next';
+
 const AboutSection: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <SectionMainContainer>
       <Grid container spacing={2} sx={{ width: '100%' }}>
         <Grid item xs={12}>
           <LupaiFeaturesTextContainer>
             <StarsIcon />
-            <FeaturesText>What are Lupai features?</FeaturesText>
+            <FeaturesText>{t('lupai_features')}</FeaturesText>
           </LupaiFeaturesTextContainer>
           <Title>
-            What you can expect from Lupai
+            {t('what_to_expect_from_lupai')}
           </Title>
         </Grid>
 

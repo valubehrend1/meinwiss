@@ -1,7 +1,7 @@
 import { styled } from '@mui/system';
 
-import { primary_color_dark } from '../../theme';
-import { Box, Toolbar } from '@mui/material';
+import theme, { primary_color_dark } from '../../theme';
+import { Box, Button, Select, Toolbar, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
 
 
@@ -49,3 +49,66 @@ export const MenuItemLink = styled(Link)(({ theme }) => ({
     fontSize: '0.85rem',
   },
 }));
+
+export const MenuItemLanguage = styled(Typography)(({ theme }) => ({
+  textTransform: 'capitalize',
+  textDecoration: 'none',
+  color: primary_color_dark,
+  fontSize: '1.125rem',
+  [theme.breakpoints.between('sm', 'md')]: {
+    fontSize: '0.85rem',
+  },
+}));
+
+export const LanguageContainer = styled(Box)({
+  display: 'flex',
+});
+
+
+export const DropdownSelect = styled(Select)({
+  '.MuiOutlinedInput-notchedOutline': {
+    border: 'none'
+  },
+  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+    border: 'none'
+  },
+  '&:hover .MuiOutlinedInput-notchedOutline': {
+    border: 'none'
+  },
+  fontSize: '1.125rem',
+  color: primary_color_dark,
+  fontFamily: 'Haffer',
+  '& .MuiSelect-select': {
+    border: 'none', // Elimina el borde
+    fontSize: '1.125rem',
+    color: primary_color_dark,
+    fontFamily: 'Haffer',
+  },
+  '&:focus': {
+    backgroundColor: 'transparent',
+    fontSize: '1.125rem',
+    color: primary_color_dark,
+    fontFamily: 'Haffer',
+  },
+  '& .MuiSvgIcon-root': {
+    display: 'none', // Esconde el icono predeterminado
+  },
+});
+
+export const LanguageButton = styled(Button)(({ theme }) => ({
+  minWidth: 'auto',
+  padding: 0,
+  color: theme.palette.primary.main,
+  '&:hover': {
+    backgroundColor: 'transparent',
+    color: theme.palette.primary.main,
+  },
+  '&.Mui-disabled': {
+    color: 'black',
+  },
+}));
+
+export const Separator = styled(Box)({
+  marginLeft: theme.spacing(1),
+  marginRight: theme.spacing(1),
+});
