@@ -1,53 +1,50 @@
 import React from 'react';
+
 import { Box, Typography } from '@mui/material';
-import { styled } from '@mui/system';
+import { LogosTextContainer, StarsIcon, LogosText, Container, Section, Logo, LogoContainer } from './LogosSectionStyles';
 
-// Styled components for layout
-const Container = styled(Box)({
-  display: 'flex',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  padding: '20px',
-  backgroundColor: '#fff', // Adjust the background color as needed
-});
+import AurekaLogo from '../../../../assets/Logos/Aureka.png';
+import Bundesministerium from '../../../../assets/Logos/Bundesministerium.png';
+import CivicInnovation from '../../../../assets/Logos/Civicinnovation.png';
+import LohanaBerkins from '../../../../assets/Logos/LohanaBerkins.png';
 
-const Section = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center'
-});
+import { primary_color_dark } from '../../../../theme';
 
-const Logo = styled('img')({
-  height: '50px', // Set height of logos
-  width: 'auto',
-  margin: '10px'
-});
 
-// TypeScript Props for the logo component
-interface LogoProps {
-  src: string;
-  alt: string;
-}
-
-const LogoComponent: React.FC<LogoProps> = ({ src, alt }) => (
-  <Logo src={src} alt={alt} />
-);
-
-const FundingInfo: React.FC = () => {
+const LogosSection: React.FC = () => {
   return (
     <Container>
+
       <Section>
-        <Typography variant="h6">Lupai is funded by</Typography>
-        <LogoComponent src="/path-to-civic-innovation-logo.svg" alt="Civic Innovation Platform" />
-        <LogoComponent src="/path-to-government-logo.svg" alt="Bundesministerium für Arbeit und Soziales" />
+        <Box>
+          <LogosTextContainer>
+            <StarsIcon />
+            <LogosText>You don’t know how to use AI?</LogosText>
+          </LogosTextContainer>
+          <Typography variant='h3' sx={{ color: primary_color_dark }}>Lupai is funded by</Typography>
+        </Box>
+        <LogoContainer>
+          <Logo src={CivicInnovation} alt="Civic Innovation" />
+          <Logo src={Bundesministerium} alt="Bundesministerium für Arbeit und Soziales" />
+        </LogoContainer>
       </Section>
+
       <Section>
-        <Typography variant="h6">Projects making Lupai</Typography>
-        <LogoComponent src="/path-to-education-center-logo.svg" alt="Bildungszentrum Lohana Berkins" />
-        <LogoComponent src="/path-to-eureka-logo.svg" alt="Eureka" />
+        <Box>
+          <LogosTextContainer>
+            <StarsIcon />
+            <LogosText>Projects making Lupai</LogosText>
+          </LogosTextContainer>
+          <Typography variant='h3' sx={{ color: primary_color_dark }}>Projects making Lupai</Typography>
+        </Box>
+        <LogoContainer>
+          <Logo src={LohanaBerkins} alt="LohanaBerkins" />
+          <Logo src={AurekaLogo} alt="Aureka" />
+        </LogoContainer>
       </Section>
+
     </Container>
   );
 };
 
-export default FundingInfo;
+export default LogosSection;

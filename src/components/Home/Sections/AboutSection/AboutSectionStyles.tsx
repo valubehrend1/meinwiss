@@ -73,6 +73,16 @@ export const StyledCard = styled(Card)({
   color: theme.palette.primary.main,
 });
 
+export const StyledCardContent = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+
+  },
+});
+
 export const CardDescription = styled(Typography)({
   color: theme.palette.primary.main,
   marginTop: '16px'

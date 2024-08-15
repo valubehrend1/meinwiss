@@ -8,6 +8,7 @@ import {
   FeaturesText,
   CardDescription,
   StyledCard,
+  StyledCardContent,
 } from './AboutSectionStyles';
 import { cardsData } from './CardsContent';
 
@@ -30,7 +31,7 @@ const AboutSection: React.FC = () => {
             <Grid item xs={12} sm={12} md={6} key={index}>
               <StyledCard elevation={0}>
                 <CardContent>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <StyledCardContent>
                     <Box>
                       {card.icon}
                     </Box>
@@ -45,7 +46,7 @@ const AboutSection: React.FC = () => {
                         {card.description}
                       </CardDescription>
                     </Box>
-                  </Box>
+                  </StyledCardContent>
 
                 </CardContent>
               </StyledCard>

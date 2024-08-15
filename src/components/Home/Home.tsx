@@ -9,6 +9,7 @@ import HowlupaiWorksSection from './Sections/HowlupaiWorksSection/HowlupaiWorksS
 import HowLupaiWorksMobile from './Sections/HowlupaiWorksSection/HowLupaiWorksMobile';
 import LogosSection from './Sections/LogosSection/LogosSection';
 import Footer from './Sections/Footer/Footer';
+import GetInTouch from './Sections/GetInTouchSection/GetInTouch';
 import theme from '../../theme';
 
 
@@ -21,6 +22,7 @@ const Home: React.FC = () => {
       <AboutSection />
       {matches ? <HowlupaiWorksSection /> : <HowLupaiWorksMobile />}
       <LogosSection />
+      <GetInTouch />
       <Footer />
     </div>
   );

@@ -56,14 +56,14 @@ export const LeftGrid = styled(Grid)({
 
 export const LeftCardText = styled(Typography)({
   color: theme.palette.primary.main,
-  fontSize: '2.25rem',
-  lineHeight: '2.625rem'
+  lineHeight: '2.2rem',
+  fontSize: '1.8rem',
 });
 
 export const LeftCardTextOrange = styled(Typography)({
   color: orange,
-  fontSize: '2.25rem',
-  lineHeight: '2.625rem'
+  lineHeight: '2.2rem',
+  fontSize: '1.8rem',
 });
 
 export const StyledSearchIcon = styled(SearchIcon)({
