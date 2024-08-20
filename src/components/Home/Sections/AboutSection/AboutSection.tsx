@@ -10,12 +10,40 @@ import {
   StyledCard,
   StyledCardContent,
 } from './AboutSectionStyles';
-import { cardsData } from './CardsContent';
+
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import ContactSupportRoundedIcon from '@mui/icons-material/ContactSupportRounded';
+import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
+import { orange } from '../../../../theme';
 
 import { useTranslation } from 'react-i18next';
 
 const AboutSection: React.FC = () => {
   const { t } = useTranslation();
+
+  const cardsData = [
+    {
+      icon: <ContactSupportRoundedIcon sx={{ fontSize: '60px', color: orange, marginRight: '32px' }} />,
+      title: t('multilingual_title'),
+      description: t('multilingual_description')
+    },
+    {
+      icon: <AutoAwesomeIcon sx={{ fontSize: '60px', color: orange, marginRight: '32px' }} />,
+      title: t('reliable_info_title'),
+      description: t('reliable_info_description')
+    },
+    {
+      icon: <DonutLargeOutlinedIcon sx={{ fontSize: '60px', color: orange, marginRight: '32px' }} />,
+      title: t('real_experiences_title'),
+      description: t('real_experiences_description'),
+    },
+    {
+      icon: <DonutLargeOutlinedIcon sx={{ fontSize: '60px', color: orange, marginRight: '32px' }} />,
+      title: t('private_title'),
+      description: t('private_description'),
+    }
+  ];
+
   return (
     <SectionMainContainer>
       <Grid container spacing={2} sx={{ width: '100%' }}>
@@ -41,9 +69,6 @@ const AboutSection: React.FC = () => {
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                       <Typography variant='h3' sx={{ marginTop: '16px' }}>
                         {card.title}
-                      </Typography>
-                      <Typography variant='h3' sx={{ fontFamily: 'MartinaPlantijn' }}>
-                        {card.secondTitle}
                       </Typography>
                       <CardDescription variant="h4">
                         {card.description}

@@ -10,8 +10,11 @@ import LohanaBerkins from '../../../../assets/Logos/LohanaBerkins.png';
 
 import { primary_color_dark } from '../../../../theme';
 
+import { useTranslation } from 'react-i18next';
+
 
 const LogosSection: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <Container>
 
@@ -19,9 +22,9 @@ const LogosSection: React.FC = () => {
         <Box>
           <LogosTextContainer>
             <StarsIcon />
-            <LogosText>You don’t know how to use AI?</LogosText>
+            <LogosText>{t('who_support_us')}</LogosText>
           </LogosTextContainer>
-          <Typography variant='h3' sx={{ color: primary_color_dark }}>Lupai is funded by</Typography>
+          <Typography variant='h3' sx={{ color: primary_color_dark }}>{t('lupai_founded_by')}</Typography>
         </Box>
         <LogoContainer>
           <Logo src={CivicInnovation} alt="Civic Innovation" />
@@ -33,9 +36,9 @@ const LogosSection: React.FC = () => {
         <Box>
           <LogosTextContainer>
             <StarsIcon />
-            <LogosText>Projects making Lupai</LogosText>
+            <LogosText>{t('who_is_behind_lupai')}</LogosText>
           </LogosTextContainer>
-          <Typography variant='h3' sx={{ color: primary_color_dark }}>Projects making Lupai</Typography>
+          <Typography variant='h3' sx={{ color: primary_color_dark }}>{t('projects_making_lupai')}</Typography>
         </Box>
         <LogoContainer>
           <Logo src={LohanaBerkins} alt="LohanaBerkins" />

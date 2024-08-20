@@ -21,16 +21,19 @@ import {
   PurpleQuestion
 } from './HowlupaiWorksSectionStyles';
 
+import { useTranslation } from 'react-i18next';
+
 const HowlupaiWorksSection: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <SectionMainContainer>
 
       <HowItWorksTextContainer>
         <StarsIcon />
-        <HowItWorksText>You don’t know how to use AI?</HowItWorksText>
+        <HowItWorksText>{t('how_to_use_ai')}</HowItWorksText>
       </HowItWorksTextContainer>
       <Title>
-        How Lupai works
+        {t('how_lupai_works')}
       </Title>
       <MainCard>
         <CardContent>
@@ -38,10 +41,10 @@ const HowlupaiWorksSection: React.FC = () => {
             <LeftGrid item xs={6}>
               <Box sx={{ textAlign: 'center' }}>
                 <LeftCardText>
-                  Ask Lupai like you would
+                  {t('ask_lupai_as_a_friend_first')}
                 </LeftCardText>
                 <LeftCardTextOrange>
-                  ask a friend
+                  {t('ask_lupai_as_a_friend_second')}
                 </LeftCardTextOrange>
               </Box>
             </LeftGrid>
@@ -53,17 +56,17 @@ const HowlupaiWorksSection: React.FC = () => {
 
                   <QuestionsTextContainer>
                     <OrangeQuestion>
-                      “¿Qué papeles necesito para la visa de estudiante?”,
+                      {t('what_papers_do_I_need')}
                     </OrangeQuestion>
                     <PurpleQuestion>
-                      "Wie beantrage ich die Rote Karte?”
+                      {t('how_to_apply_for_a_red_card')}
                     </PurpleQuestion>
                   </QuestionsTextContainer>
 
                 </GradientBorderBoxTop>
               </GradientBorderBox>
               <ButtonContainer>
-                <SearchMoreButton variant='contained' color='secondary'>Search</SearchMoreButton>
+                <SearchMoreButton variant='contained' color='secondary'>{t('search')}</SearchMoreButton>
               </ButtonContainer>
             </Grid>
           </Grid>
