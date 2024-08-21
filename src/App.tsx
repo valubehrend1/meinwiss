@@ -18,6 +18,7 @@ import i18next from 'i18next';
 import Layout from './components/Layout';
 import ErrorNotFoundPage from './components/ErrorNotFound';
 import Home from './components/Home/Home';
+import About from './components/About/About';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -25,6 +26,7 @@ const App = () => {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="*" element={<ErrorNotFoundPage />} />
+        <Route path="/about" element={<About />} />
       </Route>
     )
   );
