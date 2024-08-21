@@ -1,16 +1,17 @@
 import React from 'react';
-
 import { Typography } from '@mui/material';
 
 import { MenuItemsContainer, MenuItemLink } from './NavbarStyles';
 
+import { LanguageSelectorOrientation } from '../../../types';
+
+import LanguageSelector from '../LanguageSelector'
 
 interface NavbarItemsDesktopProps {
   menuItems: { text: string }[];
 }
 
 const NavbarItemsDesktop: React.FC<NavbarItemsDesktopProps> = ({ menuItems }) => {
-
   return (
     <MenuItemsContainer>
       {menuItems.map((item, index) => (
@@ -20,6 +21,7 @@ const NavbarItemsDesktop: React.FC<NavbarItemsDesktopProps> = ({ menuItems }) =>
           </MenuItemLink>
         </Typography>
       ))}
+      <LanguageSelector layout={LanguageSelectorOrientation.DROPDOWN} />
     </MenuItemsContainer>
   );
 };
