@@ -10,7 +10,7 @@ import { Menu as MenuIcon } from '@mui/icons-material';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import theme from '../../theme';
+import theme from '../../../theme';
 
 import { LogoPlaceholder, StyledToolBar, DividerLine } from './NavbarStyles';
 import NavbarItesmDesktop from './NavbarItemsDesktop';
@@ -37,7 +37,11 @@ const Navbar: React.FC = () => {
     <>
       <AppBar position="static" elevation={0} sx={{ backgroundColor: 'white' }}>
         <StyledToolBar>
-          <IconButton edge="start" color="inherit" aria-label="logo">
+          <IconButton edge="start" color="inherit" aria-label="logo" href='/' sx={{
+            '&:hover': {
+              backgroundColor: 'transparent',
+            },
+          }}>
             <LogoPlaceholder src={imageSrc} alt="Logo" />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />

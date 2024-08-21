@@ -3,8 +3,8 @@ import React from 'react';
 import { Box, List, ListItem, ListItemText } from '@mui/material';
 
 import { LanguageContainer } from './NavbarStyles';
-import { LanguageSelectorOrientation } from '../../types';
-import LanguageSelector from './LanguageSelector';
+import { LanguageSelectorOrientation } from '../../../types';
+import LanguageSelector from '../LanguageSelector';
 
 
 interface NavbarItemsMobileProps {

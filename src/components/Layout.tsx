@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Box } from '@mui/material';
 
-import Navbar from './Navbar/Navbar';
+import Navbar from '../components/shared/Navbar/Navbar';
+import Footer from './shared/Footer/Footer';
 
 import { Outlet } from 'react-router-dom';
 
@@ -12,6 +13,7 @@ const Layout: React.FC = () => {
     <Box sx={{ flex: 1, overflowY: 'auto' }}>
       <Navbar />
       <Outlet />
+      <Footer />
     </Box>
   );
 };

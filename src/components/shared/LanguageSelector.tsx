@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MenuItem, SelectChangeEvent, IconButton, Box } from '@mui/material';
 
-import { LanguageContainer, DropdownSelect, LanguageButton, Separator } from './NavbarStyles';
+import { LanguageContainer, DropdownSelect, LanguageButton, Separator } from './Navbar/NavbarStyles.tsx';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { LanguageSelectorOrientation } from '../../types.tsx';
 

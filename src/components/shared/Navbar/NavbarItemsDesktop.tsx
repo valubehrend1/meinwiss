@@ -3,9 +3,9 @@ import { Typography } from '@mui/material';
 
 import { MenuItemsContainer, MenuItemLink } from './NavbarStyles';
 
-import { LanguageSelectorOrientation } from '../../types.tsx';
+import { LanguageSelectorOrientation } from '../../../types';
 
-import LanguageSelector from './LanguageSelector'
+import LanguageSelector from '../LanguageSelector'
 
 interface NavbarItemsDesktopProps {
   menuItems: { text: string }[];
