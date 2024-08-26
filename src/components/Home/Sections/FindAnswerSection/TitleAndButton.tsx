@@ -1,24 +1,29 @@
 import React from 'react';
+
 import { Box } from '@mui/material';
 import { FirstTitle, SecondTitle, CopyText, FindAnswerSectionContainer, TryButton } from './FindAnswerSectionStyles'
 
+import { useTranslation } from 'react-i18next';
+
 const FindAnswerSectionSection: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <FindAnswerSectionContainer className='find-answer-text-container'>
       <Box>
         <FirstTitle gutterBottom>
-          Find. Answer.
+          {t('find_answer')}
         </FirstTitle>
         <SecondTitle gutterBottom>
-          Connect.
+          {t('connect')}
         </SecondTitle>
       </Box>
       <Box>
         <CopyText gutterBottom>
-          Inspired by communities’
+          {t('inspired_powered_first')}
         </CopyText>
         <CopyText gutterBottom>
-          solidarity. Powered by AI.
+          {t('inspired_powered_second')}
+
         </CopyText>
       </Box>
       <TryButton variant="contained" color="primary" >

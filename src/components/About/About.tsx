@@ -1,11 +1,27 @@
 import React from 'react';
+import { Box } from '@mui/material';
+import { styled } from '@mui/system';
+
+import Introduction from './Introduction/Introduction';
+import ProjectsMakingLupai from './ProjectsMakingLupai/ProjectsMakingLupai';
+import Funding from './Funding';
+import FAQ from './FAQ';
+import Team from './Team';
+
+const MainContainer = styled(Box)({
+  width: '100%',
+  overflowX: 'hidden',
+});
 
 const About: React.FC = () => {
   return (
-    <div>
-      <h1>About</h1>
-      <p>This is the about page.</p>
-    </div>
+    <MainContainer>
+      <Introduction />
+      <ProjectsMakingLupai />
+      <Funding />
+      <FAQ />
+      <Team />
+    </MainContainer>
   );
 };
 

@@ -35,7 +35,7 @@ const theme = createTheme({
     values: {
       xs: 0,
       sm: 600,
-      md: 900,
+      md: 1000,
       lg: 1400,
       xl: 1920,
     },
@@ -46,15 +46,15 @@ const theme = createTheme({
 
     h6: {
       fontSize: '0.75rem',
-      lineHeight: '1.25rem',
+      lineHeight: '1rem',
     },
     h5: {
       fontSize: '1rem',
-      lineHeight: '1.5rem',
+      lineHeight: '1.25rem',
     },
     h4: {
       fontSize: '1.125rem',
-      lineHeight: '1.75rem',
+      lineHeight: '1.625rem',
       margin: 0,
     },
     h3: {
@@ -66,8 +66,8 @@ const theme = createTheme({
       lineHeight: '3.5rem',
     },
     h1: {
-      fontSize: '3rem',
-      lineHeight: '3rem',
+      fontSize: '5rem',
+      lineHeight: '5.625rem',
     },
     body1: {
       fontSize: '0.875rem',
