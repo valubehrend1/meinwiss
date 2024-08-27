@@ -4,8 +4,8 @@ import { styled } from '@mui/system';
 
 import Introduction from './Introduction/Introduction';
 import ProjectsMakingLupai from './ProjectsMakingLupai/ProjectsMakingLupai';
-import Funding from './Funding';
-import FAQ from './FAQ';
+import Funding from './Funding/Funding';
+import Faq from './FAQ/FAQ';
 import Team from './Team';
 
 const MainContainer = styled(Box)({
@@ -19,7 +19,7 @@ const About: React.FC = () => {
       <Introduction />
       <ProjectsMakingLupai />
       <Funding />
-      <FAQ />
+      <Faq />
       <Team />
     </MainContainer>
   );
