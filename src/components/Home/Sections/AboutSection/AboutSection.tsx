@@ -1,50 +1,87 @@
 import React from 'react';
-import { Box, CardContent, Typography } from '@mui/material';
+import { Grid, CardContent, Typography, Box } from '@mui/material';
 import {
   SectionMainContainer,
   LupaiFeaturesTextContainer,
   StarsIcon,
   Title,
   FeaturesText,
-  CardsContainer,
   CardDescription,
   StyledCard,
+  StyledCardContent,
 } from './AboutSectionStyles';
-import { cardsData } from './CardsContent';
+
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import ContactSupportRoundedIcon from '@mui/icons-material/ContactSupportRounded';
+import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
+import { orange } from '../../../../theme';
+
+import { useTranslation } from 'react-i18next';
 
 const AboutSection: React.FC = () => {
+  const { t } = useTranslation();
+
+  const cardsData = [
+    {
+      icon: <ContactSupportRoundedIcon sx={{ fontSize: '60px', color: orange, marginRight: '32px' }} />,
+      title: t('multilingual_title'),
+      description: t('multilingual_description')
+    },
+    {
+      icon: <AutoAwesomeIcon sx={{ fontSize: '60px', color: orange, marginRight: '32px' }} />,
+      title: t('reliable_info_title'),
+      description: t('reliable_info_description')
+    },
+    {
+      icon: <DonutLargeOutlinedIcon sx={{ fontSize: '60px', color: orange, marginRight: '32px' }} />,
+      title: t('real_experiences_title'),
+      description: t('real_experiences_description'),
+    },
+    {
+      icon: <DonutLargeOutlinedIcon sx={{ fontSize: '60px', color: orange, marginRight: '32px' }} />,
+      title: t('private_title'),
+      description: t('private_description'),
+    }
+  ];
+
   return (
     <SectionMainContainer>
-      <Box sx={{ width: '100%' }}>
-        <LupaiFeaturesTextContainer>
-          <StarsIcon />
-          <FeaturesText>What are Lupai features?</FeaturesText>
-        </LupaiFeaturesTextContainer>
-        <Title>
-          What you can expect from Lupai
-        </Title>
-      </Box>
+      <Grid container spacing={2} sx={{ width: '100%' }}>
+        <Grid item xs={12}>
+          <LupaiFeaturesTextContainer>
+            <StarsIcon />
+            <FeaturesText>{t('lupai_features')}</FeaturesText>
+          </LupaiFeaturesTextContainer>
+          <Title>
+            {t('what_to_expect_from_lupai')}
+          </Title>
+        </Grid>
 
-      <CardsContainer className='cards-container-about-section'>
-        {cardsData.map((card, index) => (
-          <StyledCard key={index} elevation={0} className='card-about-section'>
-            <CardContent>
-              <Box>
-                {card.icon}
-                <Typography variant='h3' sx={{ marginTop: '16px' }}>
-                  {card.title}
-                </Typography>
-                <Typography variant='h3' sx={{ fontFamily: 'MartinaPlantijn' }}>
-                  {card.secondTitle}
-                </Typography>
-              </Box>
-              <CardDescription variant="h4">
-                {card.description}
-              </CardDescription>
-            </CardContent>
-          </StyledCard>
-        ))}
-      </CardsContainer>
+        <Grid item xs={12} container spacing={2}>
+          {cardsData.map((card, index) => (
+            <Grid item xs={12} sm={12} md={6} key={index}>
+              <StyledCard elevation={0}>
+                <CardContent>
+                  <StyledCardContent>
+                    <Box>
+                      {card.icon}
+                    </Box>
+                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                      <Typography variant='h3' sx={{ marginTop: '16px' }}>
+                        {card.title}
+                      </Typography>
+                      <CardDescription variant="h4">
+                        {card.description}
+                      </CardDescription>
+                    </Box>
+                  </StyledCardContent>
+
+                </CardContent>
+              </StyledCard>
+            </Grid>
+          ))}
+        </Grid>
+      </Grid>
     </SectionMainContainer>
   );
 };

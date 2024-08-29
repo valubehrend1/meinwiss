@@ -15,22 +15,51 @@ import {
   ButtonContainer
 } from './WhatIsLupaiStyles';
 
-import { cardsData } from './CardsContent';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import ContactSupportRoundedIcon from '@mui/icons-material/ContactSupportRounded';
+import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
+
+/* import { cardsData } from './CardsContent'; */
+
+import { useTranslation } from 'react-i18next';
 
 import { SectionMainContainer } from './WhatIsLupaiStyles';
 
 const WhatIsLupaiSection: React.FC = () => {
+  const { t } = useTranslation();
+
+  const cardsData = [
+    {
+      icon: <ContactSupportRoundedIcon sx={{ fontSize: '40px' }} />,
+      title: t('find_info_first_part'),
+      secondTitle: t('find_info_second_part'),
+      description: t('find_info_description')
+    },
+    {
+      icon: <AutoAwesomeIcon sx={{ fontSize: '40px' }} />,
+      title: t('answer_doubts_fitst_part'),
+      secondTitle: t('answer_doubts_second_part'),
+      description: t('answer_doubts_description')
+    },
+    {
+      icon: <DonutLargeOutlinedIcon sx={{ fontSize: '40px' }} />,
+      title: t('connect_with_institutions_first_part'),
+      secondTitle: t('connect_with_institutions_second_part'),
+      description: t('connect_with_institutions_description')
+    }
+  ];
+
   return (
     <SectionMainContainer>
       <Box sx={{ width: '100%' }}>
         <WhatIsLupaiTextContainer className='what-is-lupai-text-container'>
           <StarsIcon />
-          <WhatIsLupaiText>What is Lupai?</WhatIsLupaiText>
+          <WhatIsLupaiText>{t('what_is_lupai')}</WhatIsLupaiText>
         </WhatIsLupaiTextContainer>
         <Title>
-          <TitleSegment>LUPAI is an application designed</TitleSegment>
-          <TitleSegment>to help you understand German</TitleSegment>
-          <TitleSegment> bureaucracy and know your rights.</TitleSegment>
+          <TitleSegment>{t('what_is_lupai_answer_first')}</TitleSegment>
+          <TitleSegment>{t('what_is_lupai_answer_second')}</TitleSegment>
+          <TitleSegment>{t('what_is_lupai_answer_third')}</TitleSegment>
         </Title>
       </Box>
 
@@ -55,7 +84,7 @@ const WhatIsLupaiSection: React.FC = () => {
         ))}
       </CardsContainer>
       <ButtonContainer>
-        <LearnMoreButton variant='contained' color='secondary'>Learn more about LUPAI</LearnMoreButton>
+        <LearnMoreButton variant='contained' color='secondary'>{t('learn_more')}</LearnMoreButton>
       </ButtonContainer>
     </SectionMainContainer>
   );
