@@ -2,11 +2,10 @@
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme';
-/* import '@fontsource/inter'; */
 
 /* import { Provider } from 'react-redux'; */
-
 /* import { store } from './store'; */
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -20,6 +19,7 @@ import i18next from 'i18next';
 import Layout from './components/Layout';
 import ErrorNotFoundPage from './components/ErrorNotFound';
 import Home from './components/Home/Home';
+import About from './components/About/About';
 import Contact from './components/Contact/Contact';
 
 const App = () => {
@@ -27,6 +27,7 @@ const App = () => {
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<ErrorNotFoundPage />} />
       </Route>
