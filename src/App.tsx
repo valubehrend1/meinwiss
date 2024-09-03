@@ -21,6 +21,7 @@ import ErrorNotFoundPage from './components/ErrorNotFound';
 import Home from './components/Home/Home';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
+import AskQuestion from './components/Chat/AskQuestion/AskQuestion'
 
 const App = () => {
   const router = createBrowserRouter(
@@ -29,6 +30,7 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/ask-lupai" element={<AskQuestion />} />
         <Route path="*" element={<ErrorNotFoundPage />} />
       </Route>
     )
