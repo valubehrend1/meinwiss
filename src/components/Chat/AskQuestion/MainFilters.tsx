@@ -7,7 +7,8 @@ import {
 } from './AskQuestionsStyle'; // Importa los estilos desde el archivo separado
 
 import CountriesSearch from './CountriesSearch'
-import CitiesSearch from './CitiesSearch'
+import StateSearch from './StateSearch.tsx'
+import TimeFrameInput from './TimeFrameInput.tsx'
 
 
 const MainFilters: React.FC = () => {
@@ -15,16 +16,16 @@ const MainFilters: React.FC = () => {
     <>
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12} md={2}>
-          <SearchFiltersLabel>Location</SearchFiltersLabel>
+          <SearchFiltersLabel>Country of origin</SearchFiltersLabel>
           <CountriesSearch />
         </Grid>
         <Grid item xs={12} md={2}>
-          <SearchFiltersLabel>Country of origin</SearchFiltersLabel>
-          <CitiesSearch />
+          <SearchFiltersLabel>Location</SearchFiltersLabel>
+          <StateSearch />
         </Grid>
         <Grid item xs={12} md={2}>
           <SearchFiltersLabel>Time in Germany</SearchFiltersLabel>
-          <InputField fullWidth placeholder="Pick a time frame" variant="outlined" />
+          <TimeFrameInput />
         </Grid>
         <Grid item xs={12} md={2}>
           <SearchFiltersLabel>Age</SearchFiltersLabel>

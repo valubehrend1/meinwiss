@@ -8,7 +8,7 @@ import {
 import { countries } from 'countries-list';
 
 
-const MainFilters: React.FC = () => {
+const CountriesSearch: React.FC = () => {
   const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
 
   const countryNames = Object.values(countries).map(country => country.name);
@@ -34,4 +34,4 @@ const MainFilters: React.FC = () => {
   );
 };
 
-export default MainFilters;
+export default CountriesSearch;
