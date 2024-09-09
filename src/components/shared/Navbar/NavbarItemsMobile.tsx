@@ -2,6 +2,10 @@ import React from 'react';
 
 import { Box, List, ListItem, ListItemText } from '@mui/material';
 
+import { LanguageContainer } from './NavbarStyles';
+import { LanguageSelectorOrientation } from '../../../types';
+import LanguageSelector from '../LanguageSelector';
+
 
 interface NavbarItemsMobileProps {
   menuItems: { text: string }[];
@@ -17,6 +21,11 @@ const NavbarItemsMobile: React.FC<NavbarItemsMobileProps> = ({ menuItems, toggle
             <ListItemText primary={item.text} />
           </ListItem>
         ))}
+        <ListItem>
+          <LanguageContainer>
+            <LanguageSelector layout={LanguageSelectorOrientation.HORIZONTAL} />
+          </LanguageContainer>
+        </ListItem>
       </List>
     </Box>
   );
