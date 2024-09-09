@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Autocomplete } from '@mui/material';
 import { IState, State } from 'country-state-city';
-import { InputFieldAutoComplete } from './AskQuestionsStyle';
+import { InputFieldAutoComplete } from './AskQuestion/AskQuestionsStyle';
 
 const StateSearch: React.FC = () => {
   const [states, setStates] = useState<IState[]>([]);
