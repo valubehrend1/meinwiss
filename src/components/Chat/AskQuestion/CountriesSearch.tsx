@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Autocomplete } from '@mui/material';
 import {
   InputFieldAutoComplete
-} from './AskQuestionsStyle'; // Importa los estilos desde el archivo separado
+} from './AskQuestion/AskQuestionsStyle'; // Importa los estilos desde el archivo separado
 
 import { countries } from 'countries-list';
 

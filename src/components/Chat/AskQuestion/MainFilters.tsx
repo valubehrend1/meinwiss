@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 import {
   InputField,
   SearchFiltersLabel,
-} from './AskQuestionsStyle'; // Importa los estilos desde el archivo separado
+} from './AskQuestion/AskQuestionsStyle.tsx'; // Importa los estilos desde el archivo separado
 
 import CountriesSearch from './CountriesSearch'
 import StateSearch from './StateSearch.tsx'
@@ -30,8 +30,6 @@ const MainFilters: React.FC = () => {
         <Grid item xs={12} md={2}>
           <SearchFiltersLabel>Age</SearchFiltersLabel>
           <InputField fullWidth placeholder="Your age" variant="outlined" />
-        </Grid>
-        <Grid item xs={12} md={1}>
         </Grid>
       </Grid>
     </>

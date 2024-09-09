@@ -1,11 +1,27 @@
 import { styled } from '@mui/system';
 import { Box, TextField, Button, IconButton, Typography } from '@mui/material';
-import theme from '../../../theme';
+import theme from '../../../../theme';
 
 export const SectionContainer = styled(Box)({
   textAlign: 'center',
   padding: '7.5rem 5.4rem',
 });
+
+export const SectionContainerSteps = styled(Box)({
+  textAlign: 'center',
+  padding: '7.5rem 5.4rem',
+  margin: 'auto',
+  maxWidth: 800,
+});
+
+export const InsideContainer = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  textAlign: 'center',
+  gap: 3,
+  alignItems: 'center'
+});
+
 
 export const Title = styled(Typography)({
   marginBottom: '2rem',
