@@ -6,7 +6,7 @@ import Introduction from './Introduction/Introduction';
 import ProjectsMakingLupai from './ProjectsMakingLupai/ProjectsMakingLupai';
 import Funding from './Funding/Funding';
 import Faq from './FAQ/FAQ';
-import Team from './Team';
+import Team from './Team/Team';
 
 const MainContainer = styled(Box)({
   width: '100%',
