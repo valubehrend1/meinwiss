@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { InputAdornment, Box } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box } from '@mui/material';
 import {
   SectionContainer,
   Title,
   Description,
-  SearchBarContainer,
-  SearchBar,
   AskButton,
+  SearchBarContainer,
 } from './AskQuestionsStyle';
-import theme from '../../../../theme';
 import MainFilters from '../MainFilters';
+
+import SharedSearchBar from '../../../shared/SharedSearchBar/SharedSearchBar';
 
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -56,20 +55,11 @@ const AskQuestion: React.FC = () => {
                 </Description>
               </Box>
             </Box>
-            <SearchBarContainer>
-              <SearchBar
-                fullWidth
-                placeholder='Try questions like “How do I validate my university degree in Germany?”'
-                variant="outlined"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start" sx={{ color: theme.palette.primary.main }}>
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </SearchBarContainer>
+            <Box>
+              <SearchBarContainer>
+                <SharedSearchBar mainSearchPage />
+              </SearchBarContainer>
+            </Box>
 
             <MainFilters />
 

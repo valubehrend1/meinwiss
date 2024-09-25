@@ -24,7 +24,7 @@ import AskQuestion from './components/Chat/AskQuestion/AskQuestion/AskQuestion'
 import AskQuestionStep2 from './components/Chat/AskQuestion/AskQuestion/AskQuestionStep2';
 import AskQuestionStep3 from './components/Chat/AskQuestion/AskQuestion/AskQuestionStep3';
 import ProcessingQuestion from './components/Chat/AskQuestion/AskQuestion/ProcessingQuestion'
-
+import Chat from './components/Chat/InteractiveChat/Chat';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -36,6 +36,7 @@ const App = () => {
         <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
         <Route path="/ask-lupai/step3" element={<AskQuestionStep3 />} />
         <Route path="/ask-lupai/step4" element={<ProcessingQuestion />} />
+        <Route path="/ask-lupai/chat" element={<Chat />} />
         <Route path="*" element={<ErrorNotFoundPage />} />
       </Route>
     )
