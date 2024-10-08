@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Grid } from '@mui/material';
 import {
@@ -10,8 +10,29 @@ import CountriesSearch from './CountriesSearch'
 import StateSearch from './StateSearch.tsx'
 import TimeFrameInput from './TimeFrameInput.tsx'
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setAge, selectAge } from '../../../config/features/ChatSlice.tsx';
 
 const MainFilters: React.FC = () => {
+  const dispatch = useDispatch();
+  const age = useSelector(selectAge);
+  const [userAge, setUserAge] = useState<string | null>(null);
+
+
+  const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newAge = event.target.value;
+    setUserAge(newAge);
+  };
+
+  const handleAgeBlur = () => {
+    dispatch(setAge(userAge));
+  };
+
+  useEffect(() => {
+    console.log("User age:", age);
+  }, [age]);
+
+
   return (
     <>
       <Grid container spacing={2} justifyContent="center">
@@ -29,7 +50,12 @@ const MainFilters: React.FC = () => {
         </Grid>
         <Grid item xs={12} md={2}>
           <SearchFiltersLabel>Age</SearchFiltersLabel>
-          <InputField fullWidth placeholder="Your age" variant="outlined" />
+          <InputField
+            fullWidth
+            placeholder="Your age"
+            variant="outlined"
+            onChange={handleAgeChange}
+            onBlur={handleAgeBlur} />
         </Grid>
       </Grid>
     </>

@@ -3,9 +3,9 @@ import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme';
 
-/* import { Provider } from 'react-redux'; */
+import { Provider } from 'react-redux';
 
-/* import { store } from './store'; */
+import { store } from './store';
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -43,16 +43,16 @@ const App = () => {
   );
 
   return (
-    /*  <Provider store={store}> */
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <I18nextProvider i18n={i18next} defaultNS={'global'}>
-          <CssBaseline />
-          <RouterProvider router={router} />
-        </I18nextProvider>
-      </ThemeProvider>
-    </StyledEngineProvider>
-    /*    </Provider> */
+    <Provider store={store}>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <I18nextProvider i18n={i18next} defaultNS={'global'}>
+            <CssBaseline />
+            <RouterProvider router={router} />
+          </I18nextProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </Provider>
   );
 }
 

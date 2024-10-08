@@ -5,9 +5,6 @@ import react from "@vitejs/plugin-react"
 export default defineConfig({
     plugins: [react()],
     server: {
-        fs: {
-            allow: ["/workspace", "/node_modules"],
-        },
         proxy: {
             "/lupai": {
                 target: "ws://190.16.250.34:8001",

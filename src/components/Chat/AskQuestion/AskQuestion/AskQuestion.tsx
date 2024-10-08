@@ -15,10 +15,38 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { /* useDispatch, */ useDispatch, useSelector } from 'react-redux';
+import { selectUserQuery, selectUserContext, setAssistantResponse, addUserMessage } from '../../../../config/features/ChatSlice';
+
+const ws = new WebSocket("/lupai/agent/chat")
+
 const AskQuestion: React.FC = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  /*   const dispatch = useDispatch(); */
   const [isExiting, setIsExiting] = useState(false);
+
+  const userQuery = useSelector(selectUserQuery);
+  const userContext = useSelector(selectUserContext);
+
+  const sendMessage = () => {
+    if (!userQuery.match(/[a-z]/i)) {
+      return
+    }
+    dispatch(addUserMessage(userQuery));
+    ws.send(
+      JSON.stringify({
+        user_query: userQuery,
+        user_context: {
+          origin_country: userContext.originCountry,
+          time_in_germany: userContext.timeInGermany,
+          age: userContext.age,
+        },
+        location: userContext.location,
+      }),
+    )
+  }
 
   const variants = {
     hidden: { x: 300, opacity: 0 },
@@ -29,10 +57,19 @@ const AskQuestion: React.FC = () => {
   // Función que maneja el clic del botón
   const handleAskQuestionClick = () => {
     setIsExiting(true);
+    sendMessage()
     setTimeout(() => {
       navigate(`/ask-lupai/step2`);
-    }, 500);
+    }, 800);
   };
+
+
+  ws.onmessage = (event) => {
+    const message = JSON.parse(event.data)
+    console.log(event.data)
+    dispatch(setAssistantResponse(message))
+
+  }
 
   return (
     <SectionContainer>
@@ -57,7 +94,7 @@ const AskQuestion: React.FC = () => {
             </Box>
             <Box>
               <SearchBarContainer>
-                <SharedSearchBar mainSearchPage />
+                <SharedSearchBar mainSearchPage sendMessage={sendMessage} />
               </SearchBarContainer>
             </Box>
 
