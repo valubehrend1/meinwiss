@@ -38,22 +38,29 @@ export const SearchBarContainer = styled(Box)({
   marginBottom: '40px',
 });
 
-export const SearchBar = styled(TextField)({
-  maxWidth: '800px',
+interface SearchBarProps {
+  mainSearchPage?: boolean;
+}
+
+export const SearchBar = styled(TextField, {
+  shouldForwardProp: (prop) => prop !== 'mainSearchPage',
+})<SearchBarProps>(({ mainSearchPage }) => ({
+  width: '100%',
+  maxWidth: mainSearchPage ? '800px' : 'none',
   backgroundColor: `rgba(0, 48, 30, 0.2)`,
   borderRadius: '50px',
   border: 'none',
   '& .MuiOutlinedInput-root': {
     borderRadius: '50px',
     border: 'none',
-    '& fieldset': {
-      border: 'none',
-    },
     '& .MuiInputBase-input': {
       color: theme.palette.primary.main,
     },
+    '& fieldset': {
+      border: 'none',
+    },
   },
-});
+}));
 
 export const SearchFiltersLabel = styled(Typography)({
   marginBottom: '10px',
