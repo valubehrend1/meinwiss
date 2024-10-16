@@ -6,6 +6,7 @@ import theme from './theme';
 import { Provider } from 'react-redux';
 
 import { store } from './store';
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -19,6 +20,7 @@ import i18next from 'i18next';
 import Layout from './components/Layout';
 import ErrorNotFoundPage from './components/ErrorNotFound';
 import Home from './components/Home/Home';
+import About from './components/About/About';
 import Contact from './components/Contact/Contact';
 import AskQuestion from './components/Chat/AskQuestion/AskQuestion/AskQuestion'
 import AskQuestionStep2 from './components/Chat/AskQuestion/AskQuestion/AskQuestionStep2';
@@ -33,6 +35,7 @@ const App: React.FC = () => {
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/ask-lupai" element={<AskQuestion />} />
         <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
