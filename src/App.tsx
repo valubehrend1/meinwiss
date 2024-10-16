@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme';
@@ -26,7 +26,9 @@ import AskQuestionStep3 from './components/Chat/AskQuestion/AskQuestion/AskQuest
 import ProcessingQuestion from './components/Chat/AskQuestion/AskQuestion/ProcessingQuestion'
 import Chat from './components/Chat/InteractiveChat/Chat';
 
-const App = () => {
+import { WebSocketProvider } from './context/WebSocketContext';
+
+const App: React.FC = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
@@ -47,8 +49,10 @@ const App = () => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <I18nextProvider i18n={i18next} defaultNS={'global'}>
-            <CssBaseline />
-            <RouterProvider router={router} />
+            <WebSocketProvider>
+              <CssBaseline />
+              <RouterProvider router={router} />
+            </WebSocketProvider>
           </I18nextProvider>
         </ThemeProvider>
       </StyledEngineProvider>

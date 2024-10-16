@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useEffect, useState, ReactNode } from 'react';
 
 // Define the WebSocket type
 interface WebSocketContextType {
@@ -46,11 +46,5 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
   );
 };
 
-// Custom hook for using WebSocket context
-export const useWebSocket = (): WebSocketContextType => {
-  const context = useContext(WebSocketContext);
-  if (context === undefined) {
-    throw new Error('useWebSocket must be used within a WebSocketProvider');
-  }
-  return context;
-};
+// Export the WebSocketContext so that it can be used in other files
+export { WebSocketContext };

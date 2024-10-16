@@ -17,13 +17,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { /* useDispatch, */ useDispatch, useSelector } from 'react-redux';
 import { selectUserQuery, selectUserContext, setAssistantResponse, addUserMessage } from '../../../../config/features/ChatSlice';
+import { useWebSocket } from '../../../../context/useWebSocket';
 
-const ws = new WebSocket("/lupai/agent/chat")
 
 const AskQuestion: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { ws } = useWebSocket();
   /*   const dispatch = useDispatch(); */
   const [isExiting, setIsExiting] = useState(false);
 
@@ -35,17 +36,19 @@ const AskQuestion: React.FC = () => {
       return
     }
     dispatch(addUserMessage(userQuery));
-    ws.send(
-      JSON.stringify({
-        user_query: userQuery,
-        user_context: {
-          origin_country: userContext.originCountry,
-          time_in_germany: userContext.timeInGermany,
-          age: userContext.age,
-        },
-        location: userContext.location,
-      }),
-    )
+    if (ws) {
+      ws.send(
+        JSON.stringify({
+          user_query: userQuery,
+          user_context: {
+            origin_country: userContext.originCountry,
+            time_in_germany: userContext.timeInGermany,
+            age: userContext.age,
+          },
+          location: userContext.location,
+        }),
+      )
+    }
   }
 
   const variants = {
@@ -63,12 +66,12 @@ const AskQuestion: React.FC = () => {
     }, 800);
   };
 
-
-  ws.onmessage = (event) => {
-    const message = JSON.parse(event.data)
-    console.log(event.data)
-    dispatch(setAssistantResponse(message))
-
+  if (ws) {
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data)
+      console.log(event.data)
+      dispatch(setAssistantResponse(message))
+    }
   }
 
   return (

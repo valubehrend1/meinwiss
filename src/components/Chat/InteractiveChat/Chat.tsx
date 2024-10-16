@@ -1,9 +1,6 @@
-// src/components/ChatComponent.tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
-
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectMessages, setAssistantResponse, addUserMessage, selectUserContext } from '../../../config/features/ChatSlice';
 
 import { Box } from '@mui/material';
@@ -14,60 +11,45 @@ import UserQuestion from './UserQuestion';
 import AddNewQuestion from './AddNewQuestion';
 import { ChatContainer } from './ChatStyles';
 
+import { useWebSocket } from '../../../context/useWebSocket';
 
 const Chat: React.FC = () => {
   const messages = useSelector(selectMessages);
-  const userContext = useSelector(selectUserContext)
-
-  const wsRef = useRef<WebSocket | null>(null);
-
-  console.log(messages, 'messages')
+  const userContext = useSelector(selectUserContext);
 
   const dispatch = useDispatch();
+  const { ws } = useWebSocket();
 
   useEffect(() => {
-    // Crear la conexión WebSocket
-    wsRef.current = new WebSocket("/lupai/agent/chat");
+    // Asegurarse de que `ws` esté definido antes de asignar los eventos
+    if (ws) {
+      ws.onopen = () => {
+        console.log("Conexión WebSocket establecida.");
+      };
 
-    wsRef.current.onopen = () => {
-      console.log("Conexión WebSocket establecida.");
-    };
+      ws.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+        console.log("Mensaje recibido:", message);
+        dispatch(setAssistantResponse(message));
+      };
 
-    wsRef.current.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      console.log("Mensaje recibido:", message);
-      dispatch(setAssistantResponse(message));
-    };
+      ws.onerror = (error) => {
+        console.error("Error en WebSocket:", error);
+      };
 
-    wsRef.current.onerror = (error) => {
-      console.error("Error en WebSocket:", error);
-    };
+      ws.onclose = () => {
+        console.log("WebSocket cerrado.");
+      };
 
-    wsRef.current.onclose = () => {
-      console.log("WebSocket cerrado.");
-    };
-
-    return () => {
-      // Cerrar la conexión al desmontar el componente
-      wsRef.current?.close();
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
-    // Si el último mensaje es del usuario, envía el mensaje de nuevo al servidor.
-    console.log(messages, 'messages')
-    if (messages.length > 0 && messages[messages.length - 1].sender === 'user') {
-      const lastUserMessage = messages[messages.length - 1].content;
-
-      // Envía el mensaje con el último contenido del usuario y los datos del contexto.
-      sendMessage(lastUserMessage);
-      console.log("Mensaje enviado:", lastUserMessage);
-      console.log(messages, 'messages')
+      return () => {
+        // Cerrar la conexión al desmontar el componente
+        ws.close();
+      };
     }
-  }, [messages]);
+  }, [dispatch, ws]);
 
-  const sendMessage = (messageContent: string) => {
-    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+  const sendMessage = useCallback((messageContent: string) => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
       const messageToSend = {
         user_query: messageContent,
         user_context: {
@@ -77,11 +59,21 @@ const Chat: React.FC = () => {
         },
         location: userContext.location,
       };
-      wsRef.current.send(JSON.stringify(messageToSend));
+      ws.send(JSON.stringify(messageToSend));
     } else {
       console.error('WebSocket no está abierto para enviar mensajes.');
     }
-  };
+  }, [ws, userContext]);
+
+  useEffect(() => {
+    // Si el último mensaje es del usuario, envía el mensaje de nuevo al servidor.
+    if (messages.length > 0 && messages[messages.length - 1].sender === 'user') {
+      const lastUserMessage = messages[messages.length - 1].content;
+
+      // Envía el mensaje con el último contenido del usuario y los datos del contexto.
+      sendMessage(lastUserMessage);
+    }
+  }, [messages, sendMessage]);
 
   return (
     <ChatContainer>
