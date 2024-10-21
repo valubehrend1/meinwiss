@@ -1,0 +1,15 @@
+services:
+    lupai-front-devcontainer:
+        network_mode: host
+        image: lupai-front-devcontainer
+        container_name: lupai-front-devcontainer
+        build:
+            context: ..
+            dockerfile: .devcontainer/Dockerfile
+            args:
+                - NODE_VERSION
+                - DEVCONTAINER_USER
+        volumes:
+            - ..:/workspace:cached
+        # This keeps the devcontainer running.
+        entrypoint: ["tail", "-f", "/dev/null"]
