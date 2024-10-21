@@ -46,5 +46,4 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
   );
 };
 
-// Export the WebSocketContext so that it can be used in other files
 export { WebSocketContext };
