@@ -16,27 +16,27 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { /* useDispatch, */ useDispatch, useSelector } from 'react-redux';
-import { selectUserQuery, selectUserContext, setAssistantResponse, addUserMessage } from '../../../../config/features/ChatSlice';
-import { useWebSocket } from '../../../../context/useWebSocket';
+import { selectUserQuery/* , selectUserContext *//* , setAssistantResponse */, addUserMessage } from '../../../../config/features/ChatSlice';
+/* import { useWebSocket } from '../../../../context/useWebSocket'; */
 
 
 const AskQuestion: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { ws } = useWebSocket();
+  /*   const { ws } = useWebSocket(); */
   /*   const dispatch = useDispatch(); */
   const [isExiting, setIsExiting] = useState(false);
 
   const userQuery = useSelector(selectUserQuery);
-  const userContext = useSelector(selectUserContext);
+  /*   const userContext = useSelector(selectUserContext); */
 
   const sendMessage = () => {
     if (!userQuery.match(/[a-z]/i)) {
       return
     }
     dispatch(addUserMessage(userQuery));
-    if (ws) {
+   /*  if (ws) {
       ws.send(
         JSON.stringify({
           user_query: userQuery,
@@ -49,7 +49,7 @@ const AskQuestion: React.FC = () => {
         }),
       )
     }
-  }
+ */  }
 
   const variants = {
     hidden: { x: 300, opacity: 0 },
@@ -66,13 +66,13 @@ const AskQuestion: React.FC = () => {
     }, 800);
   };
 
-  if (ws) {
-    ws.onmessage = (event) => {
-      const message = JSON.parse(event.data)
-      console.log(event.data)
-      dispatch(setAssistantResponse(message))
-    }
-  }
+  /*   if (ws) {
+      ws.onmessage = (event) => {
+        const message = JSON.parse(event.data)
+        console.log(event.data)
+        dispatch(setAssistantResponse(message))
+      }
+    } */
 
   return (
     <SectionContainer>

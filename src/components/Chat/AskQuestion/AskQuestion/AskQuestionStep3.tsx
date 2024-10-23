@@ -22,7 +22,7 @@ const AskQuestionStep3: React.FC = () => {
   const handleAskQuestionClick = () => {
     setIsExiting(true);
     setTimeout(() => {
-      navigate(`/ask-lupai/step4`);  // Suponiendo que existe un 'step4'
+      navigate(`/ask-lupai/step3`);  // Suponiendo que existe un 'step4'
     }, 500);
   };
 

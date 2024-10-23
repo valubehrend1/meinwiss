@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+
+import ReactMarkdown from 'react-markdown'
+
 import { styled } from '@mui/material/styles';
 import { Paper, Box } from '@mui/material/';
 import Typography from '@mui/material/Typography';
@@ -42,7 +45,7 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content }) => {
         <img src={logo} alt="Logo" style={{ width: '20px' }} />
       </Box>
       <Typography variant="h5" style={{ color: '#333' }}>
-        {displayedText}
+        <ReactMarkdown>{displayedText}</ReactMarkdown>
       </Typography>
     </Container>
   );

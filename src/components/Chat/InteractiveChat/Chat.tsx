@@ -19,31 +19,18 @@ const Chat: React.FC = () => {
 
   const dispatch = useDispatch();
   const { ws } = useWebSocket();
+  /* 
+    useEffect(() => {
+  
+    }, []);
+   */
 
   useEffect(() => {
     // Asegurarse de que `ws` esté definido antes de asignar los eventos
     if (ws) {
-      ws.onopen = () => {
-        console.log("Conexión WebSocket establecida.");
-      };
-
       ws.onmessage = (event) => {
         const message = JSON.parse(event.data);
-        console.log("Mensaje recibido:", message);
         dispatch(setAssistantResponse(message));
-      };
-
-      ws.onerror = (error) => {
-        console.error("Error en WebSocket:", error);
-      };
-
-      ws.onclose = () => {
-        console.log("WebSocket cerrado.");
-      };
-
-      return () => {
-        // Cerrar la conexión al desmontar el componente
-        ws.close();
       };
     }
   }, [dispatch, ws]);
@@ -75,36 +62,40 @@ const Chat: React.FC = () => {
     }
   }, [messages, sendMessage]);
 
+  console.log(messages);
+
   return (
-    <ChatContainer>
-      {messages.map((message, index) => (
-        <Box
-          key={index}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: message.sender === 'user' ? 'flex-end' : 'flex-start',
-            marginBottom: '16px',
-          }}
-        >
-          {message.sender === 'user' ? (
-            <UserQuestion content={message.content} />
-          ) : (
-            <LupaiAnswer content={message.content} />
-          )}
+    <>
+      <ChatContainer>
+        {messages.map((message, index) => (
+          <Box
+            key={index}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: message.sender === 'user' ? 'flex-end' : 'flex-start',
+              marginBottom: '16px',
+            }}
+          >
+            {message.sender === 'user' ? (
+              <UserQuestion content={message.content} />
+            ) : (
+              <LupaiAnswer content={message.content} />
+            )}
+          </Box>
+        ))}
+        <Box sx={{ marginTop: '20px' }}>
+          <SharedSearchBar
+            mainSearchPage={false}
+            sendMessage={(messageContent) => {
+              dispatch(addUserMessage(messageContent));
+              sendMessage(messageContent);
+            }}
+          />
         </Box>
-      ))}
-      <Box sx={{ marginTop: '20px' }}>
-        <SharedSearchBar
-          mainSearchPage={false}
-          sendMessage={(messageContent) => {
-            dispatch(addUserMessage(messageContent));
-            sendMessage(messageContent);
-          }}
-        />
-      </Box>
-      <AddNewQuestion />
-    </ChatContainer>
+        <AddNewQuestion />
+      </ChatContainer>
+    </>
   );
 };
 
