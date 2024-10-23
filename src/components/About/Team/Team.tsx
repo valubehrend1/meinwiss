@@ -2,6 +2,9 @@ import React from 'react';
 import { Grid, Box, Typography, Avatar, Link } from '@mui/material';
 import { styled } from '@mui/system';
 
+import Ceci from '../../../assets/Team/Ceci.png';
+import Aqua from '../../../assets/Team/Aqua.png';
+
 // Estilos para los contenedores
 const SectionContainer = styled(Box)({
   padding: '50px',
@@ -14,8 +17,6 @@ const TeamTextContainer = styled(Box)({
 
 const TeamMemberGrid = styled(Grid)({
   display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
   gap: '16px',
 });
 
@@ -31,17 +32,24 @@ const StyledAvatar = styled(Avatar)({
 
 const TeamPage: React.FC = () => {
   // Datos de ejemplo para los miembros del equipo
-  const teamMembers = [
-    { name: 'Member 1', imgSrc: '/path/to/image1.jpg' },
-    { name: 'Member 2', imgSrc: '/path/to/image2.jpg' },
-    { name: 'Member 3', imgSrc: '/path/to/image3.jpg' },
-    { name: 'Member 4', imgSrc: '/path/to/image4.jpg' },
-    { name: 'Member 5', imgSrc: '/path/to/image5.jpg' },
-    { name: 'Member 6', imgSrc: '/path/to/image6.jpg' },
-    { name: 'Member 7', imgSrc: '/path/to/image7.jpg' },
-    { name: 'Member 8', imgSrc: '/path/to/image8.jpg' },
-    { name: 'Member 9', imgSrc: '/path/to/image9.jpg' },
-  ];
+  const teamMembersColumnOne = [
+    { name: 'Member 1', imgSrc: Ceci },
+    { name: 'Member 2', imgSrc: Aqua },
+    { name: 'Member 3', imgSrc: '/path/to/luce.jpg' },
+  ]
+
+  const teamMembersColumnTwo = [
+    { name: 'Member 1', imgSrc: '/path/to/luce.jpg' },
+    { name: 'Member 2', imgSrc: '/path/to/luce.jpg' },
+    { name: 'Member 3', imgSrc: '/path/to/luce.jpg' },
+    { name: 'Member 3', imgSrc: '/path/to/luce.jpg' },
+  ]
+
+  const teamMembersColumnThree = [
+    { name: 'Member 1', imgSrc: Ceci },
+    { name: 'Member 2', imgSrc: Aqua },
+    { name: 'Member 3', imgSrc: '/path/to/luce.jpg' },
+  ]
 
   return (
     <SectionContainer>
@@ -73,8 +81,18 @@ const TeamPage: React.FC = () => {
         {/* Contenedor para las imágenes del equipo */}
         <Grid item xs={12} md={8}>
           <TeamMemberGrid container spacing={2}>
-            {teamMembers.map((member, index) => (
-              <Grid item xs={4} key={index}>
+            {teamMembersColumnOne.map((member, index) => (
+              <Grid item xs={4} key={index} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <StyledAvatar src={member.imgSrc} alt={member.name} />
+              </Grid>
+            ))}
+            {teamMembersColumnTwo.map((member, index) => (
+              <Grid item xs={4} key={index} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}  >
+                <StyledAvatar src={member.imgSrc} alt={member.name} />
+              </Grid>
+            ))}
+            {teamMembersColumnThree.map((member, index) => (
+              <Grid item xs={4} key={index} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <StyledAvatar src={member.imgSrc} alt={member.name} />
               </Grid>
             ))}
