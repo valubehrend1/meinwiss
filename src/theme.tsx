@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createTheme } from '@mui/material/styles';
 
-import Haffer from '../public/fonts/Haffer-Regular.woff';
-import MartinaPlantijn from '../public/fonts/MartinaPlantijn.woff2';
+import Haffer from './assets/fonts/Haffer-Regular.woff';
+import MartinaPlantijn from './assets/fonts/MartinaPlantijn.woff2';
 
 
 /* export const haffer = {
