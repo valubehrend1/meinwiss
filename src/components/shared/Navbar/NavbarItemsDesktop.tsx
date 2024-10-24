@@ -16,9 +16,10 @@ const NavbarItemsDesktop: React.FC<NavbarItemsDesktopProps> = ({ menuItems }) =>
     <MenuItemsContainer>
       {menuItems.map((item, index) => (
         <Typography key={index}>
-          <MenuItemLink to={`/${item.text}`}>
+          <MenuItemLink to={`/${item.text.toLowerCase().replace(/\s+/g, '-')}`}>
             {item.text}
           </MenuItemLink>
+
         </Typography>
       ))}
       <LanguageSelector layout={LanguageSelectorOrientation.DROPDOWN} />
