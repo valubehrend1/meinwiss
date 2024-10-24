@@ -9,7 +9,14 @@ import theme from '../../../../theme';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { /* useDispatch, */  useSelector } from 'react-redux';
+import { selectUserQuery, selectUserContext } from '../../../../config/features/ChatSlice';
+
+
 const AskQuestionStep2: React.FC = () => {
+  const userQuery = useSelector(selectUserQuery);
+  const userContext = useSelector(selectUserContext)
+
   const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
 
@@ -19,11 +26,12 @@ const AskQuestionStep2: React.FC = () => {
     exit: { x: -300, opacity: 0 }
   };
 
+
   const handleAskQuestionClick = () => {
     setIsExiting(true);
-    setTimeout(() => {
-      navigate(`/ask-lupai/step3`);
-    }, 500);
+    console.log("User query:", userQuery);
+    console.log("Filters:", userContext);
+    navigate(`/ask-lupai/step3`)
   };
 
   return (
@@ -69,3 +77,4 @@ const AskQuestionStep2: React.FC = () => {
 };
 
 export default AskQuestionStep2;
+

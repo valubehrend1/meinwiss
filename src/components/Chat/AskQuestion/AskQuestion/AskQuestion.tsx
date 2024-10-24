@@ -1,25 +1,55 @@
 import React, { useState } from 'react';
-import { InputAdornment, Box } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box } from '@mui/material';
 import {
   SectionContainer,
   Title,
   Description,
-  SearchBarContainer,
-  SearchBar,
   AskButton,
+  SearchBarContainer,
 } from './AskQuestionsStyle';
-import theme from '../../../../theme';
 import MainFilters from '../MainFilters';
+
+import SharedSearchBar from '../../../shared/SharedSearchBar/SharedSearchBar';
 
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { /* useDispatch, */ useDispatch, useSelector } from 'react-redux';
+import { selectUserQuery, selectUserContext, setAssistantResponse, addUserMessage } from '../../../../config/features/ChatSlice';
+import { useWebSocket } from '../../../../context/useWebSocket';
+
+
 const AskQuestion: React.FC = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { ws } = useWebSocket();
+  /*   const dispatch = useDispatch(); */
   const [isExiting, setIsExiting] = useState(false);
+
+  const userQuery = useSelector(selectUserQuery);
+  const userContext = useSelector(selectUserContext);
+
+  const sendMessage = () => {
+    if (!userQuery.match(/[a-z]/i)) {
+      return
+    }
+    dispatch(addUserMessage(userQuery));
+    if (ws) {
+      ws.send(
+        JSON.stringify({
+          user_query: userQuery,
+          user_context: {
+            origin_country: userContext.originCountry,
+            time_in_germany: userContext.timeInGermany,
+            age: userContext.age,
+          },
+          location: userContext.location,
+        }),
+      )
+    }
+  }
 
   const variants = {
     hidden: { x: 300, opacity: 0 },
@@ -30,10 +60,19 @@ const AskQuestion: React.FC = () => {
   // Función que maneja el clic del botón
   const handleAskQuestionClick = () => {
     setIsExiting(true);
+    sendMessage()
     setTimeout(() => {
       navigate(`/ask-lupai/step2`);
-    }, 500);
+    }, 800);
   };
+
+  if (ws) {
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data)
+      console.log(event.data)
+      dispatch(setAssistantResponse(message))
+    }
+  }
 
   return (
     <SectionContainer>
@@ -56,20 +95,11 @@ const AskQuestion: React.FC = () => {
                 </Description>
               </Box>
             </Box>
-            <SearchBarContainer>
-              <SearchBar
-                fullWidth
-                placeholder='Try questions like “How do I validate my university degree in Germany?”'
-                variant="outlined"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start" sx={{ color: theme.palette.primary.main }}>
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </SearchBarContainer>
+            <Box>
+              <SearchBarContainer>
+                <SharedSearchBar mainSearchPage sendMessage={sendMessage} />
+              </SearchBarContainer>
+            </Box>
 
             <MainFilters />
 

@@ -1,0 +1,111 @@
+import React, { useCallback, useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { selectMessages, setAssistantResponse, addUserMessage, selectUserContext } from '../../../config/features/ChatSlice';
+
+import { Box } from '@mui/material';
+
+import SharedSearchBar from '../../shared/SharedSearchBar/SharedSearchBar';
+import LupaiAnswer from './LupaiAnswer';
+import UserQuestion from './UserQuestion';
+import AddNewQuestion from './AddNewQuestion';
+import { ChatContainer } from './ChatStyles';
+
+import { useWebSocket } from '../../../context/useWebSocket';
+
+const Chat: React.FC = () => {
+  const messages = useSelector(selectMessages);
+  const userContext = useSelector(selectUserContext);
+
+  const dispatch = useDispatch();
+  const { ws } = useWebSocket();
+
+  useEffect(() => {
+    // Asegurarse de que `ws` esté definido antes de asignar los eventos
+    if (ws) {
+      ws.onopen = () => {
+        console.log("Conexión WebSocket establecida.");
+      };
+
+      ws.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+        console.log("Mensaje recibido:", message);
+        dispatch(setAssistantResponse(message));
+      };
+
+      ws.onerror = (error) => {
+        console.error("Error en WebSocket:", error);
+      };
+
+      ws.onclose = () => {
+        console.log("WebSocket cerrado.");
+      };
+
+      return () => {
+        // Cerrar la conexión al desmontar el componente
+        ws.close();
+      };
+    }
+  }, [dispatch, ws]);
+
+  const sendMessage = useCallback((messageContent: string) => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      const messageToSend = {
+        user_query: messageContent,
+        user_context: {
+          origin_country: userContext.originCountry,
+          time_in_germany: userContext.timeInGermany,
+          age: userContext.age,
+        },
+        location: userContext.location,
+      };
+      ws.send(JSON.stringify(messageToSend));
+    } else {
+      console.error('WebSocket no está abierto para enviar mensajes.');
+    }
+  }, [ws, userContext]);
+
+  useEffect(() => {
+    // Si el último mensaje es del usuario, envía el mensaje de nuevo al servidor.
+    if (messages.length > 0 && messages[messages.length - 1].sender === 'user') {
+      const lastUserMessage = messages[messages.length - 1].content;
+
+      // Envía el mensaje con el último contenido del usuario y los datos del contexto.
+      sendMessage(lastUserMessage);
+    }
+  }, [messages, sendMessage]);
+
+  return (
+    <ChatContainer>
+      {messages.map((message, index) => (
+        <Box
+          key={index}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: message.sender === 'user' ? 'flex-end' : 'flex-start',
+            marginBottom: '16px',
+          }}
+        >
+          {message.sender === 'user' ? (
+            <UserQuestion content={message.content} />
+          ) : (
+            <LupaiAnswer content={message.content} />
+          )}
+        </Box>
+      ))}
+      <Box sx={{ marginTop: '20px' }}>
+        <SharedSearchBar
+          mainSearchPage={false}
+          sendMessage={(messageContent) => {
+            dispatch(addUserMessage(messageContent));
+            sendMessage(messageContent);
+          }}
+        />
+      </Box>
+      <AddNewQuestion />
+    </ChatContainer>
+  );
+};
+
+export default Chat;
