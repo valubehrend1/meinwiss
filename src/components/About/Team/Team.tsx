@@ -1,6 +1,15 @@
 import React from 'react';
-import { Grid, Box, Typography, Avatar, Link } from '@mui/material';
-import { styled } from '@mui/system';
+import { Grid, Typography, Link } from '@mui/material';
+
+import {
+  SectionContainer,
+  TeamTextContainer,
+  TeamMemberGrid,
+  StyledAvatar,
+  TeamContactBox,
+  UnderlinedText,
+  GridImageContainer
+} from './TeamStyles';
 
 import Ceci from '../../../assets/Team/Ceci.png';
 import Aqua from '../../../assets/Team/Aqua.png';
@@ -12,36 +21,10 @@ import Lio from '../../../assets/Team/Lio.png';
 import Jan from '../../../assets/Team/Jan.png';
 import Anna from '../../../assets/Team/Anna.png';
 import Simon from '../../../assets/Team/Simon.png';
-// Estilos para los contenedores
-const SectionContainer = styled(Box)({
-  padding: '50px',
-  background: 'linear-gradient(180deg, #FFF 0%, #FBFDEE 14%, #E2F389 100%)',
-});
-
-const TeamTextContainer = styled(Box)({
-  marginBottom: '20px',
-});
-
-const TeamMemberGrid = styled(Grid)({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '48px',
-  height: '100%',
-});
-
-const StyledAvatar = styled(Avatar)({
-  width: '200px',
-  height: '200px',
-  borderRadius: '15px',
-  border: '2px solid transparent',
-  '&:hover': {
-    border: '2px solid #9c27b0', // Cambia el color al pasar el cursor, por ejemplo, un borde púrpura.
-  },
-});
 
 const TeamPage: React.FC = () => {
-  // Datos de ejemplo para los miembros del equipo
+
+
   const teamMembersColumnOne = [
     { name: 'Member 1', imgSrc: Ceci },
     { name: 'Member 2', imgSrc: Aqua },
@@ -70,42 +53,44 @@ const TeamPage: React.FC = () => {
             <Typography variant="h3" sx={{ fontWeight: 'bold', marginBottom: '20px' }}>
               Meet our team members
             </Typography>
-            <Typography variant="body1" sx={{ marginBottom: '20px' }}>
+            <Typography variant="h5" sx={{ marginBottom: '20px' }}>
               Explore the skilled professionals whose collaborative efforts and expertise drive our team's achievements and success.
             </Typography>
-            <Typography variant="h5" sx={{ marginBottom: '10px' }}>
-              Contact person
-            </Typography>
-            <Typography variant="body2" sx={{ marginBottom: '10px' }}>
-              Dr. Cecilia Maas
-            </Typography>
-            <Typography variant="body2" sx={{ marginBottom: '10px', textDecoration: 'underline' }}>
-              E-Mail: cecilia.maas@aureka.ai
-            </Typography>
-            <Link href="#" variant="body2" sx={{ textDecoration: 'underline' }}>
-              LinkedIn-Profil
-            </Link>
+            <TeamContactBox>
+              <Typography variant="h5">
+                Contact person
+              </Typography>
+              <Typography variant="h5">
+                Dr. Cecilia Maas
+              </Typography>
+              <UnderlinedText variant="h5">
+                E-Mail: cecilia.maas@aureka.ai
+              </UnderlinedText>
+              <Link href="#" variant="h5" sx={{ textDecoration: 'underline' }}>
+                LinkedIn-Profil
+              </Link>
+            </TeamContactBox>
           </TeamTextContainer>
         </Grid>
 
         {/* Contenedor para las imágenes del equipo */}
         <Grid item xs={12} md={8}>
           <TeamMemberGrid container >
-            <Grid item xs={3} className='grid-1' sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%', gap: '32px' }}>
+            <GridImageContainer item xs={12} sm={3} className='grid-1'>
               {teamMembersColumnOne.map((member, index) => (
                 <StyledAvatar key={index} src={member.imgSrc} alt={member.name} />
               ))}
-            </Grid>
-            <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%', gap: '32px' }}>
+            </GridImageContainer>
+            <GridImageContainer item xs={12} sm={3} className='grid-2'>
               {teamMembersColumnTwo.map((member, index) => (
                 <StyledAvatar key={index} src={member.imgSrc} alt={member.name} />
               ))}
-            </Grid>
-            <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%', gap: '32px' }}>
+            </GridImageContainer>
+            <GridImageContainer item xs={12} sm={3} className='grid-3'>
               {teamMembersColumnThree.map((member, index) => (
                 <StyledAvatar key={index} src={member.imgSrc} alt={member.name} />
               ))}
-            </Grid>
+            </GridImageContainer>
           </TeamMemberGrid>
         </Grid>
       </Grid>

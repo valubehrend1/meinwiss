@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { QuestionAccordion, CloseOutlinedIconStyled, AddCircleIconStyled } from './FaqStyles';
+
+import { Grid, Typography, AccordionSummary, AccordionDetails } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
-import theme from '../../../theme';
 
 const QuestionDropdown: React.FC = () => {
   const { t } = useTranslation()
@@ -52,40 +51,16 @@ const QuestionDropdown: React.FC = () => {
     <Grid container spacing={2}>
       {questions.map((question, index) => (
         <Grid item xs={12} md={6} key={index}>
-          <Accordion
+          <QuestionAccordion
             expanded={expanded === `selectedAccordion${index}`}
             onChange={handleChange(`selectedAccordion${index}`)}
-            sx={{
-              backgroundColor: theme.palette.secondary.main,
-              boxShadow: 'none',
-              '& .MuiAccordionSummary-root': {
-                minHeight: 56,
-                alignItems: 'center',
-                '& .MuiAccordionSummary-content': {
-                  margin: 0,
-                }
-              },
-              '& .Mui-expanded': {
-                minHeight: 56,
-              },
-              padding: '32px 48px',
-              borderRadius: '20px',
-              '&.MuiPaper-root': {
-                borderRadius: '20px',
-              },
-              '&.Mui-expanded': {
-                background: 'linear-gradient(180deg, #FFF 0%, #FBFDEE 14%, #E2F389 100%)',
-              },
-            }}
-
-
           >
             <AccordionSummary
               expandIcon={
                 expanded === `selectedAccordion${index}` ? (
-                  <CloseOutlinedIcon sx={{ fontSize: '35px', color: theme.palette.primary.main }} />
+                  <CloseOutlinedIconStyled />
                 ) : (
-                  <AddCircleIcon sx={{ fontSize: '35px', color: '#FFF' }} />
+                  <AddCircleIconStyled />
                 )
               }
             >
@@ -96,7 +71,7 @@ const QuestionDropdown: React.FC = () => {
                 <Typography key={answerIndex} variant="h4">{answer}</Typography>
               ))}
             </AccordionDetails>
-          </Accordion>
+          </QuestionAccordion>
 
         </Grid>
       ))}
