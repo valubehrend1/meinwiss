@@ -1,11 +1,18 @@
 import React from 'react';
 
 import { Box } from '@mui/material';
-import { FirstTitle, SecondTitle, CopyText, FindAnswerSectionContainer, TryButton } from './FindAnswerSectionStyles'
+import { FirstTitle, SecondTitle, CopyText, FindAnswerSectionContainer, TryButton } from './FindAnswerSectionStyles';
+import { useNavigate } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 
 const FindAnswerSectionSection: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleNavigateToAskLupaiPage = () => {
+    navigate('/ask-lupai');
+  };
+
   const { t } = useTranslation();
   return (
     <FindAnswerSectionContainer className='find-answer-text-container'>
@@ -26,7 +33,7 @@ const FindAnswerSectionSection: React.FC = () => {
 
         </CopyText>
       </Box>
-      <TryButton variant="contained" color="primary" >
+      <TryButton variant="contained" color="primary" onClick={handleNavigateToAskLupaiPage}>
         Try it now
       </TryButton>
     </FindAnswerSectionContainer>
