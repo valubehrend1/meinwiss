@@ -58,6 +58,16 @@ const QuestionDropdown: React.FC = () => {
             sx={{
               backgroundColor: theme.palette.secondary.main,
               boxShadow: 'none',
+              '& .MuiAccordionSummary-root': {
+                minHeight: 56,
+                alignItems: 'center',
+                '& .MuiAccordionSummary-content': {
+                  margin: 0,
+                }
+              },
+              '& .Mui-expanded': {
+                minHeight: 56,
+              },
               padding: '32px 48px',
               borderRadius: '20px',
               '&.MuiPaper-root': {
@@ -67,6 +77,8 @@ const QuestionDropdown: React.FC = () => {
                 background: 'linear-gradient(180deg, #FFF 0%, #FBFDEE 14%, #E2F389 100%)',
               },
             }}
+
+
           >
             <AccordionSummary
               expandIcon={

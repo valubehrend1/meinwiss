@@ -79,7 +79,7 @@ const TeamPage: React.FC = () => {
             <Typography variant="body2" sx={{ marginBottom: '10px' }}>
               Dr. Cecilia Maas
             </Typography>
-            <Typography variant="body2" sx={{ marginBottom: '10px' }}>
+            <Typography variant="body2" sx={{ marginBottom: '10px', textDecoration: 'underline' }}>
               E-Mail: cecilia.maas@aureka.ai
             </Typography>
             <Link href="#" variant="body2" sx={{ textDecoration: 'underline' }}>
