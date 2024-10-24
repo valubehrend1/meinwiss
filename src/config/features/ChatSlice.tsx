@@ -127,6 +127,7 @@ const chatSlice = createSlice({
       };
       state.isLoading = false;
       state.error = null;
+      state.messages = [];
     },
     addUserMessage: (state, action) => {
       state.messages = [

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { WebSocketContext } from './WebSocketContext';
+import { WebSocketContext } from './WebSocketContext'; // Adjust the path accordingly
 
 // Custom hook for using WebSocket context
 export const useWebSocket = () => {

@@ -4,8 +4,11 @@ import { Box, Button } from '@mui/material/';
 import Typography from '@mui/material/Typography';
 import EastIcon from '@mui/icons-material/East';
 
+interface AddNewQuestionProps {
+  handleOpen: () => void;
+}
 
-const AddNewQuestion: React.FC = () => {
+const AddNewQuestion: React.FC<AddNewQuestionProps> = ({ handleOpen }) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '16px', justifyContent: 'flex-end' }}>
       <Typography variant="h6" style={{ color: '#333' }}>
@@ -13,6 +16,7 @@ const AddNewQuestion: React.FC = () => {
       </Typography>
       <EastIcon />
       <Button variant='contained' color='secondary'
+        onClick={handleOpen}
         sx={{
           boxShadow: 'none',
           padding: '14px 18px',
