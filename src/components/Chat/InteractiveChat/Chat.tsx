@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { selectMessages, setAssistantResponse, addUserMessage, selectUserContext } from '../../../config/features/ChatSlice';
+import { selectMessages, setAssistantResponse, addUserMessage, selectUserContext, resetSearch } from '../../../config/features/ChatSlice';
 
 import { Box } from '@mui/material';
 
@@ -12,10 +12,21 @@ import AddNewQuestion from './AddNewQuestion';
 import { ChatContainer } from './ChatStyles';
 
 import { useWebSocket } from '../../../context/useWebSocket';
+import NewQuestionModal from './NewQuestionModal';
+
+import { useNavigate } from 'react-router-dom';
 
 const Chat: React.FC = () => {
   const messages = useSelector(selectMessages);
   const userContext = useSelector(selectUserContext);
+  const navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
 
   const dispatch = useDispatch();
   const { ws } = useWebSocket();
@@ -64,9 +75,27 @@ const Chat: React.FC = () => {
 
   console.log(messages);
 
+  const handleNewQuestion = () => {
+    // Vaciar campos de búsqueda y otros estados relacionados
+    dispatch(resetSearch()); // Suponiendo que resetSearch() vacía todos los campos y estados de búsqueda relevante
+
+    // Preparar y enviar mensaje al backend
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      const newSearchMessage = {
+        type: 'new_search', // Asegúrate de que el backend maneje este tipo de mensaje
+      };
+      ws.send(JSON.stringify(newSearchMessage));
+    }
+
+    // Redirigir a /ask-lupai
+    navigate('/ask-lupai');
+  };
+
+
   return (
     <>
       <ChatContainer>
+        {isOpen && <NewQuestionModal isOpen={isOpen} onCancel={() => setIsOpen(false)} onNewQuestion={handleNewQuestion} />}
         {messages.map((message, index) => (
           <Box
             key={index}
@@ -93,7 +122,7 @@ const Chat: React.FC = () => {
             }}
           />
         </Box>
-        <AddNewQuestion />
+        <AddNewQuestion handleOpen={handleOpen} />
       </ChatContainer>
     </>
   );

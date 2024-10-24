@@ -13,9 +13,10 @@ import { setUserQuery } from '../../../config/features/ChatSlice';
 interface SharedSearchBarProps {
   mainSearchPage?: boolean;
   sendMessage?: (messageContent: string) => void;
+  disabled?: boolean;
 }
 
-const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendMessage }) => {
+const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendMessage, disabled }) => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = React.useState<string>('');
 
@@ -78,6 +79,7 @@ const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendM
       onBlur={handleBlurSearchQuery}
       onKeyDown={onEnter}
       value={searchQuery}
+      disabled={disabled}
     />
   );
 };
