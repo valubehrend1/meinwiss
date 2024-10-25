@@ -3,25 +3,6 @@ import { createTheme } from '@mui/material/styles';
 import Haffer from './assets/fonts/Haffer-Regular.woff';
 import MartinaPlantijn from './assets/fonts/MartinaPlantijn.woff2';
 
-
-/* export const haffer = {
-  family: 'Haffer',
-  weight: 'normal',
-  style: 'normal',
-  src: `
-    local('Haffer'),
-    local('Haffer-Regular'),
-    url(${Haffer}) format('woff')
-  `,
-}; */
-/* const martinaPlantijn: {
-  family: 'MartinaPlantijn',
-  url: '../public/fonts/martina-plantijn-regular.woff2',
-  weight: 'regular',
-  style: 'normal'
-}
- */
-
 export const primary_color_dark = '#00301E';
 export const primary_color_lime = '#E2F389';
 
