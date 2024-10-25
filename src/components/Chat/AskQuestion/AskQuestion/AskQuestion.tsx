@@ -68,11 +68,17 @@ const AskQuestion: React.FC = () => {
 
   // Función que maneja el clic del botón
   const handleAskQuestionClick = () => {
+    //Input Validations
     if (!validateInput(userQuery, setError)) return;
     if (!validateInput(originCountry, setCountryError)) return;
     if (!validateInput(location, setLocationError)) return;
     if (!validateInput(timeInGermany, setTimeError)) return;
     if (!validateInput(age, setAgeError)) return;
+    if (parseInt(age) < 1 || parseInt(age) > 120) {
+      setAgeError(true);
+      return;
+    }
+
     setIsExiting(true);
     sendMessage()
     setTimeout(() => {

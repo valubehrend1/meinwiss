@@ -31,6 +31,9 @@ const MainFilters: React.FC<MainFiltersProps> = ({
   const age = useSelector(selectAge);
   const [userAge, setUserAge] = useState<string | null>(null);
 
+  const errorMessage = parseInt(age) < 1 || parseInt(age) > 120
+    ? "Your age must be between 1 and 120"
+    : "Please enter your age"
 
   const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newAge = event.target.value;
@@ -65,6 +68,8 @@ const MainFilters: React.FC<MainFiltersProps> = ({
           <SearchFiltersLabel>Age</SearchFiltersLabel>
           <InputField
             fullWidth
+            type="number"
+            inputProps={{ min: 1, max: 120 }}
             placeholder="Your age"
             variant="outlined"
             onChange={handleAgeChange}
@@ -72,7 +77,7 @@ const MainFilters: React.FC<MainFiltersProps> = ({
           {ageError &&
             <SearchBarError
               severity="error">
-              This field is required.
+              {errorMessage}
             </SearchBarError>}
         </Grid>
       </Grid>
