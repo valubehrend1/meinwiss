@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { Button, InputAdornment } from '@mui/material';
+import { Box, Button, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import EastIcon from '@mui/icons-material/East';
 import {
   SearchBar,
+  SearchBarError
 } from '../../Chat/AskQuestion/AskQuestion/AskQuestionsStyle';
 
 import { useDispatch } from 'react-redux';
@@ -14,9 +15,10 @@ interface SharedSearchBarProps {
   mainSearchPage?: boolean;
   sendMessage?: (messageContent: string) => void;
   disabled?: boolean;
+  error?: boolean;
 }
 
-const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendMessage, disabled }) => {
+const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendMessage, disabled, error }) => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = React.useState<string>('');
 
@@ -35,7 +37,8 @@ const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendM
 
   const handleBlurSearchQuery = () => {
     if (searchQuery.trim() === '') return;
-    setSearchQuery(searchQuery);
+    dispatch(setUserQuery(searchQuery));
+    console.log('Search query:', searchQuery);
   };
 
   const onEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -69,18 +72,29 @@ const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendM
   };
 
   return (
-    <SearchBar
-      mainSearchPage={mainSearchPage}
-      fullWidth
-      placeholder='Try questions like "How do I validate my university degree in Germany?"'
-      variant="outlined"
-      InputProps={inputProps}
-      onChange={handleSearchQueryInputChange}
-      onBlur={handleBlurSearchQuery}
-      onKeyDown={onEnter}
-      value={searchQuery}
-      disabled={disabled}
-    />
+    <Box sx={{
+      display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', justifyContent: 'center'
+    }}>
+      <SearchBar
+        mainSearchPage={mainSearchPage}
+        fullWidth
+        placeholder='Try questions like "How do I validate my university degree in Germany?"'
+        variant="outlined"
+        InputProps={inputProps}
+        onChange={handleSearchQueryInputChange}
+        onBlur={handleBlurSearchQuery}
+        onKeyDown={onEnter}
+        value={searchQuery}
+        disabled={disabled}
+        error={error}
+      />
+      {error &&
+        <SearchBarError
+          mainSearchPage={mainSearchPage}
+          severity="error">
+          This field is required.
+        </SearchBarError>}
+    </Box>
   );
 };
 export default SharedSearchBar;

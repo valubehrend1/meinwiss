@@ -11,3 +11,14 @@ export const ChatContainer = styled(Box)(({ theme }) => ({
   marginBottom: '40px',
   borderRadius: theme.shape.borderRadius,
 }));
+
+interface MessageBoxProps {
+  sender: string;
+}
+
+export const MessagesContainer = styled(Box)<MessageBoxProps>(({ sender }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  marginBottom: '16px',
+  alignItems: sender === 'user' ? 'flex-end' : 'flex-start',
+}));

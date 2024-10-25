@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, TextField, Button, IconButton, Typography } from '@mui/material';
+import { Box, TextField, Button, IconButton, Typography, Alert } from '@mui/material';
 import theme from '../../../../theme';
 
 export const SectionContainer = styled(Box)({
@@ -60,6 +60,14 @@ export const SearchBar = styled(TextField, {
       border: 'none',
     },
   },
+}));
+
+export const SearchBarError = styled(Alert, {
+  shouldForwardProp: (prop) => prop !== 'mainSearchPage',
+})<SearchBarProps>(({ mainSearchPage }) => ({
+  marginTop: '20px',
+  width: '100%',
+  maxWidth: mainSearchPage ? '800px' : 'none',
 }));
 
 export const SearchFiltersLabel = styled(Typography)({
