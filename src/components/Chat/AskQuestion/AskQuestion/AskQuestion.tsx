@@ -15,41 +15,41 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { /* useDispatch, */ useDispatch, useSelector } from 'react-redux';
-import { selectUserQuery/* , selectUserContext *//* , setAssistantResponse */, addUserMessage } from '../../../../config/features/ChatSlice';
-/* import { useWebSocket } from '../../../../context/useWebSocket'; */
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectUserQuery,
+  addUserMessage,
+  selectAge,
+  selectOriginCountry,
+  selectLocation,
+  selectTimeInGermany
+} from '../../../../config/features/ChatSlice';
 
 
 const AskQuestion: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  /*   const { ws } = useWebSocket(); */
-  /*   const dispatch = useDispatch(); */
   const [isExiting, setIsExiting] = useState(false);
+  const [error, setError] = React.useState<boolean>(false);
+  const [countryError, setCountryError] = useState<boolean>(false);
+  const [locationError, setLocationError] = useState<boolean>(false);
+  const [timeError, setTimeError] = useState<boolean>(false);
+  const [ageError, setAgeError] = useState<boolean>(false);
 
+
+  const age = useSelector(selectAge);
   const userQuery = useSelector(selectUserQuery);
-  /*   const userContext = useSelector(selectUserContext); */
+  const originCountry = useSelector(selectOriginCountry);
+  const location = useSelector(selectLocation);
+  const timeInGermany = useSelector(selectTimeInGermany);
 
   const sendMessage = () => {
     if (!userQuery.match(/[a-z]/i)) {
       return
     }
     dispatch(addUserMessage(userQuery));
-   /*  if (ws) {
-      ws.send(
-        JSON.stringify({
-          user_query: userQuery,
-          user_context: {
-            origin_country: userContext.originCountry,
-            time_in_germany: userContext.timeInGermany,
-            age: userContext.age,
-          },
-          location: userContext.location,
-        }),
-      )
-    }
- */  }
+  }
 
   const variants = {
     hidden: { x: 300, opacity: 0 },
@@ -57,8 +57,22 @@ const AskQuestion: React.FC = () => {
     exit: { x: -300, opacity: 0 }
   };
 
+  const validateInput = (userInput: string, setError: (error: boolean) => void) => {
+    if (userInput.trim() === '') {
+      setError(true);
+      return false;
+    }
+    setError(false);
+    return true;
+  };
+
   // Función que maneja el clic del botón
   const handleAskQuestionClick = () => {
+    if (!validateInput(userQuery, setError)) return;
+    if (!validateInput(originCountry, setCountryError)) return;
+    if (!validateInput(location, setLocationError)) return;
+    if (!validateInput(timeInGermany, setTimeError)) return;
+    if (!validateInput(age, setAgeError)) return;
     setIsExiting(true);
     sendMessage()
     setTimeout(() => {
@@ -66,13 +80,6 @@ const AskQuestion: React.FC = () => {
     }, 800);
   };
 
-  /*   if (ws) {
-      ws.onmessage = (event) => {
-        const message = JSON.parse(event.data)
-        console.log(event.data)
-        dispatch(setAssistantResponse(message))
-      }
-    } */
 
   return (
     <SectionContainer>
@@ -97,11 +104,19 @@ const AskQuestion: React.FC = () => {
             </Box>
             <Box>
               <SearchBarContainer>
-                <SharedSearchBar mainSearchPage sendMessage={sendMessage} />
+                <SharedSearchBar
+                  mainSearchPage
+                  sendMessage={sendMessage}
+                  error={error}
+                />
               </SearchBarContainer>
             </Box>
 
-            <MainFilters />
+            <MainFilters
+              countryError={countryError}
+              locationError={locationError}
+              timeError={timeError}
+              ageError={ageError} />
 
             <Box sx={{ marginTop: '40px' }}>
               <AskButton
@@ -119,3 +134,4 @@ const AskQuestion: React.FC = () => {
 };
 
 export default AskQuestion;
+

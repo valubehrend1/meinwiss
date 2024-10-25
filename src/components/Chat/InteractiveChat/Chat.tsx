@@ -9,7 +9,7 @@ import SharedSearchBar from '../../shared/SharedSearchBar/SharedSearchBar';
 import LupaiAnswer from './LupaiAnswer';
 import UserQuestion from './UserQuestion';
 import AddNewQuestion from './AddNewQuestion';
-import { ChatContainer } from './ChatStyles';
+import { ChatContainer, MessagesContainer } from './ChatStyles';
 
 import { useWebSocket } from '../../../context/useWebSocket';
 import NewQuestionModal from './NewQuestionModal';
@@ -30,11 +30,7 @@ const Chat: React.FC = () => {
 
   const dispatch = useDispatch();
   const { ws } = useWebSocket();
-  /* 
-    useEffect(() => {
-  
-    }, []);
-   */
+
 
   useEffect(() => {
     // Asegurarse de que `ws` esté definido antes de asignar los eventos
@@ -95,23 +91,22 @@ const Chat: React.FC = () => {
   return (
     <>
       <ChatContainer>
-        {isOpen && <NewQuestionModal isOpen={isOpen} onCancel={() => setIsOpen(false)} onNewQuestion={handleNewQuestion} />}
+        {isOpen &&
+          <NewQuestionModal
+            isOpen={isOpen}
+            onCancel={() => setIsOpen(false)}
+            onNewQuestion={handleNewQuestion} />}
         {messages.map((message, index) => (
-          <Box
+          <MessagesContainer
             key={index}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: message.sender === 'user' ? 'flex-end' : 'flex-start',
-              marginBottom: '16px',
-            }}
+            sender={message.sender} // Pasar el sender como prop
           >
             {message.sender === 'user' ? (
               <UserQuestion content={message.content} />
             ) : (
               <LupaiAnswer content={message.content} />
             )}
-          </Box>
+          </MessagesContainer>
         ))}
         <Box sx={{ marginTop: '20px' }}>
           <SharedSearchBar
@@ -120,6 +115,7 @@ const Chat: React.FC = () => {
               dispatch(addUserMessage(messageContent));
               sendMessage(messageContent);
             }}
+
           />
         </Box>
         <AddNewQuestion handleOpen={handleOpen} />
