@@ -6,9 +6,9 @@ import {
   SearchFiltersLabel,
 } from './AskQuestion/AskQuestionsStyle.tsx'; // Importa los estilos desde el archivo separado
 
-import CountriesSearch from './CountriesSearch'
-import StateSearch from './StateSearch.tsx'
-import TimeFrameInput from './TimeFrameInput.tsx'
+import CountriesSearch from './CountriesSearch';
+import StateSearch from './StateSearch.tsx';
+import TimeFrameInput from './TimeFrameInput.tsx';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setAge, selectAge } from '../../../config/features/ChatSlice.tsx';
@@ -17,7 +17,6 @@ const MainFilters: React.FC = () => {
   const dispatch = useDispatch();
   const age = useSelector(selectAge);
   const [userAge, setUserAge] = useState<string | null>(null);
-
 
   const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newAge = event.target.value;
@@ -29,9 +28,8 @@ const MainFilters: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("User age:", age);
+    console.log('User age:', age);
   }, [age]);
-
 
   return (
     <>
@@ -55,7 +53,8 @@ const MainFilters: React.FC = () => {
             placeholder="Your age"
             variant="outlined"
             onChange={handleAgeChange}
-            onBlur={handleAgeBlur} />
+            onBlur={handleAgeBlur}
+          />
         </Grid>
       </Grid>
     </>

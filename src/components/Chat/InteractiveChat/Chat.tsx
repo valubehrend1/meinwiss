@@ -1,7 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react';
+// import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { selectMessages, setAssistantResponse, addUserMessage, selectUserContext, resetSearch } from '../../../config/features/ChatSlice';
+import {
+  selectMessages,
+  setAssistantResponse,
+  addUserMessage,
+  selectUserContext,
+  resetSearch,
+} from '../../../config/features/ChatSlice';
 
 import { Box } from '@mui/material';
 
@@ -27,26 +34,53 @@ const Chat: React.FC = () => {
     setIsOpen(true);
   };
 
-
   const dispatch = useDispatch();
   const { ws } = useWebSocket();
-  /* 
+  /*
     useEffect(() => {
-  
+
     }, []);
    */
 
-  useEffect(() => {
-    // Asegurarse de que `ws` esté definido antes de asignar los eventos
-    if (ws) {
-      ws.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        dispatch(setAssistantResponse(message));
-      };
-    }
-  }, [dispatch, ws]);
+  // Why ws is possibly null?
+  if (ws) {
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      dispatch(setAssistantResponse(message));
+    };
+  }
 
-  const sendMessage = useCallback((messageContent: string) => {
+  // useEffect(() => {
+  //   // Asegurarse de que `ws` esté definido antes de asignar los eventos
+  //   if (ws) {
+  //     ws.onmessage = (event) => {
+  //       const message = JSON.parse(event.data);
+  //       dispatch(setAssistantResponse(message));
+  //     };
+  //   }
+  // }, [dispatch, ws]);
+
+  // const sendMessage = useCallback(
+  //   (messageContent: string) => {
+  //     if (ws && ws.readyState === WebSocket.OPEN) {
+  //       const messageToSend = {
+  //         user_query: messageContent,
+  //         user_context: {
+  //           origin_country: userContext.originCountry,
+  //           time_in_germany: userContext.timeInGermany,
+  //           age: userContext.age,
+  //         },
+  //         location: userContext.location,
+  //       };
+  //       ws.send(JSON.stringify(messageToSend));
+  //     } else {
+  //       console.error('WebSocket no está abierto para enviar mensajes.');
+  //     }
+  //   },
+  //   [ws, userContext]
+  // );
+
+  const sendMessage = (messageContent: string) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       const messageToSend = {
         user_query: messageContent,
@@ -61,17 +95,20 @@ const Chat: React.FC = () => {
     } else {
       console.error('WebSocket no está abierto para enviar mensajes.');
     }
-  }, [ws, userContext]);
+  };
 
-  useEffect(() => {
-    // Si el último mensaje es del usuario, envía el mensaje de nuevo al servidor.
-    if (messages.length > 0 && messages[messages.length - 1].sender === 'user') {
-      const lastUserMessage = messages[messages.length - 1].content;
+  // useEffect(() => {
+  //   // Si el último mensaje es del usuario, envía el mensaje de nuevo al servidor.
+  //   if (
+  //     messages.length > 0 &&
+  //     messages[messages.length - 1].sender === 'user'
+  //   ) {
+  //     const lastUserMessage = messages[messages.length - 1].content;
 
-      // Envía el mensaje con el último contenido del usuario y los datos del contexto.
-      sendMessage(lastUserMessage);
-    }
-  }, [messages, sendMessage]);
+  //     // Envía el mensaje con el último contenido del usuario y los datos del contexto.
+  //     sendMessage(lastUserMessage);
+  //   }
+  // }, [messages, sendMessage]);
 
   console.log(messages);
 
@@ -91,11 +128,16 @@ const Chat: React.FC = () => {
     navigate('/ask-lupai');
   };
 
-
   return (
     <>
       <ChatContainer>
-        {isOpen && <NewQuestionModal isOpen={isOpen} onCancel={() => setIsOpen(false)} onNewQuestion={handleNewQuestion} />}
+        {isOpen && (
+          <NewQuestionModal
+            isOpen={isOpen}
+            onCancel={() => setIsOpen(false)}
+            onNewQuestion={handleNewQuestion}
+          />
+        )}
         {messages.map((message, index) => (
           <Box
             key={index}

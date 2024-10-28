@@ -22,10 +22,10 @@ import ErrorNotFoundPage from './components/ErrorNotFound';
 import Home from './components/Home/Home';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
-import AskQuestion from './components/Chat/AskQuestion/AskQuestion/AskQuestion'
+import AskQuestion from './components/Chat/AskQuestion/AskQuestion/AskQuestion';
 import AskQuestionStep2 from './components/Chat/AskQuestion/AskQuestion/AskQuestionStep2';
 import AskQuestionStep3 from './components/Chat/AskQuestion/AskQuestion/AskQuestionStep3';
-import ProcessingQuestion from './components/Chat/AskQuestion/AskQuestion/ProcessingQuestion'
+import ProcessingQuestion from './components/Chat/AskQuestion/AskQuestion/ProcessingQuestion';
 import Chat from './components/Chat/InteractiveChat/Chat';
 
 import { WebSocketProvider } from './context/WebSocketContext';
@@ -61,6 +61,6 @@ const App: React.FC = () => {
       </StyledEngineProvider>
     </Provider>
   );
-}
+};
 
 export default App;
