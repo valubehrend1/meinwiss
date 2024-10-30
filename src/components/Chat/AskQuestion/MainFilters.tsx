@@ -7,9 +7,9 @@ import {
   SearchFiltersLabel,
 } from './AskQuestion/AskQuestionsStyle.tsx'; // Importa los estilos desde el archivo separado
 
-import CountriesSearch from './CountriesSearch'
-import StateSearch from './StateSearch.tsx'
-import TimeFrameInput from './TimeFrameInput.tsx'
+import CountriesSearch from './CountriesSearch';
+import StateSearch from './StateSearch.tsx';
+import TimeFrameInput from './TimeFrameInput.tsx';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setAge, selectAge } from '../../../config/features/ChatSlice.tsx';
@@ -34,7 +34,7 @@ const MainFilters: React.FC<MainFiltersProps> = ({
   const errorMessage = parseInt(age) < 1 || parseInt(age) > 120
     ? "Your age must be between 1 and 120"
     : "Please enter your age"
-
+  
   const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newAge = event.target.value;
     setUserAge(newAge);
@@ -45,9 +45,8 @@ const MainFilters: React.FC<MainFiltersProps> = ({
   };
 
   useEffect(() => {
-    console.log("User age:", age);
+    console.log('User age:', age);
   }, [age]);
-
 
   return (
     <>
