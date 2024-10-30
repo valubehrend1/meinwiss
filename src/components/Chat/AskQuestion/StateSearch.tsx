@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Autocomplete } from '@mui/material';
 import { IState, State } from 'country-state-city';
-import { InputFieldAutoComplete } from './AskQuestion/AskQuestionsStyle';
+import { InputFieldAutoComplete, SearchBarError } from './AskQuestion/AskQuestionsStyle';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocation, selectLocation } from '../../../config/features/ChatSlice';
 
-const StateSearch: React.FC = () => {
+
+interface StateSearchProps {
+  locationError: boolean;
+}
+
+const StateSearch: React.FC<StateSearchProps> = ({ locationError }) => {
   const dispatch = useDispatch();
   const [states, setStates] = useState<IState[]>([]);
   const [selectedState, setSelectedState] = useState<string | null>(null);
@@ -37,6 +42,7 @@ const StateSearch: React.FC = () => {
           <InputFieldAutoComplete {...params} variant="outlined" fullWidth placeholder='Search State' />
         )}
       />
+      {locationError && <SearchBarError severity="error">Please select a location</SearchBarError>}
     </>
   );
 };

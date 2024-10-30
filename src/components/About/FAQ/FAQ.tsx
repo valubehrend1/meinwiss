@@ -1,18 +1,10 @@
 import React from 'react';
 
-import { Grid, Typography, Box } from '@mui/material';
-import { styled } from '@mui/system';
-
 import { useTranslation } from 'react-i18next';
+import { Grid, Typography } from '@mui/material';
 
 import QuestionDropdown from './QuestionDropdown';
-
-const FAQContainer = styled(Box)(({ theme }) => ({
-  padding: '7.5rem 6.5rem',
-  [theme.breakpoints.down('sm')]: {
-    padding: '5rem 1.5rem',
-  },
-}));
+import { FAQContainer } from './FaqStyles'
 
 const Faq: React.FC = () => {
   const { t } = useTranslation()
