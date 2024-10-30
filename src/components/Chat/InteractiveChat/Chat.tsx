@@ -1,5 +1,7 @@
 // import React, { useCallback, useEffect, useState } from 'react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+/* import { usePDF } from 'react-to-pdf'; */
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -17,6 +19,8 @@ import LupaiAnswer from './LupaiAnswer';
 import UserQuestion from './UserQuestion';
 import AddNewQuestion from './AddNewQuestion';
 import { ChatContainer, MessagesContainer } from './ChatStyles';
+/* import PdfExport from '../PdfExport' */
+
 
 import { useWebSocket } from '../../../context/useWebSocket';
 import NewQuestionModal from './NewQuestionModal';
@@ -29,7 +33,10 @@ const Chat: React.FC = () => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
-
+  const [hasSentMessage, setHasSentMessage] = useState(false);
+  /*  const { toPDF, targetRef } = usePDF({ filename: 'chat.pdf' });
+   const PdfExport = <PdfExport ref={targetRef} />
+  */
   const handleOpen = () => {
     setIsOpen(true);
   };
@@ -44,36 +51,7 @@ const Chat: React.FC = () => {
     };
   }
 
-  // useEffect(() => {
-  //   // Asegurarse de que `ws` esté definido antes de asignar los eventos
-  //   if (ws) {
-  //     ws.onmessage = (event) => {
-  //       const message = JSON.parse(event.data);
-  //       dispatch(setAssistantResponse(message));
-  //     };
-  //   }
-  // }, [dispatch, ws]);
-
-  // const sendMessage = useCallback(
-  //   (messageContent: string) => {
-  //     if (ws && ws.readyState === WebSocket.OPEN) {
-  //       const messageToSend = {
-  //         user_query: messageContent,
-  //         user_context: {
-  //           origin_country: userContext.originCountry,
-  //           time_in_germany: userContext.timeInGermany,
-  //           age: userContext.age,
-  //         },
-  //         location: userContext.location,
-  //       };
-  //       ws.send(JSON.stringify(messageToSend));
-  //     } else {
-  //       console.error('WebSocket no está abierto para enviar mensajes.');
-  //     }
-  //   },
-  //   [ws, userContext]
-  // );
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const sendMessage = (messageContent: string) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       const messageToSend = {
@@ -91,20 +69,34 @@ const Chat: React.FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   // Si el último mensaje es del usuario, envía el mensaje de nuevo al servidor.
-  //   if (
-  //     messages.length > 0 &&
-  //     messages[messages.length - 1].sender === 'user'
-  //   ) {
-  //     const lastUserMessage = messages[messages.length - 1].content;
 
-  //     // Envía el mensaje con el último contenido del usuario y los datos del contexto.
-  //     sendMessage(lastUserMessage);
-  //   }
-  // }, [messages, sendMessage]);
+  // Hook useEffect para manejar el envío de mensajes(si hay modificaciones en las variables dependientes)
+
+  useEffect(() => {
+    // Comprobación para asegurarse de que hay mensajes, el último mensaje es del usuario, y no se ha enviado aún.
+    if (
+      messages.length > 0 && // Verifica que hay al menos un mensaje.
+      messages[messages.length - 1].sender === 'user' && // Verifica que el último mensaje fue enviado por el usuario.
+      // (message.lenght - 1 = 0 (indice array) y el sender es el usuario
+      !hasSentMessage  // Verifica que el último mensaje aún no ha sido enviado.
+    ) {
+      const lastUserMessage = messages[messages.length - 1].content; // Obtiene el contenido del último mensaje del usuario.
+
+      // Envía el mensaje con el último contenido del usuario y los datos del contexto.
+      sendMessage(lastUserMessage); // Envía el último mensaje del usuario usando la función sendMessage.
+      setHasSentMessage(true); // Marca que se ha enviado el mensaje
+    } else if (messages.length === 0) { // Verifica si la lista de mensajes está vacía.
+      setHasSentMessage(false); // Reinicia el estado si no hay nuevos  mensajes
+    }
+  }, [messages, sendMessage, hasSentMessage]);
 
   console.log(messages);
+
+
+  const handleOnDownload = () => {
+    console.log('download')
+  }
+
 
   const handleNewQuestion = () => {
     // Vaciar campos de búsqueda y otros estados relacionados
@@ -122,14 +114,16 @@ const Chat: React.FC = () => {
     navigate('/ask-lupai');
   };
 
+
   return (
     <>
       <ChatContainer>
         {isOpen && (
           <NewQuestionModal
             isOpen={isOpen}
-            onCancel={() => setIsOpen(false)}
+            onDownload={handleOnDownload}
             onNewQuestion={handleNewQuestion}
+            onCancel={() => setIsOpen(false)}
           />
         )}
         {messages.map((message, index) => (
