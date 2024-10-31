@@ -11,12 +11,10 @@ import theme, { orange, purple } from '../../../../theme';
 export const SectionMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: theme.palette.primary.main,
-  alignItems: 'center',
   justifyContent: 'center',
   padding: '7.5rem 6.5rem',
   overflowY: 'hidden',
-  gap: theme.spacing(1),
+
   [theme.breakpoints.down('sm')]: {
     padding: '5rem 1.5rem',
   },
@@ -38,7 +36,7 @@ export const StarsIcon = styled(AutoAwesomeIcon)({
 export const MainCard = styled(Card)({
   padding: '4rem 5.75rem',
   borderRadius: '1.25rem',
-  width: '100%'
+  width: '100%',
 });
 
 export const MainCardMobile = styled(Card)({
@@ -83,10 +81,8 @@ export const PurpleQuestion = styled(Typography)({
 
 export const Title = styled(Typography)(({ theme }) => ({
   fontSize: '2.7rem',
-  lineHeight: '3.5rem',
-  textAlign: 'center',
   paddingBottom: '3.5rem',
-  color: '#ffffff',
+  color: theme.palette.primary.main,
   [theme.breakpoints.down('lg')]: {
     fontSize: '2.4rem',
     lineHeight: '3rem',
@@ -148,4 +144,11 @@ export const SearchMoreButton = styled(Button)(() => ({
   padding: '1.75rem 3.5rem',
   textTransform: 'none',
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+}));
+
+export const NewSearchButton = styled(Button)(() => ({
+  marginTop: '2rem',
+  padding: '1.75rem 3.5rem',
+  textTransform: 'none',
+  borderRadius: '80px',
 }));

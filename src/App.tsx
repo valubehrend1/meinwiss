@@ -29,6 +29,7 @@ import ProcessingQuestion from './components/Chat/AskQuestion/AskQuestion/Proces
 import Chat from './components/Chat/InteractiveChat/Chat';
 
 import { WebSocketProvider } from './context/WebSocketContext';
+import HowlupaiWorksSection from './components/Home/Sections/HowlupaiWorksSection/HowlupaiWorksSection';
 
 const App: React.FC = () => {
   const router = createBrowserRouter(
@@ -37,6 +38,7 @@ const App: React.FC = () => {
         <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/how-lupai-works" element={<HowlupaiWorksSection />} />
         <Route path="/ask-lupai" element={<AskQuestion />} />
         <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
         <Route path="/ask-lupai/step3" element={<AskQuestionStep3 />} />
