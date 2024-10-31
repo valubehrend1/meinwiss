@@ -1,95 +1,72 @@
 import * as React from 'react';
-import { styled } from '@mui/system';
-import { useSelector } from 'react-redux';
-import { selectMessages } from '../../config/features/ChatSlice';
+/* import { styled } from '@mui/system';
 import { Box, Typography } from '@mui/material';
-import theme from '../../theme';
+import theme from '../../theme'; */
+import { Page, Text, Document, StyleSheet, View } from '@react-pdf/renderer';
 
-interface PdfExportProps {
-  ref: React.Ref<HTMLDivElement>;
+
+interface Message {
+  sender: 'user' | 'assistant';
+  content: string;
 }
 
-// Styled components
-const MainContainer = styled('div')({
-  display: 'flex',
-  flexDirection: 'column', // Cambiado a column para un diseño vertical
-  width: '100%',
-  height: '100vh', // Ajusta según necesites
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'column',
+    backgroundColor: '#FFFFFF',
+    padding: 10,
+  },
+  box: {
+    marginBottom: 10,
+    marginTop: 10,
+    padding: 10,
+  },
+  boxTitle: {
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: '#E2F389',
+  },
+  title: {
+    fontSize: 16, // Cambiado de '1.125rem' a 16
+    marginBottom: 10,
+  },
+  content: {
+    fontSize: 12, // Cambiado de '0.75rem' a 12
+    marginBottom: 5,
+  },
+  header: {
+    backgroundColor: '#00301E',
+    fontSize: 14, // Cambiado de '1rem' a 14
+    color: '#FFFFFF',
+    padding: 10,
+  },
 });
 
+interface PdfExportProps {
+  messages: Message[];
+}
 
-const Content = styled('div')({
-  backgroundColor: 'white',
-  padding: '20px',
-});
-
-const ProcedureTitle = styled('h1')({
-  fontSize: '24px', // Ajusta según necesites
-  marginBottom: '10px',
-});
-
-const IntroductionText = styled('p')({
-  marginBottom: '20px',
-});
-
-const StepTitle = styled(Typography)({
-  color: '#333', // Color oscuro para el título del paso
-  marginBottom: '5px',
-});
-
-const StepDescription = styled(Typography)({
-  marginBottom: '15px',
-  marginTop: '15px'
-});
-
-const PdfExport: React.FC<PdfExportProps> = ({ ref }) => {
-  const messages = useSelector(selectMessages);
-
-  console.log(messages)
+const PdfExport: React.FC<PdfExportProps> = ({ messages }) => {
   return (
-    <MainContainer ref={ref}>
-      <Content>
-        {/* Iterar sobre los pasos como sea necesario */}
-        <Box sx={{ backgroundColor: theme.palette.secondary.main, borderRadius: '12px', padding: '20px', width: '100%', textAlign: 'center' }}>
-          <ProcedureTitle>Chat theme: {messages[0].content}</ProcedureTitle>
-          <IntroductionText>
-            Downloaded conversation
-          </IntroductionText>
-        </Box>
-        {messages?.map((message, index) => {
-          let response; // Variable para almacenar la respuesta
-
-          if (index % 2 === 0) { // Si el índice es par
-            response = 'User Question'; // Asignación si es usuario
-          } else { // Si el índice es impar
-            response = 'Lupai Answer'; // Asignación si es asistente
-          }
-
-          return (
-            <>
-              <Box sx={{ width: '20%', textAlign: 'center' }}>
-                <StepTitle
-                  sx={{
-                    color: response == 'User Question' ? theme.palette.primary.main : '#FFF',
-                    backgroundColor: response == 'Lupai Answer' ? theme.palette.primary.main : theme.palette.secondary.main,
-                    borderRadius: '12px',
-                    padding: '12px',
-                    marginTop: '20px',
-                  }}
-                  variant='h4'
-                >
-                  {response}
-                </StepTitle >
-              </Box>
-              <StepDescription variant='h5'>
-                {message.content}
-              </StepDescription>
-            </>
-          );
-        })}
-      </Content >
-    </MainContainer >
+    <Document>
+      <Page style={styles.page}>
+        <View style={styles.boxTitle}>
+          <Text style={styles.title}>Chat theme: {messages[0]?.content}</Text>
+          <Text style={styles.content}>Downloaded conversation</Text>
+        </View>
+        {messages.map((message, index) => (
+          <View key={index} style={styles.box}>
+            <View style={styles.header}>
+              <Text style={styles.content}>{index % 2 === 0 ? 'User Question' : 'Lupai Answer'}</Text>
+            </View>
+            <Text style={styles.content}>{message.content}</Text>
+          </View>
+        ))}
+      </Page>
+    </Document>
   );
 };
 
+
+// Exporta el wrapper en lugar del componente PdfExport
 export default PdfExport;

@@ -92,10 +92,10 @@ const Chat: React.FC = () => {
 
   console.log(messages);
 
-
-  const handleOnDownload = () => {
-    console.log('download')
-  }
+  /*
+    const handleOnDownload = () => {
+      console.log('download')
+    } */
 
 
   const handleNewQuestion = () => {
@@ -121,7 +121,7 @@ const Chat: React.FC = () => {
         {isOpen && (
           <NewQuestionModal
             isOpen={isOpen}
-            onDownload={handleOnDownload}
+            /* onDownload={handleOnDownload} */
             onNewQuestion={handleNewQuestion}
             onCancel={() => setIsOpen(false)}
           />

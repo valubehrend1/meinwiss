@@ -4,18 +4,15 @@ import SharedModal from '../../shared/SharedModal/SharedModal';
 
 interface NewQuestionModalProps {
   isOpen: boolean;
-  onDownload: () => void;
   onNewQuestion: () => void;
   onCancel: () => void;
 }
 
-const NewQuestionModal: React.FC<NewQuestionModalProps> = ({ isOpen, onDownload, onNewQuestion, onCancel }) => {
+const NewQuestionModal: React.FC<NewQuestionModalProps> = ({ isOpen, onNewQuestion, onCancel }) => {
   return (
     <SharedModal
       open={isOpen}
-      onDownload={onDownload}
       onCancel={onCancel}
-      /*     downloadRef={downloadRef} */
       onNewQuestion={onNewQuestion}
       submitString="New Question"
       alternativeString="Download this conversation"

@@ -2,6 +2,14 @@ import React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+import { useSelector } from 'react-redux';
+
+
+import { PDFDownloadLink } from '@react-pdf/renderer';
+
+import PdfExport from '../../Chat/PdfExport';
+import { selectMessages } from '../../../config/features/ChatSlice';
+
 // Estilos personalizados para los botones
 const ActionButton = styled(Button)({
   borderRadius: '20px',
@@ -15,11 +23,13 @@ interface SharedModalProps {
   submitString: string;
   alternativeString: string;
   onNewQuestion: () => void;
-  onDownload: () => void;
+  /*   onDownload: () => void; */
   onCancel: () => void;
 }
 
-const SharedModal: React.FC<SharedModalProps> = ({ open, info, content, submitString, alternativeString, onNewQuestion, onDownload, onCancel }) => {
+const SharedModal: React.FC<SharedModalProps> = ({ open, info, content, submitString, alternativeString, onNewQuestion/* , onDownload */, onCancel }) => {
+  const messages = useSelector(selectMessages);
+
   return (
     <Dialog
       open={open}
@@ -34,9 +44,13 @@ const SharedModal: React.FC<SharedModalProps> = ({ open, info, content, submitSt
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <ActionButton onClick={onDownload} color="error" variant="contained">
+        {/*  <ActionButton onClick={onDownload} color="error" variant="contained"> */}
+
+        <PDFDownloadLink document={<PdfExport messages={messages} />} fileName="somename.pdf">
           {alternativeString}
-        </ActionButton>
+        </PDFDownloadLink>
+
+        {/*  </ActionButton> */}
         <ActionButton onClick={onNewQuestion} color="primary" variant="contained">
           {submitString}
         </ActionButton>
