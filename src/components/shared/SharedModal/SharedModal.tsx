@@ -1,91 +1,14 @@
-/* import React from 'react';
-import { styled } from '@mui/material/styles';
-import { Modal, Box, Typography, Button } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-
-interface ConfirmationModalProps {
-  open: boolean;
-  onClose: () => void;
-  onDownload: () => void;
-  onNewQuestion: () => void;
-}
-
-const StyledModal = styled(Modal)(() => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const ModalContent = styled(Box)(({ theme }) => ({
-  position: 'relative',
-  backgroundColor: theme.palette.background.paper,
-  boxShadow: theme.shadows[5],
-  padding: theme.spacing(4),
-  borderRadius: '20px',
-  width: '90%',
-  maxWidth: '500px',
-}));
-
-const CloseButton = styled(CloseIcon)(({ theme }) => ({
-  position: 'absolute',
-  right: theme.spacing(2),
-  top: theme.spacing(2),
-  color: theme.palette.grey[500],
-  cursor: 'pointer',
-}));
-
-const ButtonContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  marginTop: theme.spacing(4),
-  gap: theme.spacing(2),
-}));
-
-const DownloadButton = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.palette.success.dark,
-  color: theme.palette.common.white,
-  '&:hover': {
-    backgroundColor: theme.palette.success.main,
-  },
-}));
-
-const NewQuestionButton = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.palette.success.light,
-  color: theme.palette.common.black,
-  '&:hover': {
-    backgroundColor: theme.palette.success.main,
-  },
-}));
-
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ open, onClose, onDownload, onNewQuestion }) => {
-  return (
-    <StyledModal open={open} onClose={onClose}>
-      <ModalContent>
-        <CloseButton onClick={onClose} />
-        <Typography variant="body1" align="center" gutterBottom>
-          When you start a new search, your current search will disappear and you will not be able to read the results again.
-        </Typography>
-        <Typography variant="h6" align="center" gutterBottom>
-          Are you sure you want to start a new search?
-        </Typography>
-        <ButtonContainer>
-          <DownloadButton variant="contained" onClick={onDownload}>
-            Download this conversation
-          </DownloadButton>
-          <NewQuestionButton variant="contained" onClick={onNewQuestion}>
-            New Question
-          </NewQuestionButton>
-        </ButtonContainer>
-      </ModalContent>
-    </StyledModal>
-  );
-};
-
-export default ConfirmationModal; */
-
 import React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
+
+import { useSelector } from 'react-redux';
+
+
+import { PDFDownloadLink } from '@react-pdf/renderer';
+
+import PdfExport from '../../Chat/PdfExport';
+import { selectMessages } from '../../../config/features/ChatSlice';
 
 // Estilos personalizados para los botones
 const ActionButton = styled(Button)({
@@ -100,10 +23,13 @@ interface SharedModalProps {
   submitString: string;
   alternativeString: string;
   onNewQuestion: () => void;
+  /*   onDownload: () => void; */
   onCancel: () => void;
 }
 
-const SharedModal: React.FC<SharedModalProps> = ({ open, info, content, submitString, alternativeString, onNewQuestion, onCancel }) => {
+const SharedModal: React.FC<SharedModalProps> = ({ open, info, content, submitString, alternativeString, onNewQuestion/* , onDownload */, onCancel }) => {
+  const messages = useSelector(selectMessages);
+
   return (
     <Dialog
       open={open}
@@ -118,9 +44,13 @@ const SharedModal: React.FC<SharedModalProps> = ({ open, info, content, submitSt
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <ActionButton onClick={onCancel} color="error" variant="contained">
+        {/*  <ActionButton onClick={onDownload} color="error" variant="contained"> */}
+
+        <PDFDownloadLink document={<PdfExport messages={messages} />} fileName="somename.pdf">
           {alternativeString}
-        </ActionButton>
+        </PDFDownloadLink>
+
+        {/*  </ActionButton> */}
         <ActionButton onClick={onNewQuestion} color="primary" variant="contained">
           {submitString}
         </ActionButton>

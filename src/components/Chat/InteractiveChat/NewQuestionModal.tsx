@@ -4,11 +4,11 @@ import SharedModal from '../../shared/SharedModal/SharedModal';
 
 interface NewQuestionModalProps {
   isOpen: boolean;
-  onCancel: () => void;
   onNewQuestion: () => void;
+  onCancel: () => void;
 }
 
-const NewQuestionModal: React.FC<NewQuestionModalProps> = ({ isOpen, onCancel, onNewQuestion }) => {
+const NewQuestionModal: React.FC<NewQuestionModalProps> = ({ isOpen, onNewQuestion, onCancel }) => {
   return (
     <SharedModal
       open={isOpen}

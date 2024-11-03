@@ -26,7 +26,8 @@
                 "esbenp.prettier-vscode",
                 "eamodio.gitlens",
                 "ms-azuretools.vscode-docker",
-                "redhat.vscode-yaml"
+                "redhat.vscode-yaml",
+                "rvest.vs-code-prettier-eslint"
             ]
         }
     }
