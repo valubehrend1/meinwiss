@@ -1,34 +1,35 @@
 {
-    "name": "lupai-front",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "lupai-front-devcontainer",
-    "workspaceFolder": "/workspace",
-    "customizations": {
-        "vscode": {
-            "settings": {
-                "files.trimFinalNewlines": true,
-                "files.trimTrailingWhitespace": true,
-                "files.watcherExclude": {
-                    ".git/**": true,
-                    "dist/**": true,
-                    "node_modules/**": true
-                },
-                "[javascript]": {
-                    "editor.defaultFormatter": "esbenp.prettier-vscode"
-                },
-                "editor.formatOnSave": true,
-                "editor.codeActionsOnSave": {
-                    "source.fixAll": "explicit"
-                }
-            },
-            "extensions": [
-                "dbaeumer.vscode-eslint",
-                "esbenp.prettier-vscode",
-                "eamodio.gitlens",
-                "ms-azuretools.vscode-docker",
-                "redhat.vscode-yaml",
-                "rvest.vs-code-prettier-eslint"
-            ]
+  "name": "lupai-front",
+  "initializeCommand": "make build",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "lupai-front-devcontainer",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.trimFinalNewlines": true,
+        "files.trimTrailingWhitespace": true,
+        "files.watcherExclude": {
+          ".git/**": true,
+          "dist/**": true,
+          "node_modules/**": true
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll": "explicit"
         }
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens",
+        "ms-azuretools.vscode-docker",
+        "redhat.vscode-yaml",
+        "rvest.vs-code-prettier-eslint"
+      ]
     }
+  }
 }
