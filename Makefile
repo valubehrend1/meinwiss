@@ -5,7 +5,7 @@ build:
 	docker compose build lupai-front-core
 
 run: build
-	docker compose run lupai-front-core
+	docker compose run --rm lupai-front-core
 
 up: build
 	docker compose up -d lupai-front-core
