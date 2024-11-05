@@ -14,7 +14,9 @@ import {
   QuestionsTextContainer,
   ButtonContainer,
   SearchMoreButton,
-  PurpleQuestion
+  PurpleQuestion,
+  StyledGridItem,
+  MainGridContaineSectionOne,
 } from '../HowlupaiWorksSectionStyles';
 
 import { useTranslation } from 'react-i18next';
@@ -32,11 +34,11 @@ const HowlupaiWorksSectionOne: React.FC = () => {
         {t('how_lupai_works')}
       </Title>
 
-      <Grid container xs={12} sx={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginBottom: '120pxx' }}>
+      <MainGridContaineSectionOne container xs={12}>
 
-        <Grid xs={5} sx={{ display: 'flex' }}>
+        <Grid xs={12} md={5} sx={{ display: 'flex' }}>
           <Grid container spacing={2} sx={{ width: '100%' }}>
-            <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <StyledGridItem item xs={12} >
               <Box>
                 <Typography variant='h3' sx={{ color: theme.palette.primary.main }}>
                   Ask Lupai like you would
@@ -48,13 +50,13 @@ const HowlupaiWorksSectionOne: React.FC = () => {
               <Typography>
                 Just type a question about anything you want to know using the words that come to you. You don't need to use specialized language. Provide all necessary contextual information so that Lupai can find relevant information sources for your specific case. Ask in the language you are most comfortable with. Although most sources are in English and German, Lupai will answer you in the language of your question.
               </Typography>
-            </Grid>
+            </StyledGridItem>
           </Grid>
         </Grid>
 
-        <Grid xs={6} sx={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <StyledGridItem md={6}>
 
-          <MainCard>
+          <MainCard elevation={3}>
             <Grid container spacing={2} sx={{ width: '100%' }}>
               <CardContent>
                 <Grid item xs={12}>
@@ -80,9 +82,9 @@ const HowlupaiWorksSectionOne: React.FC = () => {
               </CardContent>
             </Grid>
           </MainCard>
-        </Grid>
+        </StyledGridItem>
 
-      </Grid >
+      </MainGridContaineSectionOne >
     </ >
   );
 };
