@@ -29,7 +29,7 @@ import ProcessingQuestion from './components/Chat/AskQuestion/AskQuestion/Proces
 import Chat from './components/Chat/InteractiveChat/Chat';
 
 import { WebSocketProvider } from './context/WebSocketContext';
-import HowlupaiWorksSection from './components/Home/Sections/HowlupaiWorksSection/HowlupaiWorksSection';
+import HowlupaiWorksSection from './components/HowLupaiWorks/HowlupaiWorksSection';
 
 const App: React.FC = () => {
   const router = createBrowserRouter(

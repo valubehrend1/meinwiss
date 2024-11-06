@@ -12,14 +12,14 @@ import {
 } from '../HowlupaiWorksSectionStyles';
 
 
-import theme, { orange } from '../../../../../theme';
+import theme, { orange } from '../../../theme';
 
 const HowLupaiWorksSectionSix: React.FC = () => {
   return (
     <>
-      <StyledGridContainer container xs={12}>
+      <StyledGridContainer container>
 
-        <Grid xs={12} md={6}>
+        <Grid item xs={12} md={6}>
           <LookingForACommunityCard elevation={3}>
             <StyledInnerCard>
               <Box sx={{ display: 'flex' }}>
@@ -36,7 +36,7 @@ const HowLupaiWorksSectionSix: React.FC = () => {
         </Grid>
 
 
-        <Grid xs={12} md={5} sx={{ display: 'flex' }}>
+        <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
           <Grid container spacing={2} sx={{ width: '100%' }}>
             <StyledGridItem item xs={12}>
               <Box>
