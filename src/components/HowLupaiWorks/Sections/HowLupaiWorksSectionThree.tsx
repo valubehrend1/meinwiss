@@ -20,9 +20,9 @@ const HowlupaiWorksSectionThree: React.FC = () => {
   return (
     <>
 
-      <StyledGridContainer container xs={12} >
+      <StyledGridContainer container >
 
-        <Grid xs={12} md={5} sx={{ display: 'flex' }}>
+        <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
           <Grid container spacing={2} sx={{ width: '100%' }}>
             <StyledGridItem item xs={12}>
               <Box>
@@ -40,7 +40,7 @@ const HowlupaiWorksSectionThree: React.FC = () => {
           </Grid>
         </Grid>
 
-        <StyledGridItem xs={12} md={6}>
+        <StyledGridItem item xs={12} md={6}>
 
           <MainCard elevation={3}>
             <Grid container spacing={2} sx={{ width: '100%' }}>

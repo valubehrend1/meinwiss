@@ -34,9 +34,9 @@ const HowlupaiWorksSectionOne: React.FC = () => {
         {t('how_lupai_works')}
       </Title>
 
-      <MainGridContaineSectionOne container xs={12}>
+      <MainGridContaineSectionOne container>
 
-        <Grid xs={12} md={5} sx={{ display: 'flex' }}>
+        <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
           <Grid container spacing={2} sx={{ width: '100%' }}>
             <StyledGridItem item xs={12} >
               <Box>
@@ -54,7 +54,7 @@ const HowlupaiWorksSectionOne: React.FC = () => {
           </Grid>
         </Grid>
 
-        <StyledGridItem md={6}>
+        <StyledGridItem item md={6}>
 
           <MainCard elevation={3}>
             <Grid container spacing={2} sx={{ width: '100%' }}>

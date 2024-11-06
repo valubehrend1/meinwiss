@@ -5,7 +5,7 @@ import { useMediaQuery } from '@mui/material';
 import FindAnswerSectionSection from './Sections/FindAnswerSection/FindAnswerSection';
 import WhatIsLupaiSection from './Sections/WhatIsLupaiSection/WhatIsLupaiSection';
 import AboutSection from './Sections/AboutSection/AboutSection';
-import HowlupaiWorksSection from '../HowLupaiWorks/HowlupaiWorksSection';
+import HowlupaiWorksSection from './Sections/HowLupaiWorksSection/HowLupaiWorksSection';
 import HowLupaiWorksMobile from './Sections/HowlupaiWorksSection/HowLupaiWorksMobile';
 import LogosSection from './Sections/LogosSection/LogosSection';
 import GetInTouch from './Sections/GetInTouchSection/GetInTouch';

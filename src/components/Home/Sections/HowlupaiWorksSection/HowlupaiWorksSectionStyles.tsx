@@ -5,11 +5,12 @@ import { Box, Button, Card, Grid, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
-import theme, { gold, orange, purple } from '../../../../theme';
+import theme, { orange, purple, primary_color_dark } from '../../../../theme';
 
 
 export const SectionMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
+  backgroundColor: theme.palette.primary.main,
   flexDirection: 'column',
   justifyContent: 'center',
   padding: '7.5rem 6.5rem',
@@ -101,8 +102,9 @@ export const PurpleQuestion = styled(Typography)({
 
 export const Title = styled(Typography)(({ theme }) => ({
   fontSize: '2.7rem',
+  textAlign: 'center',
   paddingBottom: '3.5rem',
-  color: theme.palette.primary.main,
+  color: '#FFFF',
   [theme.breakpoints.down('lg')]: {
     fontSize: '2.4rem',
     lineHeight: '3rem',
@@ -164,129 +166,4 @@ export const SearchMoreButton = styled(Button)(() => ({
   padding: '1.75rem 3.5rem',
   textTransform: 'none',
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
-}));
-
-export const NewSearchButton = styled(Button)(() => ({
-  marginTop: '2rem',
-  padding: '1.75rem 3.5rem',
-  textTransform: 'none',
-  borderRadius: '80px',
-}));
-
-export const StyledGridItem = styled(Grid)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '24px'
-}));
-
-export const CenteredCardContent = styled(Grid)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-}));
-
-// Sytles HowLupaiWorksOne
-
-export const MainGridContaineSectionOne = styled(Grid)(() => ({
-  display: 'flex',
-  gap: '20px',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  width: '100%',
-  [theme.breakpoints.down('md')]: {
-    flexDirection: 'column',
-    width: '100%',
-    gap: '40px'
-  },
-}));
-
-
-// Styles HowLupaiWorksFive
-
-export const ReferenceCardOrange = styled(Box)(() => ({
-  display: 'flex',
-  backgroundColor: orange,
-  padding: '10px 24px',
-  color: '#FFF',
-  borderRadius: '30px'
-}));
-
-export const ReferenceCardPurple = styled(Box)(() => ({
-  display: 'flex',
-  backgroundColor: purple,
-  padding: '10px 24px',
-  color: '#FFF',
-  borderRadius: '30px'
-}));
-
-export const ReferenceCardGold = styled(Box)(() => ({
-  display: 'flex',
-  backgroundColor: gold,
-  padding: '10px 24px',
-  color: '#FFF',
-  borderRadius: '30px'
-}));
-
-
-// Styles HowLupaiWorksSix
-
-export const StyledGridContainer = styled(Grid)(() => ({
-  display: 'flex',
-  gap: '20px',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  width: '100%',
-  marginTop: '120px',
-  marginBottom: '120px',
-  [theme.breakpoints.down('md')]: {
-    width: '100%',
-    gap: '40px',
-    marginBottom: '0px',
-  },
-}));
-
-export const StyledInnerCard = styled(Box)(() => ({
-  display: 'flex',
-  backgroundColor: theme.palette.secondary.main,
-  borderRadius: '30px',
-  width: '100%',
-  padding: '40px',
-  color: theme.palette.primary.main,
-  flexDirection: 'column',
-  gap: '20px'
-}));
-
-// Styles HowLupaiWorksSeven
-
-
-export const StyledGreenCardSectionSeven = styled(Box)(() => ({
-  display: 'flex',
-  backgroundColor: theme.palette.secondary.main,
-  borderRadius: '30px',
-  width: '100%',
-  padding: '40px',
-  color: theme.palette.primary.main
-}));
-
-export const StyledGreenCardContent = styled(Box)(() => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  width: '100%'
-}));
-
-export const StyledGradientCardSectionSeven = styled(Box)(() => ({
-  display: 'flex',
-  background: 'linear-gradient(180deg, #FFF 0%, #FBFDEE 14%, #E2F389 100%)',
-  borderRadius: '30px',
-  width: '100%',
-  padding: '40px',
-  color: theme.palette.primary.main
-}));
-
-export const StyledGradientCardContent = styled(Box)(() => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '20px'
 }));
