@@ -1,0 +1,13 @@
+services:
+  lupai-front-core:
+    image: lupai-front-core
+    container_name: lupai-front-core
+    network_mode: host
+    build:
+      context: .
+      dockerfile: ./docker/core/Dockerfile
+      args:
+        - NODE_VERSION
+    env_file:
+      - .env
+    restart: unless-stopped

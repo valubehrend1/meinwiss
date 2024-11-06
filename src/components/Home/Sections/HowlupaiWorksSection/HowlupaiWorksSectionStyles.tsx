@@ -5,8 +5,7 @@ import { Box, Button, Card, Grid, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
-import theme, { orange, purple, primary_color_dark } from '../../../../theme';
-
+import theme, { orange, purple } from '../../../../theme';
 
 export const SectionMainContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -31,7 +30,7 @@ export const HowItWorksTextContainer = styled(Box)({
 
 export const StarsIcon = styled(AutoAwesomeIcon)({
   color: '#ffffff',
-  fontSize: '1rem'
+  fontSize: '1rem',
 });
 
 export const MainCard = styled(Card)({
@@ -64,13 +63,13 @@ export const MainCardMobile = styled(Card)({
   padding: '4rem 1.25rem',
   borderRadius: '1.25rem',
   marginBottom: '2rem',
-  width: '100%'
+  width: '100%',
 });
 
 export const LeftGrid = styled(Grid)({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
 });
 
 export const LeftCardText = styled(Typography)({
@@ -87,17 +86,17 @@ export const LeftCardTextOrange = styled(Typography)({
 
 export const StyledSearchIcon = styled(SearchIcon)({
   color: theme.palette.primary.main,
-  fontSize: '30px'
+  fontSize: '30px',
 });
 
 export const OrangeQuestion = styled(Typography)({
   color: orange,
-  fontSize: '18px'
+  fontSize: '18px',
 });
 
 export const PurpleQuestion = styled(Typography)({
   color: purple,
-  fontSize: '18px'
+  fontSize: '18px',
 });
 
 export const Title = styled(Typography)(({ theme }) => ({
@@ -119,7 +118,7 @@ export const Title = styled(Typography)(({ theme }) => ({
 
 export const HowItWorksText = styled(Typography)({
   color: '#ffffff',
-  fontSize: '1rem'
+  fontSize: '1rem',
 });
 
 export const GradientBorderBox = styled(Box)(() => ({
@@ -152,7 +151,6 @@ export const QuestionsTextContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
 }));
-
 
 export const ButtonContainer = styled(Box)(() => ({
   display: 'flex',

@@ -1,5 +1,4 @@
-ARG NODE_VERSION=latest
-FROM node:${NODE_VERSION}-bookworm-slim
+FROM lupai-front-core
 
 RUN --mount=type=cache,target=/var/cache/apt \
     --mount=target=/var/cache/apt,type=cache,sharing=locked \
