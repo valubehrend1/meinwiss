@@ -9,7 +9,7 @@ import {
 } from '../HowlupaiWorksSectionStyles';
 
 
-import theme, { orange } from '../../../../../theme';
+import theme, { orange } from '../../../theme';
 
 const HowLupaiWorksSectionFour: React.FC = () => {
   return (

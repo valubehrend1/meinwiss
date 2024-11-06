@@ -13,7 +13,7 @@ import {
 
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 
-import theme, { orange } from '../../../../../theme';
+import theme, { orange } from '../../../theme';
 
 const HowLupaiWorksSectionTwo: React.FC = () => {
   return (

@@ -20,7 +20,7 @@ import {
 } from '../HowlupaiWorksSectionStyles';
 
 import { useTranslation } from 'react-i18next';
-import theme, { orange } from '../../../../../theme';
+import theme, { orange } from '../../../theme';
 
 const HowlupaiWorksSectionOne: React.FC = () => {
   const { t } = useTranslation();

@@ -14,7 +14,7 @@ import {
   StyledGradientCardContent
 } from '../HowlupaiWorksSectionStyles';
 
-import theme, { orange } from '../../../../../theme';
+import theme, { orange } from '../../../theme';
 
 const HowLupaiWorksSectionSeven: React.FC = () => {
   return (
