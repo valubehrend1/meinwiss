@@ -5,12 +5,11 @@ import { useMediaQuery } from '@mui/material';
 import FindAnswerSectionSection from './Sections/FindAnswerSection/FindAnswerSection';
 import WhatIsLupaiSection from './Sections/WhatIsLupaiSection/WhatIsLupaiSection';
 import AboutSection from './Sections/AboutSection/AboutSection';
-import HowlupaiWorksSection from './Sections/HowLupaiWorksSection/HowLupaiWorksSection';
+import HowlupaiWorksSection from './Sections/HowlupaiWorksSection/HowLupaiWorksSection';
 import HowLupaiWorksMobile from './Sections/HowlupaiWorksSection/HowLupaiWorksMobile';
 import LogosSection from './Sections/LogosSection/LogosSection';
 import GetInTouch from './Sections/GetInTouchSection/GetInTouch';
 import theme from '../../theme';
-
 
 const Home: React.FC = () => {
   const matches = useMediaQuery(theme.breakpoints.up('md'));
