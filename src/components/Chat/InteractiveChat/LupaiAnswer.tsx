@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 
-import ReactMarkdown from 'react-markdown'
-
+import { useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
-import { Paper, Box } from '@mui/material/';
-import Typography from '@mui/material/Typography';
+import { Paper, Box, Typography } from '@mui/material';
+import LupaiResources from './LupaiResources';
 
+import {
+  selectAssistantResponse
+} from '../../../config/features/ChatSlice';
 
-import logo from '../../../assets/logo.png'
+import logo from '../../../assets/logo.png';
 import theme from '../../../theme';
+
 const Container = styled(Paper)({
   width: 'auto',
   display: 'flex',
@@ -16,7 +20,7 @@ const Container = styled(Paper)({
   marginTop: theme.spacing(6),
   gap: theme.spacing(2),
   textTransform: 'none',
-  boxShadow: 'none'
+  boxShadow: 'none',
 });
 
 interface LupaiAnswerProps {
@@ -24,11 +28,14 @@ interface LupaiAnswerProps {
 }
 
 const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content }) => {
-  const [displayedText, setDisplayedText] = useState('');
-  const [index, setIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState<string>('');
+  const [index, setIndex] = useState<number>(0);
 
-  //Actualización de estado para mostrar la respuesta del agente letra por letra
+  const assistanceResponse = useSelector(selectAssistantResponse);
+  const retrieverItems = assistanceResponse?.retriever_items || []; // Use an empty array as a fallback
+
   useEffect(() => {
+    console.log(assistanceResponse);
     if (index < content.length) {
       const timeout = setTimeout(() => {
         setDisplayedText((prev) => prev + content[index]);
@@ -46,6 +53,8 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content }) => {
       </Box>
       <Typography variant="h5" style={{ color: '#333' }}>
         <ReactMarkdown>{displayedText}</ReactMarkdown>
+        This response is based on different resources:
+        <LupaiResources retrieverItems={retrieverItems} />
       </Typography>
     </Container>
   );
