@@ -3,10 +3,10 @@ import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Button 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { gold, orange } from '../../../theme';
+import { purple, gold, orange } from '../../../theme';
 import { styled } from '@mui/system';
 
-interface RetrieverItem {
+export interface RetrieverItem {
   collection_metadata: {
     source_type: string;
     source_description?: string;
@@ -21,20 +21,26 @@ interface LupaiResourcesProps {
 // Styled components for accordions
 const ResourceAccordion = styled(Accordion)<{ source: string }>(({ source }) => ({
   flex: '1 1 auto',
-  width: 'calc(50% - 8px)', // Calculate width to fit two items per row minus margin
-  backgroundColor: source === 'Administrative processes' ? gold : orange,
+  marginBottom: '50px',
+  width: 'calc(50% - 8px)',  // Ajuste para que dos acordeones quepan en una fila, ajustando el margen
+  backgroundColor: source === 'Laws' ? purple :
+    source === 'Administrative processes' ? gold :
+      orange,  // Aplica purple si es 'Laws', gold si es 'Administrative processes', y orange para otros
   color: '#FFF',
   '&:hover': {
-    backgroundColor: source === 'Administrative processes' ? gold : orange,
+    backgroundColor: source === 'Laws' ? purple :
+      source === 'Administrative processes' ? gold :
+        orange,  // Mantiene el mismo color al pasar el mouse
   },
   '&.Mui-expanded': {
-    flex: '1 1 100%', // When expanded, take full width
-    color: 'white'
+    flex: '1 1 100%',  // Se expande para tomar toda la fila cuando está expandido
+    color: '#FFF'
   },
   '&:before': {
-    display: 'none',
+    display: 'none',  // Elimina la línea divisoria de los acordeones por defecto de MUI
   },
 }));
+
 
 const ResourceAccordionSummary = styled(AccordionSummary)({
   justifyContent: 'space-between',
@@ -92,7 +98,9 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
           source={source}
         >
           <ResourceAccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>{source}</Typography>
+            <Typography>{source === 'Information curated by counseling centers and information portals'
+              ? 'Consultancy services'
+              : source}</Typography>
           </ResourceAccordionSummary>
           <ResourceAccordionDetails>
             <Typography>{descriptions[pageIndices[`panel${index}`] || 0]}</Typography>

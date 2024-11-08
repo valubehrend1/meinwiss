@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 
-import { useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import { Paper, Box, Typography } from '@mui/material';
 import LupaiResources from './LupaiResources';
 
-import {
-  selectAssistantResponse
-} from '../../../config/features/ChatSlice';
+import { RetrieverItem } from '../../../config/features/ChatSlice';
 
 import logo from '../../../assets/logo.png';
 import theme from '../../../theme';
@@ -25,17 +22,15 @@ const Container = styled(Paper)({
 
 interface LupaiAnswerProps {
   content: string;
+  sources: RetrieverItem[];
+  answerFound?: boolean;
 }
 
-const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content }) => {
+const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound }) => {
   const [displayedText, setDisplayedText] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
 
-  const assistanceResponse = useSelector(selectAssistantResponse);
-  const retrieverItems = assistanceResponse?.retriever_items || []; // Use an empty array as a fallback
-
   useEffect(() => {
-    console.log(assistanceResponse);
     if (index < content.length) {
       const timeout = setTimeout(() => {
         setDisplayedText((prev) => prev + content[index]);
@@ -51,11 +46,16 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content }) => {
       <Box>
         <img src={logo} alt="Logo" style={{ width: '20px' }} />
       </Box>
-      <Typography variant="h5" style={{ color: '#333' }}>
-        <ReactMarkdown>{displayedText}</ReactMarkdown>
-        This response is based on different resources:
-        <LupaiResources retrieverItems={retrieverItems} />
-      </Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Typography variant="h5" style={{ color: '#333' }}>
+          <ReactMarkdown>{displayedText}</ReactMarkdown>
+        </Typography>
+        {!answerFound &&
+          <>
+            <Typography>This response is based on different resources: </Typography>
+            <LupaiResources retrieverItems={sources} />
+          </>}
+      </Box>
     </Container>
   );
 };

@@ -134,7 +134,7 @@ const Chat: React.FC = () => {
             {message.sender === 'user' ? (
               <UserQuestion content={message.content} />
             ) : (
-              <LupaiAnswer content={message.content} />
+              <LupaiAnswer content={message.content} sources={message.sources || []} />
             )}
           </MessagesContainer>
         ))}
