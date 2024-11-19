@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { purple, gold, orange } from '../../../theme';
-import { styled } from '@mui/system';
+
+import {
+  PaginationButton,
+  ResourceAccordion,
+  ResourceAccordionDetails,
+  ResourceAccordionSummary,
+} from './LupaiResourcesStyles'
 
 export interface RetrieverItem {
   collection_metadata: {
@@ -17,45 +22,6 @@ export interface RetrieverItem {
 interface LupaiResourcesProps {
   retrieverItems: RetrieverItem[];
 }
-
-// Styled components for accordions
-const ResourceAccordion = styled(Accordion)<{ source: string }>(({ source }) => ({
-  flex: '1 1 auto',
-  marginBottom: '50px',
-  width: 'calc(50% - 8px)',  // Ajuste para que dos acordeones quepan en una fila, ajustando el margen
-  backgroundColor: source === 'Laws' ? purple :
-    source === 'Administrative processes' ? gold :
-      orange,  // Aplica purple si es 'Laws', gold si es 'Administrative processes', y orange para otros
-  color: '#FFF',
-  '&:hover': {
-    backgroundColor: source === 'Laws' ? purple :
-      source === 'Administrative processes' ? gold :
-        orange,  // Mantiene el mismo color al pasar el mouse
-  },
-  '&.Mui-expanded': {
-    flex: '1 1 100%',  // Se expande para tomar toda la fila cuando está expandido
-    color: '#FFF'
-  },
-  '&:before': {
-    display: 'none',  // Elimina la línea divisoria de los acordeones por defecto de MUI
-  },
-}));
-
-
-const ResourceAccordionSummary = styled(AccordionSummary)({
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  textTransform: 'capitalize',
-});
-
-const ResourceAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-}));
-
-const PaginationButton = styled(Button)({
-  minWidth: '40px',
-});
 
 // Component definition
 const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
@@ -103,7 +69,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
               : source}</Typography>
           </ResourceAccordionSummary>
           <ResourceAccordionDetails>
-            <Typography>{descriptions[pageIndices[`panel${index}`] || 0]}</Typography>
+            <Typography>{descriptions == null ? descriptions[pageIndices[`panel${index}`] || 0] : 'No description found'}</Typography>
             {descriptions.length > 1 && (
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
                 <PaginationButton
