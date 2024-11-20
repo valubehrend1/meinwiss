@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import ReactMarkdown from 'react-markdown'
 
-import { styled } from '@mui/material/styles';
-import { Paper, Box } from '@mui/material/';
+import TypingDots from './TypingDots'
+import { LupaiAnswerContainer, StyledMarkdown } from './ChatStyles'
+import { Box } from '@mui/material/';
 import Typography from '@mui/material/Typography';
 
 
 import logo from '../../../assets/logo.png'
-import theme from '../../../theme';
-const Container = styled(Paper)({
-  width: 'auto',
-  display: 'flex',
-  alignItems: 'left',
-  marginTop: theme.spacing(6),
-  gap: theme.spacing(2),
-  textTransform: 'none',
-  boxShadow: 'none'
-});
 
 interface LupaiAnswerProps {
   content: string;
@@ -40,14 +30,18 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content }) => {
   }, [index, content]);
 
   return (
-    <Container>
+    <LupaiAnswerContainer>
       <Box>
         <img src={logo} alt="Logo" style={{ width: '20px' }} />
       </Box>
-      <Typography variant="h5" style={{ color: '#333' }}>
-        <ReactMarkdown>{displayedText}</ReactMarkdown>
-      </Typography>
-    </Container>
+      {!content ? (
+        <TypingDots />
+      ) : (
+        <Typography variant="h5" style={{ color: '#333', marginTop: '0px' }}>
+          <StyledMarkdown>{displayedText}</StyledMarkdown>
+        </Typography>
+      )}
+    </LupaiAnswerContainer>
   );
 };
 
