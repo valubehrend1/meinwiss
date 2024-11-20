@@ -28,7 +28,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [pageIndices, setPageIndices] = useState<{ [key: string]: number }>({});
 
-  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+  const handleChange = (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
     if (isExpanded && !(panel in pageIndices)) {
       setPageIndices(prev => ({ ...prev, [panel]: 0 }));
@@ -53,7 +53,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
     }
     return acc;
   }, {} as { [key: string]: string[] });
-
+  console.log(groupedItems)
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '16px' }}>
       {Object.entries(groupedItems).map(([source, descriptions], index) => (

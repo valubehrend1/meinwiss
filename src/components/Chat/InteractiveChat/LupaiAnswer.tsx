@@ -6,8 +6,6 @@ import { LupaiAnswerContainer, StyledMarkdown } from './ChatStyles'
 import { Box } from '@mui/material/';
 import Typography from '@mui/material/Typography';
 
-import { styled } from '@mui/material/styles';
-import { Paper, Box, Typography } from '@mui/material';
 import LupaiResources from './LupaiResources';
 
 import { RetrieverItem } from '../../../config/features/ChatSlice';
@@ -20,7 +18,9 @@ interface LupaiAnswerProps {
   answerFound?: boolean;
 }
 
+
 const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound }) => {
+  console.log(sources)
   const [displayedText, setDisplayedText] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
 
@@ -46,13 +46,13 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound
       ) : (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant="h5" style={{ color: '#333' }}>
-            <ReactMarkdown>{displayedText}</ReactMarkdown>
+            <StyledMarkdown>{displayedText}</StyledMarkdown>
           </Typography>
-        {!answerFound &&
-          <>
-            <Typography>This response is based on different resources: </Typography>
-            <LupaiResources retrieverItems={sources} />
-          </>
+          {!answerFound &&
+            <>
+              <Typography>This response is based on different resources: </Typography>
+              <LupaiResources retrieverItems={sources} />
+            </>
           }
         </Box>
       )}
