@@ -14,3 +14,7 @@ stop:
 	docker compose stop lupai-front-core
 
 restart: stop up
+
+
+test-build: build
+	docker compose run --rm --entrypoint="npm run build" lupai-front-core
