@@ -121,7 +121,7 @@ const Chat: React.FC = () => {
               <UserQuestion content={message.content} />
             )}
             {message.sender === 'assistant' && (
-              <LupaiAnswer content={message.content} />
+              <LupaiAnswer content={message.content} sources={message.sources || []}/>
             )}
           </MessagesContainer>
         ))}

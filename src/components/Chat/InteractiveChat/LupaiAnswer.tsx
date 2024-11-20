@@ -6,18 +6,24 @@ import { LupaiAnswerContainer, StyledMarkdown } from './ChatStyles'
 import { Box } from '@mui/material/';
 import Typography from '@mui/material/Typography';
 
+import { styled } from '@mui/material/styles';
+import { Paper, Box, Typography } from '@mui/material';
+import LupaiResources from './LupaiResources';
+
+import { RetrieverItem } from '../../../config/features/ChatSlice';
 
 import logo from '../../../assets/logo.png'
 
 interface LupaiAnswerProps {
   content: string;
+  sources: RetrieverItem[];
+  answerFound?: boolean;
 }
 
-const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content }) => {
-  const [displayedText, setDisplayedText] = useState('');
-  const [index, setIndex] = useState(0);
+const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound }) => {
+  const [displayedText, setDisplayedText] = useState<string>('');
+  const [index, setIndex] = useState<number>(0);
 
-  //Actualización de estado para mostrar la respuesta del agente letra por letra
   useEffect(() => {
     if (index < content.length) {
       const timeout = setTimeout(() => {
@@ -34,12 +40,21 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content }) => {
       <Box>
         <img src={logo} alt="Logo" style={{ width: '20px' }} />
       </Box>
+
       {!content ? (
         <TypingDots />
       ) : (
-        <Typography variant="h5" style={{ color: '#333', marginTop: '0px' }}>
-          <StyledMarkdown>{displayedText}</StyledMarkdown>
-        </Typography>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Typography variant="h5" style={{ color: '#333' }}>
+            <ReactMarkdown>{displayedText}</ReactMarkdown>
+          </Typography>
+        {!answerFound &&
+          <>
+            <Typography>This response is based on different resources: </Typography>
+            <LupaiResources retrieverItems={sources} />
+          </>
+          }
+        </Box>
       )}
     </LupaiAnswerContainer>
   );

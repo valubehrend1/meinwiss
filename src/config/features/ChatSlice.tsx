@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface Message {
+export interface Message {
   sender: 'user' | 'assistant';
   content: string;
+  sources?: RetrieverItem[];
+  answerFound?: boolean;
 }
 
 interface UserContext {
@@ -12,13 +14,21 @@ interface UserContext {
   location: string;
 }
 
+export interface RetrieverItem {
+  collection_metadata: {
+    source_type: string;
+    source_description?: string;
+    source_name?: string;
+  };
+}
+
 interface AssistantResponse {
   assistant_response: {
     answer: string;
     improved_answer: string;
     answer_found: boolean;
   };
-  retriever_items: unknown[]; // Puedes reemplazar 'any' con el tipo adecuado si lo tienes
+  retriever_items: RetrieverItem[]; // Puedes reemplazar 'any' con el tipo adecuado si lo tienes
   status: unknown; // Reemplaza 'any' con el tipo adecuado
   language: {
     language_code: string;
@@ -91,6 +101,8 @@ const chatSlice = createSlice({
       state.messages = [...state.messages, {
         sender: 'assistant',
         content: action.payload.assistant_response.improved_answer,
+        sources: action.payload.retriever_items,
+        answerFound: action.payload.answer_found,
       }];
       // Añadir la respuesta del asistente como un nuevo mensaje
       /*      state.messages.push({
