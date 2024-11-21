@@ -76,7 +76,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
           </ResourceAccordionSummary>
           <ResourceAccordionDetails>
             <Typography>
-              {descriptions == null
+              {descriptions && descriptions.length > 0
                 ? descriptions[pageIndices[`panel${index}`] || 0]
                 : 'No description found'}
             </Typography>
