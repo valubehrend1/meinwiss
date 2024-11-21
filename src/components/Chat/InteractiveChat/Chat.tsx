@@ -1,7 +1,5 @@
-// import React, { useCallback, useEffect, useState } from 'react';
 import React, { useState, useEffect } from 'react';
 
-/* import { usePDF } from 'react-to-pdf'; */
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -19,7 +17,6 @@ import LupaiAnswer from './LupaiAnswer';
 import UserQuestion from './UserQuestion';
 import AddNewQuestion from './AddNewQuestion';
 import { ChatContainer, MessagesContainer } from './ChatStyles';
-/* import PdfExport from '../PdfExport' */
 
 
 import { useWebSocket } from '../../../context/useWebSocket';
@@ -34,9 +31,9 @@ const Chat: React.FC = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [hasSentMessage, setHasSentMessage] = useState(false);
-  /*  const { toPDF, targetRef } = usePDF({ filename: 'chat.pdf' });
-   const PdfExport = <PdfExport ref={targetRef} />
-  */
+
+  const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
+
   const handleOpen = () => {
     setIsOpen(true);
   };
@@ -48,6 +45,7 @@ const Chat: React.FC = () => {
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
       dispatch(setAssistantResponse(message));
+      setIsWaitingForResponse(false);
     };
   }
 
@@ -64,6 +62,7 @@ const Chat: React.FC = () => {
         location: userContext.location,
       };
       ws.send(JSON.stringify(messageToSend));
+      setIsWaitingForResponse(true);
     } else {
       console.error('WebSocket no está abierto para enviar mensajes.');
     }
@@ -90,14 +89,6 @@ const Chat: React.FC = () => {
     }
   }, [messages, sendMessage, hasSentMessage]);
 
-  console.log(messages);
-
-  /*
-    const handleOnDownload = () => {
-      console.log('download')
-    } */
-
-
   const handleNewQuestion = () => {
     // Vaciar campos de búsqueda y otros estados relacionados
     dispatch(resetSearch()); // Suponiendo que resetSearch() vacía todos los campos y estados de búsqueda relevante
@@ -114,30 +105,31 @@ const Chat: React.FC = () => {
     navigate('/ask-lupai');
   };
 
-
   return (
     <>
       <ChatContainer>
         {isOpen && (
           <NewQuestionModal
             isOpen={isOpen}
-            /* onDownload={handleOnDownload} */
             onNewQuestion={handleNewQuestion}
             onCancel={() => setIsOpen(false)}
           />
         )}
         {messages.map((message, index) => (
-          <MessagesContainer
-            key={index}
-            sender={message.sender} // Pasar el sender como prop
-          >
-            {message.sender === 'user' ? (
+          <MessagesContainer key={index} sender={message.sender}>
+            {message.sender === 'user' && (
               <UserQuestion content={message.content} />
-            ) : (
+            )}
+            {message.sender === 'assistant' && (
               <LupaiAnswer content={message.content} sources={message.sources || []} />
             )}
           </MessagesContainer>
         ))}
+        {isWaitingForResponse && (
+          <MessagesContainer sender="assistant">
+            <LupaiAnswer content="" sources={[]} />
+          </MessagesContainer>
+        )}
         <Box sx={{ marginTop: '20px' }}>
           <SharedSearchBar
             mainSearchPage={false}

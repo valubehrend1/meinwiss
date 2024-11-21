@@ -1,24 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
 
-import { styled } from '@mui/material/styles';
-import { Paper, Box, Typography } from '@mui/material';
+
+import TypingDots from './TypingDots'
+import { LupaiAnswerContainer, StyledMarkdown } from './ChatStyles'
+import { Box } from '@mui/material/';
+import Typography from '@mui/material/Typography';
+
 import LupaiResources from './LupaiResources';
 
 import { RetrieverItem } from '../../../config/features/ChatSlice';
 
-import logo from '../../../assets/logo.png';
-import theme from '../../../theme';
-
-const Container = styled(Paper)({
-  width: 'auto',
-  display: 'flex',
-  alignItems: 'left',
-  marginTop: theme.spacing(6),
-  gap: theme.spacing(2),
-  textTransform: 'none',
-  boxShadow: 'none',
-});
+import logo from '../../../assets/logo.png'
 
 interface LupaiAnswerProps {
   content: string;
@@ -26,7 +18,9 @@ interface LupaiAnswerProps {
   answerFound?: boolean;
 }
 
+
 const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound }) => {
+  console.log(sources)
   const [displayedText, setDisplayedText] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
 
@@ -42,21 +36,27 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound
   }, [index, content]);
 
   return (
-    <Container>
+    <LupaiAnswerContainer>
       <Box>
         <img src={logo} alt="Logo" style={{ width: '20px' }} />
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Typography variant="h5" style={{ color: '#333' }}>
-          <ReactMarkdown>{displayedText}</ReactMarkdown>
-        </Typography>
-        {!answerFound &&
-          <>
-            <Typography>This response is based on different resources: </Typography>
-            <LupaiResources retrieverItems={sources} />
-          </>}
-      </Box>
-    </Container>
+
+      {!content ? (
+        <TypingDots />
+      ) : (
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Typography variant="h5" style={{ color: '#333' }}>
+            <StyledMarkdown>{displayedText}</StyledMarkdown>
+          </Typography>
+          {!answerFound &&
+            <>
+              <Typography>This response is based on different resources: </Typography>
+              <LupaiResources retrieverItems={sources} />
+            </>
+          }
+        </Box>
+      )}
+    </LupaiAnswerContainer>
   );
 };
 

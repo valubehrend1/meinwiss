@@ -54,7 +54,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
     }
     return acc;
   }, {} as { [key: string]: string[] });
-
+  console.log(groupedItems)
   return (
     <Box
       sx={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '16px' }}
@@ -69,7 +69,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
           <ResourceAccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography>
               {source ===
-              'Information curated by counseling centers and information portals'
+                'Information curated by counseling centers and information portals'
                 ? 'Consultancy services'
                 : source}
             </Typography>
