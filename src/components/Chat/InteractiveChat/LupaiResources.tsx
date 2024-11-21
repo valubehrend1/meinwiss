@@ -69,7 +69,11 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
               : source}</Typography>
           </ResourceAccordionSummary>
           <ResourceAccordionDetails>
-            <Typography>{descriptions == null ? descriptions[pageIndices[`panel${index}`] || 0] : 'No description found'}</Typography>
+            <Typography>
+              {descriptions && descriptions.length > 0
+                ? descriptions[pageIndices[`panel${index}`] || 0]
+                : 'No description found'}
+            </Typography>
             {descriptions.length > 1 && (
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
                 <PaginationButton
