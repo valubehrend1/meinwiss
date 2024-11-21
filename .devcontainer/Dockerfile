@@ -15,8 +15,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
     && apt-get clean \
     && rm -rf /var/tmp/* /var/lib/apt/lists/*
 
-COPY  ./ .
-RUN npm install
+# COPY  ./ .
+# RUN npm install
 
 ARG DEVCONTAINER_USER
 RUN usermod -aG sudo $DEVCONTAINER_USER \

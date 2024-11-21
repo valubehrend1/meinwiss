@@ -9,7 +9,7 @@ import {
   ResourceAccordion,
   ResourceAccordionDetails,
   ResourceAccordionSummary,
-} from './LupaiResourcesStyles'
+} from './LupaiResourcesStyles';
 
 export interface RetrieverItem {
   collection_metadata: {
@@ -28,15 +28,16 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [pageIndices, setPageIndices] = useState<{ [key: string]: number }>({});
 
-  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpanded(isExpanded ? panel : false);
-    if (isExpanded && !(panel in pageIndices)) {
-      setPageIndices(prev => ({ ...prev, [panel]: 0 }));
-    }
-  };
+  const handleChange =
+    (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+      if (isExpanded && !(panel in pageIndices)) {
+        setPageIndices((prev) => ({ ...prev, [panel]: 0 }));
+      }
+    };
 
   const handlePagination = (panel: string, direction: number) => {
-    setPageIndices(prev => ({
+    setPageIndices((prev) => ({
       ...prev,
       [panel]: prev[panel] + direction,
     }));
@@ -55,7 +56,9 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
   }, {} as { [key: string]: string[] });
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '16px' }}>
+    <Box
+      sx={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '16px' }}
+    >
       {Object.entries(groupedItems).map(([source, descriptions], index) => (
         <ResourceAccordion
           key={source}
@@ -64,9 +67,12 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
           source={source}
         >
           <ResourceAccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>{source === 'Information curated by counseling centers and information portals'
-              ? 'Consultancy services'
-              : source}</Typography>
+            <Typography>
+              {source ===
+              'Information curated by counseling centers and information portals'
+                ? 'Consultancy services'
+                : source}
+            </Typography>
           </ResourceAccordionSummary>
           <ResourceAccordionDetails>
             <Typography>
@@ -75,7 +81,9 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
                 : 'No description found'}
             </Typography>
             {descriptions.length > 1 && (
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+              <Box
+                sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}
+              >
                 <PaginationButton
                   sx={{ color: '#FFF' }}
                   disabled={pageIndices[`panel${index}`] <= 0}
@@ -86,7 +94,10 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
                 </PaginationButton>
                 <PaginationButton
                   sx={{ color: '#FFF' }}
-                  disabled={(pageIndices[`panel${index}`] || 0) >= descriptions.length - 1}
+                  disabled={
+                    (pageIndices[`panel${index}`] || 0) >=
+                    descriptions.length - 1
+                  }
                   onClick={() => handlePagination(`panel${index}`, 1)}
                   endIcon={<NavigateNextIcon />}
                 >
