@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Checkbox, Typography } from '@mui/material';
 import {
   SectionContainer,
   Title,
   Description,
   AskButton,
   SearchBarContainer,
+  CheckboxContainer
 } from './AskQuestionsStyle';
 import MainFilters from '../MainFilters';
 
@@ -36,6 +37,9 @@ const AskQuestion: React.FC = () => {
   const [locationError, setLocationError] = useState<boolean>(false);
   const [timeError, setTimeError] = useState<boolean>(false);
   const [ageError, setAgeError] = useState<boolean>(false);
+
+  const [termsChecked, setTermsChecked] = useState<boolean>(false);
+  const [checkboxError, setCheckboxError] = useState<boolean>(false);
 
 
   const age = useSelector(selectAge);
@@ -76,6 +80,11 @@ const AskQuestion: React.FC = () => {
     if (!validateInput(age, setAgeError)) return;
     if (parseInt(age) < 1 || parseInt(age) > 120) {
       setAgeError(true);
+      return;
+    }
+
+    if (!termsChecked) {
+      setCheckboxError(true); // Muestra el error si el checkbox no está marcado
       return;
     }
 
@@ -123,8 +132,25 @@ const AskQuestion: React.FC = () => {
               locationError={locationError}
               timeError={timeError}
               ageError={ageError} />
-
             <Box sx={{ marginTop: '40px' }}>
+              <CheckboxContainer>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Checkbox
+                    checked={termsChecked}
+                    onChange={(e) => setTermsChecked(e.target.checked)} />
+                  <Typography>I agree with the
+                    <span>                  <a href="/terms" target="_blank" rel="noreferrer">
+                      Terms of Use and Privacy Policy
+                    </a>
+                    </span>
+                  </Typography>
+                </Box>
+                {checkboxError && (
+                  <Typography color="error" variant="body2">
+                    You must agree to the Terms of Use and Privacy Policy
+                  </Typography>
+                )}
+              </CheckboxContainer>
               <AskButton
                 variant="contained"
                 size="large"
@@ -140,4 +166,3 @@ const AskQuestion: React.FC = () => {
 };
 
 export default AskQuestion;
-
