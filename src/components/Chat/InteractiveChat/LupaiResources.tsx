@@ -4,19 +4,23 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
+
 import {
   PaginationButton,
   ResourceAccordion,
   ResourceAccordionDetails,
   ResourceAccordionSummary,
+  LupaiResourcesContainer,
+  ResourcesUrl
 } from './LupaiResourcesStyles';
 
 export interface RetrieverItem {
   collection_metadata: {
     source_type: string;
-    source_description?: string;
     source_name?: string;
+    source_url?: string;
   };
+  text: string;
 }
 
 interface LupaiResourcesProps {
@@ -42,24 +46,24 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
       [panel]: prev[panel] + direction,
     }));
   };
-
   // Group items by source type for pagination
   const groupedItems = retrieverItems.reduce((acc, item) => {
     const key = item.collection_metadata.source_type;
     if (!acc[key]) {
       acc[key] = [];
     }
-    if (item.collection_metadata.source_description) {
-      acc[key].push(item.collection_metadata.source_description);
-    }
+    acc[key].push({
+      source_name: item.collection_metadata.source_name || 'Unknown Source',
+      source_url: item.collection_metadata.source_url || '',
+      text: item.text || 'No text available',
+    });
     return acc;
-  }, {} as { [key: string]: string[] });
+  }, {} as { [key: string]: Array<{ source_name: string; text: string; source_url: string; }> });
+
   console.log(groupedItems)
   return (
-    <Box
-      sx={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '16px' }}
-    >
-      {Object.entries(groupedItems).map(([source, descriptions], index) => (
+    <LupaiResourcesContainer>
+      {Object.entries(groupedItems).map(([source, item], index) => (
         <ResourceAccordion
           key={source}
           expanded={expanded === `panel${index}`}
@@ -67,7 +71,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
           source={source}
         >
           <ResourceAccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>
+            <Typography variant='h5'>
               {source ===
                 'Information curated by counseling centers and information portals'
                 ? 'Consultancy services'
@@ -75,12 +79,23 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
             </Typography>
           </ResourceAccordionSummary>
           <ResourceAccordionDetails>
-            <Typography>
-              {descriptions && descriptions.length > 0
-                ? descriptions[pageIndices[`panel${index}`] || 0]
-                : 'No description found'}
-            </Typography>
-            {descriptions.length > 1 && (
+            {item.length > 0 && (
+              <>
+                <Typography variant="h5" sx={{ textDecoration: 'underline', marginBottom: '10px' }}>
+                  {item[pageIndices[`panel${index}`] || 0].source_name}
+                </Typography>
+                <Typography sx={{ marginBottom: '30px' }}>
+                  {item[pageIndices[`panel${index}`] || 0].text}
+                </Typography>
+                <ResourcesUrl
+                  href={item[pageIndices[`panel${index}`] || 0].source_url}
+                  target="_blank"
+                >
+                  Learn more
+                </ResourcesUrl>
+              </>
+            )}
+            {item.length > 1 && (
               <Box
                 sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}
               >
@@ -96,7 +111,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
                   sx={{ color: '#FFF' }}
                   disabled={
                     (pageIndices[`panel${index}`] || 0) >=
-                    descriptions.length - 1
+                    item.length - 1
                   }
                   onClick={() => handlePagination(`panel${index}`, 1)}
                   endIcon={<NavigateNextIcon />}
@@ -108,7 +123,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
           </ResourceAccordionDetails>
         </ResourceAccordion>
       ))}
-    </Box>
+    </LupaiResourcesContainer>
   );
 };
 
