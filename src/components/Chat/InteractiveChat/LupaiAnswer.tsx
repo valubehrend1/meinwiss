@@ -30,6 +30,8 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound
   const [displayedText, setDisplayedText] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
 
+  console.log(sources, 'sources');
+
   useEffect(() => {
     if (index < content.length) {
       const timeout = setTimeout(() => {

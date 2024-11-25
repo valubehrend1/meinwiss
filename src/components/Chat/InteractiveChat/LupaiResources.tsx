@@ -14,9 +14,9 @@ import {
 export interface RetrieverItem {
   collection_metadata: {
     source_type: string;
-    source_description?: string;
     source_name?: string;
   };
+  text: string;
 }
 
 interface LupaiResourcesProps {
@@ -49,8 +49,8 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
     if (!acc[key]) {
       acc[key] = [];
     }
-    if (item.collection_metadata.source_description) {
-      acc[key].push(item.collection_metadata.source_description);
+    if (item.text) {
+      acc[key].push(item.text);
     }
     return acc;
   }, {} as { [key: string]: string[] });
@@ -69,7 +69,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
           <ResourceAccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography>
               {source ===
-              'Information curated by counseling centers and information portals'
+                'Information curated by counseling centers and information portals'
                 ? 'Consultancy services'
                 : source}
             </Typography>

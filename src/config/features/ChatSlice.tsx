@@ -17,9 +17,9 @@ interface UserContext {
 export interface RetrieverItem {
   collection_metadata: {
     source_type: string;
-    source_description?: string;
     source_name?: string;
   };
+  text: string;
 }
 
 interface AssistantResponse {
