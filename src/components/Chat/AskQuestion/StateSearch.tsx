@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Autocomplete } from '@mui/material';
-import { IState, State } from 'country-state-city';
+/* import { IState, State } from 'country-state-city'; */
 import { InputFieldAutoComplete, SearchBarError } from './AskQuestion/AskQuestionsStyle';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,16 +13,18 @@ interface StateSearchProps {
 
 const StateSearch: React.FC<StateSearchProps> = ({ locationError }) => {
   const dispatch = useDispatch();
-  const [states, setStates] = useState<IState[]>([]);
+  /*   const [states, setStates] = useState<IState[]>([]); */
   const [selectedState, setSelectedState] = useState<string | null>(null);
   const location = useSelector(selectLocation);
 
-  useEffect(() => {
-    // Obtener estados de Alemania, utilizando el código ISO 'DE'
-    const fetchedStates = State.getStatesOfCountry('DE') || [];
-    setStates(fetchedStates);
-  }, []);
-
+  const countryNames = ['Berlín'];
+  /*
+    useEffect(() => {
+      // Obtener estados de Alemania, utilizando el código ISO 'DE'
+      const fetchedStates = State.getStatesOfCountry('DE') || [];
+      setStates(fetchedStates);
+    }, []);
+   */
   const handleLocationChange = (_event: React.SyntheticEvent, newValue: string | null) => {
     setSelectedState(newValue);
     dispatch(setLocation(newValue));
@@ -35,7 +37,8 @@ const StateSearch: React.FC<StateSearchProps> = ({ locationError }) => {
   return (
     <>
       <Autocomplete
-        options={states.map(state => state.name)}
+        /* options={states.map(state => state.name)} */
+        options={countryNames}
         value={selectedState}
         onChange={handleLocationChange}
         renderInput={(params) => (
