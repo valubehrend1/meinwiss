@@ -54,7 +54,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
     }
     return acc;
   }, {} as { [key: string]: string[] });
-
+  console.log(groupedItems)
   return (
     <Box
       sx={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '16px' }}

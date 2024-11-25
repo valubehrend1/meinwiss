@@ -27,11 +27,15 @@ import AskQuestionStep2 from './components/Chat/AskQuestion/AskQuestion/AskQuest
 import AskQuestionStep3 from './components/Chat/AskQuestion/AskQuestion/AskQuestionStep3';
 import ProcessingQuestion from './components/Chat/AskQuestion/AskQuestion/ProcessingQuestion';
 import Chat from './components/Chat/InteractiveChat/Chat';
+import LoginForm from './components/BetaLogin/LoginForm';
+import DataPrivacy from './components/Chat/DataPrivacy/DataPrivacy';
 
 import { WebSocketProvider } from './context/WebSocketContext';
 import HowlupaiWorksSection from './components/HowLupaiWorks/HowlupaiWorksSection';
+import PrivateRoute from './components/BetaLogin/PrivateRoute';
 
 const App: React.FC = () => {
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
@@ -39,11 +43,15 @@ const App: React.FC = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/how-lupai-works" element={<HowlupaiWorksSection />} />
-        <Route path="/ask-lupai" element={<AskQuestion />} />
-        <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
-        <Route path="/ask-lupai/step3" element={<AskQuestionStep3 />} />
-        <Route path="/ask-lupai/step4" element={<ProcessingQuestion />} />
-        <Route path="/ask-lupai/chat" element={<Chat />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/terms" element={<DataPrivacy />} />
+          <Route path="/ask-lupai" element={<AskQuestion />} />
+          <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
+          <Route path="/ask-lupai/step3" element={<AskQuestionStep3 />} />
+          <Route path="/ask-lupai/step4" element={<ProcessingQuestion />} />
+          <Route path="/ask-lupai/chat" element={<Chat />} />
+        </Route>
         <Route path="*" element={<ErrorNotFoundPage />} />
       </Route>
     )

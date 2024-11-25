@@ -129,3 +129,11 @@ export const AskButton = styled(Button)({
     backgroundColor: '#00332c',
   },
 });
+
+
+export const CheckboxContainer = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  marginBottom: '15px',
+  flexDirection: 'column',
+});
