@@ -21,10 +21,20 @@ import {
   PurpleQuestion
 } from './HowlupaiWorksSectionStyles';
 
+import { LearnMoreButton } from '../WhatIsLupaiSection/WhatIsLupaiStyles';
+
 import { useTranslation } from 'react-i18next';
+
+import { useNavigate } from 'react-router-dom';
 
 const HowlupaiWorksSection: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const handleNavigateToAboutUs = () => {
+    navigate('/how-lupai-works');
+  };
+
   return (
     <SectionMainContainer>
 
@@ -72,6 +82,16 @@ const HowlupaiWorksSection: React.FC = () => {
           </Grid>
         </CardContent>
       </MainCard>
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center' }}>
+        <LearnMoreButton
+          variant='contained'
+          color='secondary'
+          onClick={handleNavigateToAboutUs}
+        >
+          {t('learn_more')}
+        </LearnMoreButton>
+      </Box>
     </SectionMainContainer >
   );
 };
