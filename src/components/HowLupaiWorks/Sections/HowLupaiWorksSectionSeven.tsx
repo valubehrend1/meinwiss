@@ -11,12 +11,16 @@ import {
   StyledGreenCardSectionSeven,
   StyledGradientCardSectionSeven,
   StyledGreenCardContent,
-  StyledGradientCardContent
+  StyledGradientCardContent,
+  FAQSLink
 } from '../HowlupaiWorksSectionStyles';
 
-import theme, { orange } from '../../../theme';
+import { useNavigate } from 'react-router-dom';
+
+import theme from '../../../theme';
 
 const HowLupaiWorksSectionSeven: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <>
       <StyledGridContainer container>
@@ -29,7 +33,8 @@ const HowLupaiWorksSectionSeven: React.FC = () => {
                   Do you have more questions or want to know how the technology behind Lupai
                 </Typography>
                 <Typography variant='h3'>
-                  works? Check out the <span style={{ color: orange }}>FAQs.</span>
+                  works? Check out the
+                  <FAQSLink onClick={() => navigate('/about')}> FAQs.</FAQSLink>
                 </Typography>
               </Box>
               <Typography>
