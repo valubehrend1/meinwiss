@@ -23,10 +23,13 @@ import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
 
 import { useTranslation } from 'react-i18next';
 
+import { useNavigate } from 'react-router-dom';
+
 import { SectionMainContainer } from './WhatIsLupaiStyles';
 
 const WhatIsLupaiSection: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const cardsData = [
     {
@@ -48,6 +51,10 @@ const WhatIsLupaiSection: React.FC = () => {
       description: t('connect_with_institutions_description')
     }
   ];
+
+  const handleNavigateToAboutUs = () => {
+    navigate('/about');
+  };
 
   return (
     <SectionMainContainer>
@@ -84,7 +91,13 @@ const WhatIsLupaiSection: React.FC = () => {
         ))}
       </CardsContainer>
       <ButtonContainer>
-        <LearnMoreButton variant='contained' color='secondary'>{t('learn_more')}</LearnMoreButton>
+        <LearnMoreButton
+          variant='contained'
+          color='secondary'
+          onClick={handleNavigateToAboutUs}
+        >
+          {t('learn_more')}
+        </LearnMoreButton>
       </ButtonContainer>
     </SectionMainContainer>
   );
