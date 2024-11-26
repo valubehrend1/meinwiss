@@ -19,7 +19,7 @@ import NavbarItemsMobile from './NavbarItemsMobile';
 
 const Navbar: React.FC = () => {
   const imageSrc = '/src/assets/Lupai_Logo_Dark_Green.png';
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down(980));
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => () => {
