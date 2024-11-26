@@ -17,7 +17,7 @@ const StateSearch: React.FC<StateSearchProps> = ({ locationError }) => {
   const [selectedState, setSelectedState] = useState<string | null>(null);
   const location = useSelector(selectLocation);
 
-  const countryNames = ['Berlín'];
+  const countryNames = ['Berlin'];
   /*
     useEffect(() => {
       // Obtener estados de Alemania, utilizando el código ISO 'DE'
