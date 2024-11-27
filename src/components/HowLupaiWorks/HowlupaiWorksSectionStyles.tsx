@@ -299,3 +299,10 @@ export const StyledGradientCardContent = styled(Box)(() => ({
   alignItems: 'center',
   gap: '20px'
 }));
+
+
+export const FAQSLink = styled('span')(() => ({
+  color: orange,
+  cursor: 'pointer',
+  textDecoration: 'underline'
+}));
