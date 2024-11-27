@@ -164,6 +164,11 @@ export const SearchMoreButton = styled(Button)(() => ({
   padding: '1.75rem 3.5rem',
   textTransform: 'none',
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+  cursor: 'default',
+  '&:hover': {
+    backgroundColor: theme.palette.secondary.main,
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+  },
 }));
 
 export const NewSearchButton = styled(Button)(() => ({
@@ -171,6 +176,10 @@ export const NewSearchButton = styled(Button)(() => ({
   padding: '1.75rem 3.5rem',
   textTransform: 'none',
   borderRadius: '80px',
+  cursor: 'default',
+  '&:hover': {
+    backgroundColor: theme.palette.primary.main,
+  },
 }));
 
 export const StyledGridItem = styled(Grid)(() => ({
@@ -289,4 +298,11 @@ export const StyledGradientCardContent = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   gap: '20px'
+}));
+
+
+export const FAQSLink = styled('span')(() => ({
+  color: orange,
+  cursor: 'pointer',
+  textDecoration: 'underline'
 }));
