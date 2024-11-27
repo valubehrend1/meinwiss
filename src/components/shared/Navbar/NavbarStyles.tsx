@@ -112,3 +112,14 @@ export const Separator = styled(Box)({
   marginLeft: theme.spacing(1),
   marginRight: theme.spacing(1),
 });
+
+
+//Shared styles
+
+export const BetaTag = styled(Box)({
+  backgroundColor: theme.palette.secondary.main,
+  padding: '8px 12px',
+  borderRadius: '12px',
+  color: theme.palette.primary.main,
+  fontWeight: 900
+});
