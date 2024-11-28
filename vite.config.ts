@@ -8,8 +8,8 @@ export default defineConfig({
         host: "0.0.0.0",
          proxy: {
              "/lupai": {
-                 target: "ws://190.16.250.34:8001",
-                 // target: "ws://localhost:8001",
+                 // target: "ws://190.16.250.34:8001",
+                 target: "ws://lupai-api:8000",
                  changeOrigin: true,
                  secure: false,
                  ws: true,
