@@ -21,8 +21,9 @@ interface SharedModalProps {
   content: string;
   submitString: string;
   alternativeString: string;
-  onNewQuestion: () => void;
+  onSubmit: () => void;
   onCancel: () => void;
+  isPdf?: boolean;
 }
 
 const SharedModal: React.FC<SharedModalProps> = ({
@@ -31,8 +32,9 @@ const SharedModal: React.FC<SharedModalProps> = ({
   content,
   submitString,
   alternativeString,
-  onNewQuestion,
+  onSubmit,
   onCancel,
+  isPdf
 }) => {
   const messages = useSelector(selectMessages);
 
@@ -48,18 +50,28 @@ const SharedModal: React.FC<SharedModalProps> = ({
         <DialogContentText id="alert-dialog-description" variant='h4'>{content}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <PDFDownloadLink
-          document={<PdfExport messages={messages} />}
-          fileName="conversation.pdf"
-          style={{ textDecoration: 'none' }} // Remueve subrayado
-        >
-          <ActionButton color="secondary" variant="contained">
-            {alternativeString}
-          </ActionButton>
-        </PDFDownloadLink>
-        <ActionButton onClick={onNewQuestion} color="primary" variant="contained">
-          {submitString}
-        </ActionButton>
+        {
+          isPdf ? (
+            <>
+              <PDFDownloadLink
+                document={<PdfExport messages={messages} />}
+                fileName="conversation.pdf"
+                style={{ textDecoration: 'none' }} // Remueve subrayado
+              >
+                <ActionButton color="secondary" variant="contained">
+                  {alternativeString}
+                </ActionButton>
+              </PDFDownloadLink>
+              <ActionButton onClick={onCancel} color="primary" variant="contained">
+                {submitString}
+              </ActionButton>
+            </>
+          ) : (
+            <ActionButton onClick={onSubmit} color="primary" variant="contained">
+              {submitString}
+            </ActionButton>
+          )
+        }
       </DialogActions>
     </Dialog>
   );
