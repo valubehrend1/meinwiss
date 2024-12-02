@@ -22,10 +22,10 @@ const QuestionDropdown: React.FC = () => {
     t('will_lupai_address_other_topics'), // ADD T IN G Y S
     t('lupai_is_a_prototype_question'), // ADD T IN G Y S
     t('info_lupai_provides_question'), // ADD T IN G Y S
-    t('sources_up_to_date_question'), // ADD T IN G Y S
+    /*   t('sources_up_to_date_question'), // ADD T IN G Y S */
     t('advice_about_answer'), // ADD T IN G Y S
     t('legal_advice_question'), // ADD T IN G Y S
-    t('amount_of_languages_question'), // ADD T IN G Y S
+    /*    t('amount_of_languages_question'), // ADD T IN G Y S */
     t('privacy_protection_question'), // ADD T IN G Y S
     t('lupai_cost_question'), // ADD T IN G Y S
     t('lupai_external_integration'), // ADD T IN G Y S
@@ -34,17 +34,18 @@ const QuestionDropdown: React.FC = () => {
   // ADD T IN G Y S
   const answers = [
     t('faq_section_answers.how_lupai_works'),
-    t('faq_section_answers.which_technology_use'),
+    t('faq_section_answers.which_technology_use_answer'),
     t('faq_section_answers.lupai_sources_of_information'),
     t('faq_section_answers.will_lupai_address_other_topics'),
     t('faq_section_answers.lupai_is_a_prototype_question'),
     t('faq_section_answers.does_lupai_provide_information_for_all_federal_states'),
-    t('faq_section_answers.sources_up_to_date_question'),
+    /*     t('faq_section_answers.sources_up_to_date_question'), */
     t('faq_section_answers.advice_about_answer'),
     t('faq_section_answers.legal_advice_question'),
-    t('faq_section_answers.amount_of_languages_question'),
+    /*     t('faq_section_answers.amount_of_languages_question'), */
     t('faq_section_answers.privacy_protection_question'),
     t('faq_section_answers.will_lupai_remain_free_to_use'),
+    t('faq_section_answers.is_possible_to_integrate_lupai_into_my_website'),
   ]
 
   return (
@@ -67,9 +68,9 @@ const QuestionDropdown: React.FC = () => {
               <Typography sx={{ fontSize: '1.25rem' }}>{question}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {answers.map((answer, answerIndex) => (
-                <Typography key={answerIndex} variant="h4">{answer}</Typography>
-              ))}
+              <AccordionDetails>
+                <Typography variant="h4">{answers[index]}</Typography>
+              </AccordionDetails>
             </AccordionDetails>
           </QuestionAccordion>
 
