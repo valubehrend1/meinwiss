@@ -54,7 +54,12 @@ const App: React.FC = () => {
         </Route>
         <Route path="*" element={<ErrorNotFoundPage />} />
       </Route>
-    )
+    ),
+    {
+      future: {
+        v7_startTransition: true,
+      } as const,
+    }
   );
 
   return (
