@@ -3,17 +3,16 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, B
 import { styled } from '@mui/material/styles';
 
 import { useSelector } from 'react-redux';
-
-
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
 import PdfExport from '../../Chat/PdfExport';
 import { selectMessages } from '../../../config/features/ChatSlice';
 
-// Estilos personalizados para los botones
 const ActionButton = styled(Button)({
+  marginBottom: '20px',
   borderRadius: '20px',
   padding: '10px 20px',
+  textTransform: 'none',
 });
 
 interface SharedModalProps {
@@ -45,17 +44,21 @@ const SharedModal: React.FC<SharedModalProps> = ({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{info}</DialogTitle>
+      <DialogTitle id="alert-dialog-title" variant='h5'>{info}</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {content}
-        </DialogContentText>
+        <DialogContentText id="alert-dialog-description" variant='h4'>{content}</DialogContentText>
       </DialogContent>
       <DialogActions>
         {
           isPdf ? (
-            <PDFDownloadLink document={<PdfExport messages={messages} />} fileName="somename.pdf">
-              {alternativeString}
+            <PDFDownloadLink
+              document={<PdfExport messages={messages} />}
+              fileName="conversation.pdf"
+              style={{ textDecoration: 'none' }} // Remueve subrayado
+            >
+              <ActionButton color="secondary" variant="contained">
+                {alternativeString}
+              </ActionButton>
             </PDFDownloadLink>
           ) : (
             <ActionButton onClick={onNewQuestion} color="primary" variant="contained">

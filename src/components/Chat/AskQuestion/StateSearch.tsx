@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { /* useEffect, */ useState } from 'react';
 import { Autocomplete } from '@mui/material';
 /* import { IState, State } from 'country-state-city'; */
 import { InputFieldAutoComplete, SearchBarError } from './AskQuestion/AskQuestionsStyle';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { setLocation, selectLocation } from '../../../config/features/ChatSlice';
+import { useDispatch /* useSelector */ } from 'react-redux';
+import { setLocation /* selectLocation */ } from '../../../config/features/ChatSlice';
 
 
 interface StateSearchProps {
@@ -15,7 +15,7 @@ const StateSearch: React.FC<StateSearchProps> = ({ locationError }) => {
   const dispatch = useDispatch();
   /*   const [states, setStates] = useState<IState[]>([]); */
   const [selectedState, setSelectedState] = useState<string | null>(null);
-  const location = useSelector(selectLocation);
+  /*  const location = useSelector(selectLocation); */
 
   const countryNames = ['Berlin'];
   /*
@@ -29,10 +29,6 @@ const StateSearch: React.FC<StateSearchProps> = ({ locationError }) => {
     setSelectedState(newValue);
     dispatch(setLocation(newValue));
   };
-
-  useEffect(() => {
-    console.log("location", location);
-  }, [location]);
 
   return (
     <>

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Grid } from '@mui/material';
 import {
   InputField,
   SearchBarError,
   SearchFiltersLabel,
-} from './AskQuestion/AskQuestionsStyle.tsx'; // Importa los estilos desde el archivo separado
+} from './AskQuestion/AskQuestionsStyle.tsx';
 
 import CountriesSearch from './CountriesSearch';
 import StateSearch from './StateSearch.tsx';
@@ -34,7 +34,7 @@ const MainFilters: React.FC<MainFiltersProps> = ({
   const errorMessage = parseInt(age) < 1 || parseInt(age) > 120
     ? "Your age must be between 1 and 120"
     : "Please enter your age"
-  
+
   const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newAge = event.target.value;
     setUserAge(newAge);
@@ -43,10 +43,6 @@ const MainFilters: React.FC<MainFiltersProps> = ({
   const handleAgeBlur = () => {
     dispatch(setAge(userAge));
   };
-
-  useEffect(() => {
-    console.log('User age:', age);
-  }, [age]);
 
   return (
     <>
