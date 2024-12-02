@@ -21,7 +21,7 @@ interface SharedModalProps {
   content: string;
   submitString: string;
   alternativeString: string;
-  onNewQuestion: () => void;
+  onSubmit: () => void;
   onCancel: () => void;
   isPdf?: boolean;
 }
@@ -32,9 +32,10 @@ const SharedModal: React.FC<SharedModalProps> = ({
   content,
   submitString,
   alternativeString,
-  onNewQuestion,
+  onSubmit,
   onCancel,
-  isPdf }) => {
+  isPdf
+}) => {
   const messages = useSelector(selectMessages);
 
   return (
@@ -51,24 +52,26 @@ const SharedModal: React.FC<SharedModalProps> = ({
       <DialogActions>
         {
           isPdf ? (
-            <PDFDownloadLink
-              document={<PdfExport messages={messages} />}
-              fileName="conversation.pdf"
-              style={{ textDecoration: 'none' }} // Remueve subrayado
-            >
-              <ActionButton color="secondary" variant="contained">
-                {alternativeString}
+            <>
+              <PDFDownloadLink
+                document={<PdfExport messages={messages} />}
+                fileName="conversation.pdf"
+                style={{ textDecoration: 'none' }} // Remueve subrayado
+              >
+                <ActionButton color="secondary" variant="contained">
+                  {alternativeString}
+                </ActionButton>
+              </PDFDownloadLink>
+              <ActionButton onClick={onCancel} color="primary" variant="contained">
+                {submitString}
               </ActionButton>
-            </PDFDownloadLink>
+            </>
           ) : (
-            <ActionButton onClick={onNewQuestion} color="primary" variant="contained">
+            <ActionButton onClick={onSubmit} color="primary" variant="contained">
               {submitString}
             </ActionButton>
           )
         }
-        <ActionButton onClick={onNewQuestion} color="primary" variant="contained">
-          {submitString}
-        </ActionButton>
       </DialogActions>
     </Dialog>
   );

@@ -21,6 +21,7 @@ import { ChatContainer, MessagesContainer } from './ChatStyles';
 
 import { useWebSocket } from '../../../context/useWebSocket';
 import NewQuestionModal from './NewQuestionModal';
+import ErrorModal from '../ErrorModal/ErrorModal';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -30,12 +31,23 @@ const Chat: React.FC = () => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState(false);
   const [hasSentMessage, setHasSentMessage] = useState(false);
 
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
 
   const handleOpen = () => {
     setIsOpen(true);
+  };
+
+  const handleCloseError = () => {
+    setError(false);
+  }
+
+  const onCancelPdfModal = () => {
+    setIsOpen(false);
+    navigate('/ask-lupai');
+    window.location.reload();
   };
 
   const dispatch = useDispatch();
@@ -112,9 +124,10 @@ const Chat: React.FC = () => {
           <NewQuestionModal
             isOpen={isOpen}
             onNewQuestion={handleNewQuestion}
-            onCancel={() => setIsOpen(false)}
+            onCancel={onCancelPdfModal}
           />
         )}
+        {error && <ErrorModal isOpen={error} onClose={handleCloseError} />}
         {messages.map((message, index) => (
           <MessagesContainer key={index} sender={message.sender}>
             {message.sender === 'user' && (

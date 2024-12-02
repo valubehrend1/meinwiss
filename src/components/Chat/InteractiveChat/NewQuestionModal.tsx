@@ -13,7 +13,7 @@ const NewQuestionModal: React.FC<NewQuestionModalProps> = ({ isOpen, onNewQuesti
     <SharedModal
       open={isOpen}
       onCancel={onCancel}
-      onNewQuestion={onNewQuestion}
+      onSubmit={onNewQuestion}
       submitString="New Question"
       alternativeString="Download this conversation"
       info="When you start a new search, your current search will disappear and you will not be able to read the results again."

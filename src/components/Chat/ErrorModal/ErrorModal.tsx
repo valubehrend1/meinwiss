@@ -1,20 +1,33 @@
-/* import React from 'react';
+import React from 'react';
+
+import { useNavigate } from 'react-router-dom'
+
 import SharedModal from '../../shared/SharedModal/SharedModal';
 
 interface ErrorModalProps {
-    isOpen: boolean;
-    onClose: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const ErrorModal: React.FC<ErrorModalProps> = ({ isOpen, onClose }) => {
-    return (
-        <SharedModal isOpen={isOpen} onClose={onClose} title="Error">
-            <div>
-                <p>El chat no está funcionando en este momento. Por favor, inténtelo de nuevo más tarde.</p>
-            </div>
-        </SharedModal>
-    );
+  const navigate = useNavigate()
+
+  const handleError = () => {
+    navigate('/ask-lupai');
+    window.location.reload();
+    onClose();
+  }
+  return (
+    <SharedModal open={isOpen}
+      onCancel={onClose}
+      onSubmit={handleError}
+      submitString="Try again"
+      alternativeString="Cancel"
+      info="Error"
+      content="There was an error loading the answer, please try again."
+      isPdf={false}>
+    </SharedModal>
+  );
 };
 
 export default ErrorModal;
- */
