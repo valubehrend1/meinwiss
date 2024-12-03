@@ -9,7 +9,7 @@ import HowlupaiWorksSection from './Sections/HowlupaiWorksSection/HowLupaiWorksS
 import HowLupaiWorksMobile from './Sections/HowlupaiWorksSection/HowLupaiWorksMobile';
 import LogosSection from './Sections/LogosSection/LogosSection';
 import GetInTouch from './Sections/GetInTouchSection/GetInTouch';
-/* import DonateButton from './DonateButton/DonateButton'; */
+import DonateButton from './DonateButton/DonateButton';
 import theme from '../../theme';
 
 const Home: React.FC = () => {
@@ -22,7 +22,7 @@ const Home: React.FC = () => {
       {matches ? <HowlupaiWorksSection /> : <HowLupaiWorksMobile />}
       <LogosSection />
       <GetInTouch />
-      {/*       <DonateButton /> */}
+      <DonateButton />
     </div>
   );
 };

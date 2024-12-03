@@ -22,10 +22,42 @@ export const TeamMemberGrid = styled(Grid)({
   },
 });
 
-export const StyledAvatar = styled(Avatar)({
+export const TeamImageWrapper = styled(Box)({
+  position: 'relative',
   width: '200px',
   height: '200px',
   borderRadius: '15px',
+  overflow: 'hidden',
+  '&:hover .overlay': {
+    opacity: 1,
+  },
+});
+
+export const StyledAvatar = styled(Avatar)({
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+  borderRadius: 'inherit',
+});
+
+export const Overlay = styled(Box)({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)', // Capa negra translúcida
+  color: '#FFF',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  opacity: 0, // Oculta por defecto
+  transition: 'opacity 0.3s ease-in-out',
+  fontSize: '1.2rem',
+  fontWeight: 'bold',
+  borderRadius: 'inherit',
+  textAlign: 'center',
 });
 
 export const TeamContactBox = styled(Box)({

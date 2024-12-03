@@ -8,7 +8,9 @@ import {
   StyledAvatar,
   TeamContactBox,
   UnderlinedText,
-  GridImageContainer
+  GridImageContainer,
+  TeamImageWrapper,
+  Overlay,
 } from './TeamStyles';
 
 import Ceci from '../../../assets/Team/Ceci.png';
@@ -23,26 +25,24 @@ import Anna from '../../../assets/Team/Anna.png';
 import Simon from '../../../assets/Team/Simon.png';
 
 const TeamPage: React.FC = () => {
-
-
   const teamMembersColumnOne = [
-    { name: 'Member 1', imgSrc: Ceci },
-    { name: 'Member 2', imgSrc: Aqua },
-    { name: 'Member 3', imgSrc: Luce },
-  ]
+    { name: 'Cecilia Maas', title: 'CEO & Product Manager', imgSrc: Ceci },
+    { name: 'Aquarela Padilla', title: 'Researcher', imgSrc: Aqua },
+    { name: 'Lucena Palma', title: 'Communications Manager', imgSrc: Luce },
+  ];
 
   const teamMembersColumnTwo = [
-    { name: 'Member 1', imgSrc: Ry },
-    { name: 'Member 2', imgSrc: Lio },
-    { name: 'Member 3', imgSrc: Max },
-    { name: 'Member 3', imgSrc: Jan },
-  ]
+    { name: 'Ryan della Salla', title: 'Researcher', imgSrc: Ry },
+    { name: 'Lionel Chamorro', title: 'AI Architect', imgSrc: Lio },
+    { name: 'Max Telias', title: 'Administrative Manager', imgSrc: Max },
+    { name: 'Jan Kühn', title: 'Data Consultant', imgSrc: Jan },
+  ];
 
   const teamMembersColumnThree = [
-    { name: 'Member 1', imgSrc: Valu },
-    { name: 'Member 2', imgSrc: Anna },
-    { name: 'Member 3', imgSrc: Simon },
-  ]
+    { name: 'Valeria Behrend', title: 'Frontend Developer & UX/UI Designer', imgSrc: Valu },
+    { name: 'Anna Schüler', title: 'Position', imgSrc: Anna },
+    { name: 'Simon Toewe', title: 'Position', imgSrc: Simon },
+  ];
 
   return (
     <SectionContainer>
@@ -57,16 +57,14 @@ const TeamPage: React.FC = () => {
               Explore the skilled professionals whose collaborative efforts and expertise drive our team's achievements and success.
             </Typography>
             <TeamContactBox>
-              <Typography variant="h5">
-                Contact person
-              </Typography>
-              <Typography variant="h5">
-                Dr. Cecilia Maas
-              </Typography>
-              <UnderlinedText variant="h5">
-                E-Mail: cecilia.maas@aureka.ai
-              </UnderlinedText>
-              <Link href="#" variant="h5" sx={{ textDecoration: 'underline' }}>
+              <Typography variant="h5">Contact person</Typography>
+              <Typography variant="h5">Dr. Cecilia Maas</Typography>
+              <UnderlinedText variant="h5">E-Mail: cecilia.maas@aureka.ai</UnderlinedText>
+              <Link
+                href="https://www.linkedin.com/in/cecilia-maas-49850091/"
+                variant="h5"
+                sx={{ textDecoration: 'underline' }}
+                target='blank'>
                 LinkedIn-Profil
               </Link>
             </TeamContactBox>
@@ -75,22 +73,22 @@ const TeamPage: React.FC = () => {
 
         {/* Contenedor para las imágenes del equipo */}
         <Grid item xs={12} md={8}>
-          <TeamMemberGrid container >
-            <GridImageContainer item xs={12} sm={3} className='grid-1'>
-              {teamMembersColumnOne.map((member, index) => (
-                <StyledAvatar key={index} src={member.imgSrc} alt={member.name} />
-              ))}
-            </GridImageContainer>
-            <GridImageContainer item xs={12} sm={3} className='grid-2'>
-              {teamMembersColumnTwo.map((member, index) => (
-                <StyledAvatar key={index} src={member.imgSrc} alt={member.name} />
-              ))}
-            </GridImageContainer>
-            <GridImageContainer item xs={12} sm={3} className='grid-3'>
-              {teamMembersColumnThree.map((member, index) => (
-                <StyledAvatar key={index} src={member.imgSrc} alt={member.name} />
-              ))}
-            </GridImageContainer>
+          <TeamMemberGrid container>
+            {[teamMembersColumnOne, teamMembersColumnTwo, teamMembersColumnThree].map(
+              (teamColumn, columnIndex) => (
+                <GridImageContainer item xs={12} sm={3} key={columnIndex}>
+                  {teamColumn.map((member, index) => (
+                    <TeamImageWrapper key={index}>
+                      <StyledAvatar src={member.imgSrc} alt={member.name} />
+                      <Overlay className="overlay">
+                        <span>{member.name}</span>
+                        <span style={{ fontSize: '1rem', fontWeight: 'normal' }}>{member.title}</span>
+                      </Overlay>
+                    </TeamImageWrapper>
+                  ))}
+                </GridImageContainer>
+              )
+            )}
           </TeamMemberGrid>
         </Grid>
       </Grid>

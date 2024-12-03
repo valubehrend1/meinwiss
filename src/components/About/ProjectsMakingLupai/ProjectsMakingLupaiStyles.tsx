@@ -66,7 +66,11 @@ export const LearnMoreButtonContainer = styled(Button)({
   display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'flex-start',
-  height: '100%'
+  height: '100%',
+  '&:hover': {
+    backgroundColor: 'transparent',
+    cursor: 'inherit'
+  },
 });
 
 export const LearnMoreButton = styled(Button)({

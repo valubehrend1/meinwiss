@@ -16,9 +16,13 @@ import { LogoPlaceholder, StyledToolBar, DividerLine } from './NavbarStyles';
 import NavbarItesmDesktop from './NavbarItemsDesktop';
 import NavbarItemsMobile from './NavbarItemsMobile';
 
+import DonateBanner from '../../Home/DonateButton/DonateBanner';
+
+import logo from '../../../assets/Lupai_Logo_Dark_Green.png';
+
 
 const Navbar: React.FC = () => {
-  const imageSrc = '/src/assets/Lupai_Logo_Dark_Green.png';
+  /*   const imageSrc = '/src/assets/Lupai_Logo_Dark_Green.png'; */
   const isMobile = useMediaQuery(theme.breakpoints.down(980));
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -35,6 +39,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
+      {!isMobile ? <DonateBanner /> : null}
       <AppBar position="static" elevation={0} sx={{ backgroundColor: 'white' }}>
         <StyledToolBar>
           <IconButton edge="start" color="inherit" aria-label="logo" href='/' sx={{
@@ -42,7 +47,7 @@ const Navbar: React.FC = () => {
               backgroundColor: 'transparent',
             },
           }}>
-            <LogoPlaceholder src={imageSrc} alt="Logo" />
+            <LogoPlaceholder src={logo} alt="Logo" />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           {isMobile ? (
