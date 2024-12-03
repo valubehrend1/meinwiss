@@ -4,14 +4,18 @@ import { GridImageContainer, FirstColumn, SecondColumn, ThirdColumn } from './Fi
 
 import handsPhoto from '../../../../assets/hands-1.jpg';
 import streetTrainPhoto from '../../../../assets/street-train-1.jpg';
+import backPackGirlPhoto from '../../../../assets/backpack-girl.jpg';
+import smilingGirlPhoto from '../../../../assets/vince-fleming-GvIZU9SvrKg-unsplash.jpg';
+import trainPhoto from '../../../../assets/leon-bublitz-J-eJiV_VGOs-unsplash.jpg';
+import stationPhoto from '../../../../assets/zuyet-awarmatik-XS_rVU5a4GU-unsplash.jpg';
 
 const images = [
+  backPackGirlPhoto,
   handsPhoto,
   streetTrainPhoto,
-  handsPhoto,
-  streetTrainPhoto,
-  handsPhoto,
-  streetTrainPhoto,
+  trainPhoto,
+  smilingGirlPhoto,
+  stationPhoto,
 ];
 
 const ImageGrid: React.FC = () => {
