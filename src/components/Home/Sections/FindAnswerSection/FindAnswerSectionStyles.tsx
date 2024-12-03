@@ -104,7 +104,7 @@ export const SecondColumn = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   width: '284px',
-  height: '415px',
+  height: '50%',
   '& img': {
     borderRadius: theme.spacing(2),
     width: '100%',
@@ -121,7 +121,7 @@ export const ThirdColumn = styled(Box)(({ theme }) => ({
   zIndex: '-1',
   justifyContent: 'center',
   width: '269px',
-  height: '313px',
+  height: '280px',
   '& img': {
     borderRadius: theme.spacing(2),
     width: '100%',
@@ -137,5 +137,5 @@ export const SectionMainContainer = styled(Box)({
   maxHeight: '900px',
   overflowY: 'hidden',
   gap: theme.spacing(1),
-  height: '500px'
+  height: '700px'
 });

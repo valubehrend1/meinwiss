@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Autocomplete } from '@mui/material';
 import {
@@ -7,8 +7,8 @@ import {
 } from './AskQuestion/AskQuestionsStyle'; // Importa los estilos desde el archivo separado
 
 import { countries } from 'countries-list';
-import { useDispatch, useSelector } from 'react-redux';
-import { setOriginCountry, selectOriginCountry } from '../../../config/features/ChatSlice';
+import { useDispatch } from 'react-redux';
+import { setOriginCountry } from '../../../config/features/ChatSlice';
 
 interface CountriesSearchProps {
   countryError: boolean;
@@ -17,7 +17,6 @@ interface CountriesSearchProps {
 
 const CountriesSearch: React.FC<CountriesSearchProps> = ({ countryError }) => {
   const dispatch = useDispatch();
-  const originCountry = useSelector(selectOriginCountry);
   const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
 
   const countryNames = Object.values(countries).map(country => country.name);
@@ -26,11 +25,6 @@ const CountriesSearch: React.FC<CountriesSearchProps> = ({ countryError }) => {
     setSelectedPlace(newValue);
     dispatch(setOriginCountry(newValue));
   };
-
-  useEffect(() => {
-    console.log("SelectedPlace", originCountry);
-  }, [originCountry]);
-
 
   return (
     <>
