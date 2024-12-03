@@ -23,6 +23,14 @@ import { useTranslation } from 'react-i18next'
 
 const ProjectsMakingLupai: React.FC = () => {
   const { t } = useTranslation()
+
+  const handleRedirectoToLohana = () => {
+    window.open('https://www.ceplohanaberkins.org/es/home-es/', '_blank')
+  }
+
+  const handleRedirectoToAureka = () => {
+    window.open('https://www.aureka.ai/', '_blank')
+  }
   return (
     <ProjectsContainer>
       <LogosTextContainer>
@@ -40,7 +48,7 @@ const ProjectsMakingLupai: React.FC = () => {
                 {t('center_for_popular_education_description')}
               </Typography>
               <Box sx={{ display: 'flex' }}>
-                <LearnMoreButton variant="contained">
+                <LearnMoreButton variant="contained" onClick={handleRedirectoToLohana}>
                   {t('more_information')}
                   <ArrowForwardIcon />
                 </LearnMoreButton>
@@ -57,7 +65,7 @@ const ProjectsMakingLupai: React.FC = () => {
                 {t('aureka_description')}
               </Typography>
               <LearnMoreButtonContainer>
-                <LearnMoreButton variant="contained">
+                <LearnMoreButton variant="contained" onClick={handleRedirectoToAureka}>
                   {t('more_information')}
                   <ArrowForwardIcon />
                 </LearnMoreButton>
