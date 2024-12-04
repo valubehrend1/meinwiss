@@ -10,9 +10,10 @@ const Layout: React.FC = () => {
       display: 'flex',
       flexDirection: 'column',
       minHeight: '100vh',
+      position: 'relative',
     }}>
       <Navbar />
-      <Box sx={{ flex: 1, overflowY: 'auto' }}>
+      <Box sx={{ flex: 1, overflowY: 'auto', marginBottom: '160px' }}>
         <Outlet />
       </Box>
       <Box sx={{ mt: 'auto' }}>
