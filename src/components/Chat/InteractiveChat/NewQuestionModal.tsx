@@ -6,12 +6,14 @@ interface NewQuestionModalProps {
   isOpen: boolean;
   onNewQuestion: () => void;
   onCancel: () => void;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NewQuestionModal: React.FC<NewQuestionModalProps> = ({ isOpen, onNewQuestion, onCancel }) => {
+const NewQuestionModal: React.FC<NewQuestionModalProps> = ({ isOpen, onNewQuestion, onCancel, setIsOpen }) => {
   return (
     <SharedModal
       open={isOpen}
+      setIsOpen={setIsOpen}
       onCancel={onCancel}
       onSubmit={onNewQuestion}
       submitString="New Question"
