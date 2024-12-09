@@ -24,7 +24,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
   const [ws, setWs] = useState<WebSocket | null>(null);
 
   useEffect(() => {
-    const wsInstance = new WebSocket('/lupai/agent/chat');
+    const wsInstance = new WebSocket('/lupai/multi_agent/chat');
     setWs(wsInstance);
 
     wsInstance.onopen = () => {
