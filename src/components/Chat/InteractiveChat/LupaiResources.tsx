@@ -60,7 +60,6 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
     return acc;
   }, {} as { [key: string]: Array<{ source_name: string; text: string; source_url: string; }> });
 
-  console.log(groupedItems)
   return (
     <LupaiResourcesContainer>
       {Object.entries(groupedItems).map(([source, item], index) => (

@@ -29,8 +29,6 @@ const AskQuestionStep2: React.FC = () => {
 
   const handleAskQuestionClick = () => {
     setIsExiting(true);
-    console.log("User query:", userQuery);
-    console.log("Filters:", userContext);
     navigate(`/ask-lupai/step3`)
   };
 
@@ -77,4 +75,3 @@ const AskQuestionStep2: React.FC = () => {
 };
 
 export default AskQuestionStep2;
-
