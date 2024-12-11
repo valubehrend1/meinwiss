@@ -10,7 +10,11 @@ import {
   resetSearch,
 } from '../../../config/features/ChatSlice';
 
-import { Box } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
+import DownloadIcon from '@mui/icons-material/Download';
+
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import PdfExport from '../PdfExport';
 
 import SharedSearchBar from '../../shared/SharedSearchBar/SharedSearchBar';
 import LupaiAnswer from './LupaiAnswer';
@@ -24,6 +28,7 @@ import NewQuestionModal from './NewQuestionModal';
 import ErrorModal from '../ErrorModal/ErrorModal';
 
 import { useNavigate } from 'react-router-dom';
+import theme from '../../../theme';
 
 const Chat: React.FC = () => {
   const messages = useSelector(selectMessages);
@@ -144,15 +149,23 @@ const Chat: React.FC = () => {
             <LupaiAnswer content="" sources={[]} />
           </MessagesContainer>
         )}
-        <Box sx={{ marginTop: '20px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '20px' }}>
           <SharedSearchBar
             mainSearchPage={false}
             sendMessage={(messageContent) => {
               dispatch(addUserMessage(messageContent));
               sendMessage(messageContent);
             }}
-
           />
+          <PDFDownloadLink
+            document={<PdfExport messages={messages} />}
+            fileName="conversation.pdf"
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <IconButton>
+              <DownloadIcon sx={{ color: theme.palette.primary.main }} />
+            </IconButton>
+          </PDFDownloadLink>
         </Box>
         <AddNewQuestion handleOpen={handleOpen} />
       </ChatContainer>
