@@ -125,6 +125,7 @@ const Chat: React.FC = () => {
             isOpen={isOpen}
             onNewQuestion={handleNewQuestion}
             onCancel={onCancelPdfModal}
+            setIsOpen={setIsOpen}
           />
         )}
         {error && <ErrorModal isOpen={error} onClose={handleCloseError} />}
