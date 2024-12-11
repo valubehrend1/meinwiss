@@ -40,7 +40,7 @@ interface AssistantResponse {
   sensitive_topic: unknown; // Reemplaza 'any' con el tipo adecuado
   intent: string;
   is_loading: boolean;
-  error: unknown; // Reemplaza 'any' con el tipo adecuado
+  error: null; // Reemplaza 'any' con el tipo adecuado
 }
 
 
