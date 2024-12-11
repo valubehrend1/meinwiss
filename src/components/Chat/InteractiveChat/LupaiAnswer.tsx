@@ -20,11 +20,8 @@ interface LupaiAnswerProps {
 
 
 const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound }) => {
-  console.log(sources)
   const [displayedText, setDisplayedText] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
-
-  console.log(sources, 'sources');
 
   useEffect(() => {
     if (index < content.length) {

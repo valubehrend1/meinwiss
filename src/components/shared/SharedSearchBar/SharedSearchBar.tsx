@@ -38,15 +38,12 @@ const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendM
   const handleBlurSearchQuery = () => {
     if (searchQuery.trim() === '') return;
     dispatch(setUserQuery(searchQuery));
-    console.log('Search query:', searchQuery);
   };
 
   const onEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       if (mainSearchPage) {
         setSearchQuery(searchQuery);
-        console.log('Search query:', searchQuery);
-        console.log(mainSearchPage, 'mainSearchPage');
       }
       event.preventDefault(); // Prevenir comportamiento por defecto
       handleSendMessage();
