@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectMessages,
   setAssistantResponse,
-  selectAssistantResponse,
   selectError,
   addUserMessage,
   selectUserContext,
