@@ -48,10 +48,10 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound
             <StyledMarkdown>{displayedText}</StyledMarkdown>
           </Typography>
           {!answerFound &&
-            <>
-              <Typography>This response is based on different resources: </Typography>
+            <Box sx={{ gap: '15px', display: 'flex', flexDirection: 'column' }}>
+              <Typography >This response is based on different resources: </Typography>
               <LupaiResources retrieverItems={sources} />
-            </>
+            </Box>
           }
         </Box>
       )}
