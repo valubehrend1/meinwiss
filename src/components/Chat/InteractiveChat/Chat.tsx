@@ -5,12 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectMessages,
   setAssistantResponse,
+  selectError,
   addUserMessage,
   selectUserContext,
   resetSearch,
+  setError
 } from '../../../config/features/ChatSlice';
 
-import { Box } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
+import DownloadIcon from '@mui/icons-material/Download';
+
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import PdfExport from '../PdfExport';
 
 import SharedSearchBar from '../../shared/SharedSearchBar/SharedSearchBar';
 import LupaiAnswer from './LupaiAnswer';
@@ -24,6 +30,7 @@ import NewQuestionModal from './NewQuestionModal';
 import ErrorModal from '../ErrorModal/ErrorModal';
 
 import { useNavigate } from 'react-router-dom';
+import theme from '../../../theme';
 
 const Chat: React.FC = () => {
   const messages = useSelector(selectMessages);
@@ -31,17 +38,17 @@ const Chat: React.FC = () => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState(false);
   const [hasSentMessage, setHasSentMessage] = useState(false);
 
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
+  const responseError = useSelector(selectError)
 
   const handleOpen = () => {
     setIsOpen(true);
   };
 
   const handleCloseError = () => {
-    setError(false);
+    dispatch(setError(null));
   }
 
   const onCancelPdfModal = () => {
@@ -79,7 +86,6 @@ const Chat: React.FC = () => {
       console.error('WebSocket no está abierto para enviar mensajes.');
     }
   };
-
 
   // Hook useEffect para manejar el envío de mensajes(si hay modificaciones en las variables dependientes)
 
@@ -125,9 +131,10 @@ const Chat: React.FC = () => {
             isOpen={isOpen}
             onNewQuestion={handleNewQuestion}
             onCancel={onCancelPdfModal}
+            setIsOpen={setIsOpen}
           />
         )}
-        {error && <ErrorModal isOpen={error} onClose={handleCloseError} />}
+        {responseError && <ErrorModal isOpen={true} onClose={handleCloseError} />}
         {messages.map((message, index) => (
           <MessagesContainer key={index} sender={message.sender}>
             {message.sender === 'user' && (
@@ -143,15 +150,23 @@ const Chat: React.FC = () => {
             <LupaiAnswer content="" sources={[]} />
           </MessagesContainer>
         )}
-        <Box sx={{ marginTop: '20px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '20px' }}>
           <SharedSearchBar
             mainSearchPage={false}
             sendMessage={(messageContent) => {
               dispatch(addUserMessage(messageContent));
               sendMessage(messageContent);
             }}
-
           />
+          <PDFDownloadLink
+            document={<PdfExport messages={messages} />}
+            fileName="conversation.pdf"
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <IconButton>
+              <DownloadIcon sx={{ color: theme.palette.primary.main }} />
+            </IconButton>
+          </PDFDownloadLink>
         </Box>
         <AddNewQuestion handleOpen={handleOpen} />
       </ChatContainer>

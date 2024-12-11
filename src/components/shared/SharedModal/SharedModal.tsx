@@ -1,6 +1,8 @@
 import React from 'react';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, IconButton, Box } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+
+import { styled } from '@mui/system';
 
 import { useSelector } from 'react-redux';
 import { PDFDownloadLink } from '@react-pdf/renderer';
@@ -17,6 +19,7 @@ const ActionButton = styled(Button)({
 
 interface SharedModalProps {
   open: boolean;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   info: string;
   content: string;
   submitString: string;
@@ -28,6 +31,7 @@ interface SharedModalProps {
 
 const SharedModal: React.FC<SharedModalProps> = ({
   open,
+  setIsOpen,
   info,
   content,
   submitString,
@@ -41,11 +45,23 @@ const SharedModal: React.FC<SharedModalProps> = ({
   return (
     <Dialog
       open={open}
-      onClose={onCancel}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      onClose={() => setIsOpen?.(false)}
     >
-      <DialogTitle id="alert-dialog-title" variant='h5'>{info}</DialogTitle>
+      <Box sx={{ display: 'flex', gap: '0px' }}>
+        <Box>
+          <DialogTitle id="alert-dialog-title" variant='h5'>{info}</DialogTitle>
+        </Box>
+        <Box sx={{ marginRight: '20px', marginTop: '20px' }}>
+          <IconButton
+            aria-label="close"
+            onClick={() => setIsOpen?.(false)}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Box>
+      </Box>
       <DialogContent>
         <DialogContentText id="alert-dialog-description" variant='h4'>{content}</DialogContentText>
       </DialogContent>

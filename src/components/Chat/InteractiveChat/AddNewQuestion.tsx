@@ -20,6 +20,7 @@ const AddNewQuestion: React.FC<AddNewQuestionProps> = ({ handleOpen }) => {
         sx={{
           boxShadow: 'none',
           padding: '14px 18px',
+
           textTransform: 'capitalize',
           fontSize: '12px'
         }}>

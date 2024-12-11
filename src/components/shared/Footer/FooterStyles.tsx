@@ -9,6 +9,10 @@ export const FooterContainer = styled(Box)({
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '5rem',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  width: '100%',
   [theme.breakpoints.down('md')]: {
     padding: '5rem 1.5rem',
   },
