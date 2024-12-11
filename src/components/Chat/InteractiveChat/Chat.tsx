@@ -5,9 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectMessages,
   setAssistantResponse,
+  selectAssistantResponse,
+  selectError,
   addUserMessage,
   selectUserContext,
   resetSearch,
+  setError
 } from '../../../config/features/ChatSlice';
 
 import { Box, IconButton } from '@mui/material';
@@ -36,17 +39,17 @@ const Chat: React.FC = () => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState(false);
   const [hasSentMessage, setHasSentMessage] = useState(false);
 
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
+  const responseError = useSelector(selectError)
 
   const handleOpen = () => {
     setIsOpen(true);
   };
 
   const handleCloseError = () => {
-    setError(false);
+    dispatch(setError(null));
   }
 
   const onCancelPdfModal = () => {
@@ -84,7 +87,6 @@ const Chat: React.FC = () => {
       console.error('WebSocket no está abierto para enviar mensajes.');
     }
   };
-
 
   // Hook useEffect para manejar el envío de mensajes(si hay modificaciones en las variables dependientes)
 
@@ -133,7 +135,7 @@ const Chat: React.FC = () => {
             setIsOpen={setIsOpen}
           />
         )}
-        {error && <ErrorModal isOpen={error} onClose={handleCloseError} />}
+        {responseError && <ErrorModal isOpen={true} onClose={handleCloseError} />}
         {messages.map((message, index) => (
           <MessagesContainer key={index} sender={message.sender}>
             {message.sender === 'user' && (
