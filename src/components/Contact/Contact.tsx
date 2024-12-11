@@ -13,7 +13,11 @@ import {
 } from './ContactStyles';
 import handsPhoto from '../../assets/hands.jpg';
 import lookingPhoto from '../../assets/looking-phone.jpg';
+
 import { useTranslation } from 'react-i18next';
+
+import { motion } from 'framer-motion';
+
 
 const images = [handsPhoto, lookingPhoto];
 
@@ -23,7 +27,9 @@ const Contact: React.FC = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
+  const [loadedImage, setLoadedImage] = useState(false);
+
 
   const [formData, setFormData] = useState({
     from_name: '',
@@ -152,10 +158,20 @@ const Contact: React.FC = () => {
         <GridImageContainer className='image-grid-container'>
           <FirstColumn className='first-column'>
             <Box>
-              <img src={images[0]} alt={t('hands_image_alt')} />
+              <motion.img src={images[0]}
+                alt={t('hands_image_alt')}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: loadedImage ? 1 : 0, scale: loadedImage ? 1 : 0.95 }}
+                transition={{ duration: 1, ease: 'easeInOut' }}
+                onLoad={() => setLoadedImage(true)} />
             </Box>
             <Box>
-              <img src={images[1]} alt={t('looking_phone_image_alt')} />
+              <motion.img
+                src={images[1]} alt={t('looking_phone_image_alt')}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: loadedImage ? 1 : 0, scale: loadedImage ? 1 : 0.95 }}
+                transition={{ duration: 1, ease: 'easeInOut' }}
+                onLoad={() => setLoadedImage(true)} />
             </Box>
           </FirstColumn>
 

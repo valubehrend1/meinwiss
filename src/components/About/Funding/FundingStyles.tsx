@@ -1,6 +1,8 @@
 import { styled } from '@mui/system';
 import { Grid, Box } from '@mui/material';
 
+import { Img } from 'react-image';
+
 
 export const FundingContainer = styled(Box)(({ theme }) => ({
   padding: '7.5rem 6.5rem',
@@ -23,7 +25,7 @@ export const FundingGrid = styled(Grid)(({ theme }) => ({
   },
 }));
 
-export const Logo = styled('img')(() => ({
+export const Logo = styled(Img)(() => ({
   width: '70%',
   alignItems: 'center',
 }));
