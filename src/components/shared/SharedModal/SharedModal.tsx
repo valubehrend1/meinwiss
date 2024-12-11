@@ -19,7 +19,7 @@ const ActionButton = styled(Button)({
 
 interface SharedModalProps {
   open: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   info: string;
   content: string;
   submitString: string;
@@ -47,7 +47,7 @@ const SharedModal: React.FC<SharedModalProps> = ({
       open={open}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      onClose={() => setIsOpen(false)}
+      onClose={() => setIsOpen?.(false)}
     >
       <Box sx={{ display: 'flex', gap: '0px' }}>
         <Box>
@@ -56,7 +56,7 @@ const SharedModal: React.FC<SharedModalProps> = ({
         <Box sx={{ marginRight: '20px', marginTop: '20px' }}>
           <IconButton
             aria-label="close"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setIsOpen?.(false)}
           >
             <CloseIcon />
           </IconButton>
