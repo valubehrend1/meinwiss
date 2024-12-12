@@ -16,10 +16,11 @@ interface LupaiAnswerProps {
   content: string;
   sources: RetrieverItem[];
   answerFound?: boolean;
+  isFinalResponse: boolean;
 }
 
 
-const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound }) => {
+const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound, isFinalResponse }) => {
   const [displayedText, setDisplayedText] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
 
@@ -40,14 +41,14 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound
         <img src={logo} alt="Logo" style={{ width: '20px' }} />
       </Box>
 
-      {!content ? (
+      {!content && isFinalResponse ? (
         <TypingDots />
       ) : (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant="h5" style={{ color: '#333' }}>
             <StyledMarkdown>{displayedText}</StyledMarkdown>
           </Typography>
-          {!answerFound &&
+          {!answerFound && isFinalResponse &&
             <Box sx={{ gap: '15px', display: 'flex', flexDirection: 'column' }}>
               <Typography >This response is based on different resources: </Typography>
               <LupaiResources retrieverItems={sources} />

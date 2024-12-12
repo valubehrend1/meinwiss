@@ -5,6 +5,7 @@ export interface Message {
   content: string;
   sources?: RetrieverItem[];
   answerFound?: boolean;
+  isFinalResponse: boolean;
 }
 
 interface UserContext {
@@ -37,6 +38,7 @@ interface AssistantResponse {
   };
   domain: string;
   improved_query: string | null;
+  is_final_response: boolean;
   sensitive_topic: unknown; // Reemplaza 'any' con el tipo adecuado
   intent: string;
   is_loading: boolean;
@@ -76,6 +78,7 @@ const initialState: ChatState = {
     },
     domain: "",
     improved_query: null,
+    is_final_response: false,
     sensitive_topic: null,
     intent: "",
     is_loading: false,
@@ -104,6 +107,7 @@ const chatSlice = createSlice({
         content: action.payload.assistant_response.improved_answer,
         sources: action.payload.retriever_items,
         answerFound: action.payload.answer_found,
+        isFinalResponse: action.payload.is_final_response,
       }];
       // Añadir la respuesta del asistente como un nuevo mensaje
       /*      state.messages.push({
@@ -148,6 +152,7 @@ const chatSlice = createSlice({
         {
           sender: 'user',
           content: action.payload,
+          isFinalResponse: action.payload.is_final_response,
         },
       ];
     },
