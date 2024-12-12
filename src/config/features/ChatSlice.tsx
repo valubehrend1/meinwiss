@@ -5,6 +5,7 @@ export interface Message {
   content: string;
   sources?: RetrieverItem[];
   answerFound?: boolean;
+  isClarification?: boolean;
 }
 
 interface UserContext {
@@ -38,6 +39,7 @@ interface AssistantResponse {
   domain: string;
   improved_query: string | null;
   sensitive_topic: unknown; // Reemplaza 'any' con el tipo adecuado
+  is_clarification: boolean;
   intent: string;
   is_loading: boolean;
   error: null; // Reemplaza 'any' con el tipo adecuado
@@ -77,6 +79,7 @@ const initialState: ChatState = {
     domain: "",
     improved_query: null,
     sensitive_topic: null,
+    is_clarification: false,
     intent: "",
     is_loading: false,
     error: null,
@@ -104,6 +107,7 @@ const chatSlice = createSlice({
         content: action.payload.assistant_response.improved_answer,
         sources: action.payload.retriever_items,
         answerFound: action.payload.answer_found,
+        isClarification: action.payload.is_clarification,
       }];
       // Añadir la respuesta del asistente como un nuevo mensaje
       /*      state.messages.push({
