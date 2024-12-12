@@ -141,7 +141,11 @@ const Chat: React.FC = () => {
               <UserQuestion content={message.content} />
             )}
             {message.sender === 'assistant' && (
-              <LupaiAnswer content={message.content} sources={message.sources || []} isFinalResponse={message.isFinalResponse} />
+              <LupaiAnswer
+                content={message.content}
+                sources={message.sources || []}
+                isClarification={message.isClarification}
+                isFinalResponse={message.isFinalResponse} />
             )}
           </MessagesContainer>
         ))}

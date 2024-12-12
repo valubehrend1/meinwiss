@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
 import TypingDots from './TypingDots'
 import { LupaiAnswerContainer, StyledMarkdown } from './ChatStyles'
 import { Box } from '@mui/material/';
@@ -17,10 +16,11 @@ interface LupaiAnswerProps {
   sources: RetrieverItem[];
   answerFound?: boolean;
   isFinalResponse: boolean;
+  isClarification?: boolean;
 }
 
 
-const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound, isFinalResponse }) => {
+const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound, isFinalResponse, isClarification }) => {
   const [displayedText, setDisplayedText] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
 
@@ -41,14 +41,14 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound
         <img src={logo} alt="Logo" style={{ width: '20px' }} />
       </Box>
 
-      {!content && isFinalResponse ? (
+      {!content && !isFinalResponse ? (
         <TypingDots />
       ) : (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant="h5" style={{ color: '#333' }}>
             <StyledMarkdown>{displayedText}</StyledMarkdown>
           </Typography>
-          {!answerFound && isFinalResponse &&
+          {!answerFound && isFinalResponse && !isClarification &&
             <Box sx={{ gap: '15px', display: 'flex', flexDirection: 'column' }}>
               <Typography >This response is based on different resources: </Typography>
               <LupaiResources retrieverItems={sources} />
