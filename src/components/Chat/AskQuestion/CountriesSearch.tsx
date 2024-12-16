@@ -18,6 +18,7 @@ interface CountriesSearchProps {
 const CountriesSearch: React.FC<CountriesSearchProps> = ({ countryError }) => {
   const dispatch = useDispatch();
   const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState<string>('');
 
   const countryNames = Object.values(countries).map(country => country.name);
 
@@ -26,16 +27,18 @@ const CountriesSearch: React.FC<CountriesSearchProps> = ({ countryError }) => {
     dispatch(setOriginCountry(newValue));
   };
 
+  const handleInputChange = (_event: React.SyntheticEvent, newInputValue: string) => {
+    setInputValue(newInputValue);
+  };
+
   return (
     <>
       <Autocomplete
         options={countryNames}
         value={selectedPlace}
+        inputValue={inputValue}
         onChange={handlePlaceChange}
-        inputValue={selectedPlace || ''}
-        onInputChange={(_event, newInputValue) => {
-          setSelectedPlace(newInputValue);
-        }}
+        onInputChange={handleInputChange}
         isOptionEqualToValue={(option, value) => option === value}
         renderInput={(params) => (
           <InputFieldAutoComplete {...params} variant="outlined" fullWidth placeholder='Search' />
