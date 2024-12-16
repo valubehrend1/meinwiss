@@ -21,8 +21,8 @@ import Ry from '../../../assets/Team/Ry.png';
 import Max from '../../../assets/Team/Max.png';
 import Lio from '../../../assets/Team/Lio.png';
 import Jan from '../../../assets/Team/Jan.png';
-import Anna from '../../../assets/Team/Anna.png';
-import Simon from '../../../assets/Team/Simon.png';
+import Bas from '../../../assets/Team/Bas.png';
+import Mora from '../../../assets/Team/Mora.png';
 
 const TeamPage: React.FC = () => {
   const teamMembersColumnOne = [
@@ -40,8 +40,8 @@ const TeamPage: React.FC = () => {
 
   const teamMembersColumnThree = [
     { name: 'Valeria Behrend', title: 'Frontend Developer & UX/UI Designer', imgSrc: Valu },
-    { name: 'Anna Schüler', title: 'Position', imgSrc: Anna },
-    { name: 'Simon Toewe', title: 'Position', imgSrc: Simon },
+    { name: 'BastianBastian Silva', title: 'AI Engineer', imgSrc: Bas },
+    { name: 'Mora Dreszman', title: 'Graphic designer', imgSrc: Mora },
   ];
 
   return (
