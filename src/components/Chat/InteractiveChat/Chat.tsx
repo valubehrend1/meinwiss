@@ -31,6 +31,7 @@ import ErrorModal from '../ErrorModal/ErrorModal';
 
 import { useNavigate } from 'react-router-dom';
 import theme from '../../../theme';
+import RefreshModalError from '../ErrorModal/RefreshModalError';
 
 const Chat: React.FC = () => {
   const messages = useSelector(selectMessages);
@@ -38,6 +39,8 @@ const Chat: React.FC = () => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isRefreshModalOpen, setIsRefreshModalOpen] = useState(false);
+  /*  const [isRefreshAttempted, setIsRefreshAttempted] = useState(false); */
   const [hasSentMessage, setHasSentMessage] = useState(false);
 
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
@@ -50,6 +53,41 @@ const Chat: React.FC = () => {
   const handleCloseError = () => {
     dispatch(setError(null));
   }
+
+  const [allowRefresh, setAllowRefresh] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === 'r') {
+        event.preventDefault();
+        setIsRefreshModalOpen(true); // Mostrar el modal en lugar de recargar
+      }
+    };
+
+    const handleRefreshAttempt = () => {
+      if (!allowRefresh) {
+        setIsRefreshModalOpen(true); // Bloquear la recarga manual
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('beforeunload', handleRefreshAttempt);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('beforeunload', handleRefreshAttempt);
+    };
+  }, [allowRefresh]);
+
+  const handleRefreshConfirm = () => {
+    setAllowRefresh(true); // Permitir la recarga
+    setIsRefreshModalOpen(false);
+    window.location.reload(); // Refrescar manualmente
+  };
+
+  const handleRefreshCancel = () => {
+    setIsRefreshModalOpen(false); // Bloquear la recarga
+  };
 
   const onCancelPdfModal = () => {
     setIsOpen(false);
@@ -135,6 +173,11 @@ const Chat: React.FC = () => {
           />
         )}
         {responseError && <ErrorModal isOpen={true} onClose={handleCloseError} />}
+        {isRefreshModalOpen &&
+          <RefreshModalError
+            isOpen={isRefreshModalOpen}
+            onClose={handleRefreshCancel}
+            onReset={handleRefreshConfirm} />}
         {messages.map((message, index) => (
           <MessagesContainer key={index} sender={message.sender}>
             {message.sender === 'user' && (
