@@ -20,6 +20,7 @@ export interface RetrieverItem {
     source_type: string;
     source_name?: string;
     source_url?: string;
+    source_date?: string;
   };
   text: string;
 }
