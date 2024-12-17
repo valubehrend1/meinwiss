@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Autocomplete } from '@mui/material';
 import {
@@ -16,6 +16,7 @@ interface TimeFrameInputProps {
 const TimeFrameInput: React.FC<TimeFrameInputProps> = ({ timeError }) => {
   const dispatch = useDispatch();
   const timeInGermany = useSelector(selectTimeInGermany);
+  const [inputValue, setInputValue] = useState<string>('');
 
   const timeFrameArray = [
     "I don't live in germany",
@@ -29,16 +30,19 @@ const TimeFrameInput: React.FC<TimeFrameInputProps> = ({ timeError }) => {
     dispatch(setTimeInGermany(newValue));
   };
 
+  const handleInputChange = (_event: React.SyntheticEvent, newInputValue: string) => {
+    setInputValue(newInputValue);
+  };
+
   return (
     <>
       <Autocomplete
         options={timeFrameArray}
         value={timeInGermany || null}
-        onChange={handleTimeFrameChange}
+        inputValue={inputValue}
+        onChange={handleTimeFrameChange} // Manejar la selección
+        onInputChange={handleInputChange} // Manejar el texto del input
         isOptionEqualToValue={(option, value) => option === value}
-        onInputChange={(_event, newInputValue) => {
-          dispatch(setTimeInGermany(newInputValue))
-        }}
         renderInput={(params) => (
           <InputFieldAutoComplete {...params} variant="outlined" fullWidth placeholder='Pick a time frame' />
         )}

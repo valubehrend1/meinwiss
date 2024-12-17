@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-import { SectionContainerSteps, InsideContainer } from './AskQuestionsStyle'
+import { SectionContainerSteps, InsideContainer, CheckboxContainer } from './AskQuestionsStyle'
 
-import { Typography, Button } from '@mui/material';
+
+import { Typography, Button, Box, Checkbox } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import theme from '../../../../theme';
 
@@ -12,6 +13,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 const AskQuestionStep3: React.FC = () => {
   const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
+  const [termsChecked, setTermsChecked] = useState<boolean>(false);
+  const [checkboxError, setCheckboxError] = useState<boolean>(false);
 
   const variants = {
     hidden: { x: 300, opacity: 0 },
@@ -20,6 +23,10 @@ const AskQuestionStep3: React.FC = () => {
   };
 
   const handleAskQuestionClick = () => {
+    if (!termsChecked) {
+      setCheckboxError(true);
+      return;
+    }
     setIsExiting(true);
     setTimeout(() => {
       navigate(`/ask-lupai/step4`);  // Suponiendo que existe un 'step4'
@@ -60,6 +67,26 @@ const AskQuestionStep3: React.FC = () => {
                 onClick={handleAskQuestionClick}>
                 Continue
               </Button>
+              <Box sx={{ marginTop: '40px' }}>
+                <CheckboxContainer>
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Checkbox
+                      checked={termsChecked}
+                      onChange={(e) => setTermsChecked(e.target.checked)} />
+                    <Typography>I agree with the
+                      <span>                  <a href="/terms" target="_blank" rel="noreferrer">
+                        Terms of Use and Privacy Policy
+                      </a>
+                      </span>
+                    </Typography>
+                  </Box>
+                  {checkboxError && (
+                    <Typography color="error" variant="body2">
+                      You must agree to the Terms of Use and Privacy Policy
+                    </Typography>
+                  )}
+                </CheckboxContainer>
+              </Box>
             </InsideContainer>
           </motion.div>
         )}

@@ -19,6 +19,7 @@ export interface RetrieverItem {
     source_type: string;
     source_name?: string;
     source_url?: string;
+    source_date?: string;
   };
   text: string;
 }
@@ -55,10 +56,11 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
     acc[key].push({
       source_name: item.collection_metadata.source_name || 'Unknown Source',
       source_url: item.collection_metadata.source_url || '',
+      source_date: item.collection_metadata.source_date || 'No date available',
       text: item.text || 'No text available',
     });
     return acc;
-  }, {} as { [key: string]: Array<{ source_name: string; text: string; source_url: string; }> });
+  }, {} as { [key: string]: Array<{ source_name: string; text: string; source_url: string; source_date: string; }> });
 
   return (
     <LupaiResourcesContainer>
@@ -80,6 +82,9 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
           <ResourceAccordionDetails>
             {item.length > 0 && (
               <>
+                <Typography variant="h5" sx={{ marginBottom: '10px', fontStyle: 'italic' }}>
+                  Last update on Lupai database: {item[pageIndices[`panel${index}`] || 0].source_date}
+                </Typography>
                 <Typography variant="h5" sx={{ textDecoration: 'underline', marginBottom: '10px' }}>
                   {item[pageIndices[`panel${index}`] || 0].source_name}
                 </Typography>
