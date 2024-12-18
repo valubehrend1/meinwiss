@@ -7,11 +7,14 @@ import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
 import theme from '../../../../theme';
 
 import { useNavigate } from 'react-router-dom';
+
+import { useTranslation } from 'react-i18next';
+
 import { motion, AnimatePresence } from 'framer-motion';
 
 
 const AskQuestionStep2: React.FC = () => {
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
 
@@ -45,13 +48,10 @@ const AskQuestionStep2: React.FC = () => {
                   color: theme.palette.secondary.main
                 }} />
               <Typography variant="h3" gutterBottom>
-                Keep in mind
+                {t('keep_in_mind')}
               </Typography>
               <Typography variant="h4" sx={{ mb: 3 }}>
-                Lupai does not replace a legal consultation. Lupai conducts an AI-powered search within a
-                database of public and expert-curated documents and formulates a response to help
-                you be informed and answer your questions. In case you have specific doubts that Lupai
-                cannot answer, please consult with a lawyer.
+                {t('legal_consultation_disclaimer')}
               </Typography>
               <Button
                 variant="contained"
@@ -59,7 +59,7 @@ const AskQuestionStep2: React.FC = () => {
                 color="primary"
                 sx={{ textTransform: 'capitalize' }}
                 onClick={handleAskQuestionClick}>
-                Continue
+                {t('continue')}
               </Button>
             </InsideContainer>
           </motion.div>

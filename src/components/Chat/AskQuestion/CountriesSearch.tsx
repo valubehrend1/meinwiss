@@ -10,12 +10,15 @@ import { countries } from 'countries-list';
 import { useDispatch } from 'react-redux';
 import { setOriginCountry } from '../../../config/features/ChatSlice';
 
+import { useTranslation } from 'react-i18next';
+
 interface CountriesSearchProps {
   countryError: boolean;
 }
 
 
 const CountriesSearch: React.FC<CountriesSearchProps> = ({ countryError }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState<string>('');
@@ -41,7 +44,7 @@ const CountriesSearch: React.FC<CountriesSearchProps> = ({ countryError }) => {
         onInputChange={handleInputChange}
         isOptionEqualToValue={(option, value) => option === value}
         renderInput={(params) => (
-          <InputFieldAutoComplete {...params} variant="outlined" fullWidth placeholder='Search' />
+          <InputFieldAutoComplete {...params} variant="outlined" fullWidth placeholder={t('search')} />
         )}
       />
       {countryError && <SearchBarError severity="error">Please select a country</SearchBarError>}
