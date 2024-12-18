@@ -6,9 +6,11 @@ import { Box, Typography } from '@mui/material';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import Spinner from './Spinner';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const AskQuestionStep3: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const variants = {
@@ -20,7 +22,7 @@ const AskQuestionStep3: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/ask-lupai/chat');
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [navigate]);
@@ -40,7 +42,7 @@ const AskQuestionStep3: React.FC = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               <Spinner />
               <Typography variant="h3" gutterBottom>
-                Processing your question
+                {t('processing_question')}
               </Typography>
             </Box>
           </InsideContainer>

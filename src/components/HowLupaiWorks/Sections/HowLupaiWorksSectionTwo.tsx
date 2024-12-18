@@ -15,7 +15,10 @@ import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 
 import theme, { orange } from '../../../theme';
 
+import { useTranslation } from 'react-i18next';
+
 const HowLupaiWorksSectionTwo: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <>
       <StyledGridContainer container>
@@ -28,10 +31,10 @@ const HowLupaiWorksSectionTwo: React.FC = () => {
                 <CenteredCardContent item xs={12}>
                   <BorderColorOutlinedIcon sx={{ fontSize: '2.25rem', marginBottom: '1.75rem' }} />
                   <Typography variant='h4' sx={{ textAlign: 'center' }}>
-                    You are not satisfied with the answer?
+                    {t('not_satisfied')}
                   </Typography>
                   <Typography variant='h4' sx={{ textAlign: 'center' }}>
-                    Try to rephrase your question
+                    {t('try_to_rephrase')}
                   </Typography>
                   <Box sx={{ marginTop: '2rem' }}>
                     <GradientBorderBox>
@@ -39,7 +42,7 @@ const HowLupaiWorksSectionTwo: React.FC = () => {
 
                         <QuestionsTextContainer>
                           <Typography variant='h5'>
-                            Rephrase
+                            {t('edit')}
                           </Typography>
 
                         </QuestionsTextContainer>
@@ -58,10 +61,10 @@ const HowLupaiWorksSectionTwo: React.FC = () => {
             <StyledGridItem item xs={12}>
               <Box>
                 <Typography variant='h3' sx={{ color: theme.palette.primary.main }}>
-                  Not satisfied with the answer?
+                  {t('not_satisfied')}
                 </Typography>
                 <Typography variant='h3' sx={{ color: orange }}>
-                  Try to rephrase
+                  {t('try_to_rephrase')}
                 </Typography>
               </Box>
               <Typography>

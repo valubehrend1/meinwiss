@@ -9,11 +9,14 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { setTimeInGermany, selectTimeInGermany } from '../../../config/features/ChatSlice';
 
+import { useTranslation } from 'react-i18next';
+
 interface TimeFrameInputProps {
   timeError: boolean;
 }
 
 const TimeFrameInput: React.FC<TimeFrameInputProps> = ({ timeError }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const timeInGermany = useSelector(selectTimeInGermany);
   const [inputValue, setInputValue] = useState<string>('');
@@ -21,9 +24,9 @@ const TimeFrameInput: React.FC<TimeFrameInputProps> = ({ timeError }) => {
   const timeFrameArray = [
     "I don't live in germany",
     "Im in Germany as a turist",
-    "0-1 year",
-    "1-5 years",
-    "+5 years"
+    t('zero_to_one_year'),
+    t('one_to_five_year'),
+    t('plus_five_year')
   ]
 
   const handleTimeFrameChange = (_event: React.SyntheticEvent, newValue: string | null) => {
@@ -44,7 +47,7 @@ const TimeFrameInput: React.FC<TimeFrameInputProps> = ({ timeError }) => {
         onInputChange={handleInputChange} // Manejar el texto del input
         isOptionEqualToValue={(option, value) => option === value}
         renderInput={(params) => (
-          <InputFieldAutoComplete {...params} variant="outlined" fullWidth placeholder='Pick a time frame' />
+          <InputFieldAutoComplete {...params} variant="outlined" fullWidth placeholder={t('pick_time_frame')} />
         )}
       />
       {timeError && <SearchBarError severity="error">Please select a time frame</SearchBarError>}

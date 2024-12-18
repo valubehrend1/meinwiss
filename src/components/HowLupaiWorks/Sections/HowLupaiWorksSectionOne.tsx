@@ -41,14 +41,14 @@ const HowlupaiWorksSectionOne: React.FC = () => {
             <StyledGridItem item xs={12} >
               <Box>
                 <Typography variant='h3' sx={{ color: theme.palette.primary.main }}>
-                  Ask Lupai like you would
+                  {t('ask_lupai_as_a_friend_first')}
                 </Typography>
                 <Typography variant='h3' sx={{ color: orange }}>
-                  ask a friend
+                  {t('ask_lupai_as_a_friend_second')}
                 </Typography>
               </Box>
               <Typography>
-                Just type a question about anything you want to know using the words that come to you. You don't need to use specialized language. Provide all necessary contextual information so that Lupai can find relevant information sources for your specific case. Ask in the language you are most comfortable with. Although most sources are in English and German, Lupai will answer you in the language of your question.
+                {t('just_type_your_question')}
               </Typography>
             </StyledGridItem>
           </Grid>

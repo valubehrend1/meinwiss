@@ -1,6 +1,8 @@
 import React from 'react';
 import SharedModal from '../../shared/SharedModal/SharedModal';
 
+import { useTranslation } from 'react-i18next';
+
 
 interface NewQuestionModalProps {
   isOpen: boolean;
@@ -10,16 +12,17 @@ interface NewQuestionModalProps {
 }
 
 const NewQuestionModal: React.FC<NewQuestionModalProps> = ({ isOpen, onNewQuestion, onCancel, setIsOpen }) => {
+  const { t } = useTranslation();
   return (
     <SharedModal
       open={isOpen}
       setIsOpen={setIsOpen}
       onCancel={onCancel}
       onSubmit={onNewQuestion}
-      submitString="New Question"
-      alternativeString="Download this conversation"
-      info="When you start a new search, your current search will disappear and you will not be able to read the results again."
-      content="Are you sure you want to start a new search? "
+      submitString={t('new_question')}
+      alternativeString={t('download_conversation')}
+      info={t('new_search_warning')}
+      content={t('confirm_new_search')}
       isPdf={true}
     />
   );

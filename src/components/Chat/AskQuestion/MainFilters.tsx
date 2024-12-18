@@ -14,6 +14,8 @@ import TimeFrameInput from './TimeFrameInput.tsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAge, selectAge } from '../../../config/features/ChatSlice.tsx';
 
+import { useTranslation } from 'react-i18next';
+
 interface MainFiltersProps {
   ageError: boolean;
   countryError: boolean;
@@ -27,6 +29,7 @@ const MainFilters: React.FC<MainFiltersProps> = ({
   locationError,
   timeError
 }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const age = useSelector(selectAge);
   const [userAge, setUserAge] = useState<string | null>(null);
@@ -48,24 +51,24 @@ const MainFilters: React.FC<MainFiltersProps> = ({
     <>
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12} md={2}>
-          <SearchFiltersLabel>Country of origin</SearchFiltersLabel>
+          <SearchFiltersLabel>{t('country_of_origin')}</SearchFiltersLabel>
           <CountriesSearch countryError={countryError} />
         </Grid>
         <Grid item xs={12} md={2}>
-          <SearchFiltersLabel>Location</SearchFiltersLabel>
+          <SearchFiltersLabel>{t('location')}</SearchFiltersLabel>
           <StateSearch locationError={locationError} />
         </Grid>
         <Grid item xs={12} md={2}>
-          <SearchFiltersLabel>Time in Germany</SearchFiltersLabel>
+          <SearchFiltersLabel>{t('time_in_germany')}</SearchFiltersLabel>
           <TimeFrameInput timeError={timeError} />
         </Grid>
         <Grid item xs={12} md={2}>
-          <SearchFiltersLabel>Age</SearchFiltersLabel>
+          <SearchFiltersLabel>{t('age')}</SearchFiltersLabel>
           <InputField
             fullWidth
             type="number"
             inputProps={{ min: 1, max: 120 }}
-            placeholder="Your age"
+            placeholder={t('your_age')}
             variant="outlined"
             onChange={handleAgeChange}
             onBlur={handleAgeBlur} />

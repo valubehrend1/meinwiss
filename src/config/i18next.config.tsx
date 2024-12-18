@@ -3,7 +3,6 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 import global_en from '../locales/en/global.json';
-import global_es from '../locales/es/global.json';
 import global_de from '../locales/de/global.json';
 
 console.log('Initializing i18next...'); // Verificar que el archivo se está ejecutando
@@ -16,18 +15,15 @@ startTransition(() => {
         en: {
           global: global_en
         },
-        es: {
-          global: global_es
-        },
         de: {
-          global_de
+          global: global_de
         },
       },
-      fallbackLng: "en",
+      fallbackLng: "de",
       debug: true,
 
       react: {
-        useSuspense: true, // o false dependiendo de tu caso
+        useSuspense: true,
       }
     });
 

@@ -10,6 +10,8 @@ import { Menu as MenuIcon } from '@mui/icons-material';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import { useTranslation } from 'react-i18next';
+
 import theme from '../../../theme';
 
 import { LogoPlaceholder, StyledToolBar, DividerLine } from './NavbarStyles';
@@ -23,6 +25,7 @@ import logo from '../../../assets/Lupai_Logo_Dark_Green.png';
 
 const Navbar: React.FC = () => {
   /*   const imageSrc = '/src/assets/Lupai_Logo_Dark_Green.png'; */
+  const { t } = useTranslation();
   const isMobile = useMediaQuery(theme.breakpoints.down(980));
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -31,10 +34,10 @@ const Navbar: React.FC = () => {
   };
 
   const menuItems = [
-    { text: 'Ask Lupai' },
-    { text: 'How Lupai works' },
-    { text: 'About' },
-    { text: 'Contact' },
+    { text: t('ask_lupai') },
+    { text: t('how_lupai_works') },
+    { text: t('about') },
+    { text: t('contact') },
   ];
 
   return (
