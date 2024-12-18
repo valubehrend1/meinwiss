@@ -3,16 +3,18 @@ import React from 'react';
 import { Box, Button } from '@mui/material/';
 import Typography from '@mui/material/Typography';
 import EastIcon from '@mui/icons-material/East';
+import { useTranslation } from 'react-i18next';
 
 interface AddNewQuestionProps {
   handleOpen: () => void;
 }
 
 const AddNewQuestion: React.FC<AddNewQuestionProps> = ({ handleOpen }) => {
+  const { t } = useTranslation();
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '16px', justifyContent: 'flex-end' }}>
       <Typography variant="h6" style={{ color: '#333' }}>
-        Do you want to ask a question about another topic? Start a new conversation from scratch
+        {t('another_topic_new_conversation')}
       </Typography>
       <EastIcon />
       <Button variant='contained' color='secondary'
@@ -24,7 +26,7 @@ const AddNewQuestion: React.FC<AddNewQuestionProps> = ({ handleOpen }) => {
           textTransform: 'capitalize',
           fontSize: '12px'
         }}>
-        New Question
+        {t('new_question')}
       </Button>
     </Box>
   );

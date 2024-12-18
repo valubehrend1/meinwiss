@@ -18,7 +18,6 @@
   "connect_with_institutions_first_part": "Connect with institutions",
   "connect_with_institutions_second_part": "that can support you",
   "contact": "Contact",
-  "edit_question": "Not satisfied with the answer? Try to edit your question",
   "faq": "Preguntas frecuentes",
   "faq_section_answers": {
     "how_lupai_works": "Lupai is an AI assistant designed to answer questions about migration and work in Germany. Users can ask questions in several languages and receive a textual answer based exclusively on a corpus of official and expert-curated sources. The AI follows several steps to provide an answer. The main steps, explained in a simplified way, are as follows: Lupai first transforms the user's question into a mathematical representation of its meaning and uses this to calculate the semantic similarity with all the sources in its database. Those that are highly similar are selected as relevant sources for the answer. Then, a large language model (i.e., an AI model that has been trained to generate text) takes the selected fragments as input to formulate an answer. It further filters those that are most relevant to the question. Along with a textual answer to the user's question, Lupai returns a list of sources on which the answer is based. In addition to information sources, Lupai also recommends organizations, initiatives and experts in the user's region who are working on topics related to the user's question. This is done by calculating the semantic proximity of the user's question and a textual description of the organization's work.",
@@ -47,6 +46,7 @@
   "how_lupai_helps": "How can Lupai help you today?",
   "how_lupai_works": "How Lupai works",
   "how_to_apply_for_a_red_card": "„Wie beantrage ich die Rote Karte?”",
+  "how_to_make_a_new_question_explanation": "When you are done with a question and want to move on to another, select the 'New Question' option. This will open a new empty conversation to prevent Lupai from getting mixed up with the context of the previous question. But before you do that, be sure to download the answer as a PDF so you can save it if you want to. Don't worry, you will be asked to confirm that you want to move to a new question before deleting the chat.",
   "how_to_use_ai": "You don’t know how to use AI?",
   "info_lupai_provides_question": "Does Lupai provide information for all federal states?",
   "inspired_powered_first": "Inspired by communities’",

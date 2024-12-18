@@ -27,14 +27,14 @@ const HowlupaiWorksSectionThree: React.FC = () => {
             <StyledGridItem item xs={12}>
               <Box>
                 <Typography variant='h3' sx={{ color: theme.palette.primary.main }}>
-                  Want to move on to another
+                  {t('how_to_make_a_new_question_title_one')}
                 </Typography>
                 <Typography variant='h3' sx={{ color: orange }}>
-                  topic? Start a new question
+                  {t('how_to_make_a_new_question_title_two')}
                 </Typography>
               </Box>
               <Typography>
-                When you are done with a question and want to move on to another, select the "New Question" option. This will open a new empty conversation to prevent Lupai from getting mixed up with the context of the previous question. But before you do that, be sure to download the answer as a PDF so you can save it if you want to. Don't worry, you will be asked to confirm that you want to move to a new question before deleting the chat.
+                {t('how_to_make_a_new_question_explanation')}
               </Typography>
             </StyledGridItem>
           </Grid>
@@ -47,9 +47,9 @@ const HowlupaiWorksSectionThree: React.FC = () => {
               <CardContent sx={{ width: '100%' }}>
                 <CenteredCardContent item xs={12}>
                   <Typography variant='h4' sx={{ textAlign: 'center' }}>
-                    When you start a new search, your current search will disappear and you will not be able to read the results again.                  </Typography>
+                    {t('new_search_warning')}</Typography>
                   <Typography variant='h4' sx={{ textAlign: 'center', marginTop: '1rem' }}>
-                    Are you sure you want to start a new search?
+                    {t('confirm_new_search')}
                   </Typography>
 
                   <Box sx={{ display: 'flex', gap: '1rem' }}>
@@ -61,7 +61,7 @@ const HowlupaiWorksSectionThree: React.FC = () => {
 
                           <QuestionsTextContainer>
                             <Typography variant='h5'>
-                              Download this conversation
+                              {t('download_conversation')}
                             </Typography>
                           </QuestionsTextContainer>
 

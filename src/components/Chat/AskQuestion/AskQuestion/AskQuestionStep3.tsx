@@ -8,9 +8,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import theme from '../../../../theme';
 
 import { useNavigate } from 'react-router-dom';
+
+import { useTranslation } from 'react-i18next';
+
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AskQuestionStep3: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
   const [termsChecked, setTermsChecked] = useState<boolean>(false);
@@ -51,13 +55,10 @@ const AskQuestionStep3: React.FC = () => {
                   color: theme.palette.secondary.main
                 }} />
               <Typography variant="h3" gutterBottom>
-                Data Privacy
+                {t('keep_in_mind')}
               </Typography>
               <Typography variant="h4" sx={{ mb: 3 }}>
-                Lupai only stores data that is essential to provide you with a response and run basic statistics.
-                It does not store any personal data beyond the input you enter in the search field and it only shares
-                it with third party services for the purpose of processing your query to provide a response. Y
-                ou can read our full Data Privacy Policy here.
+                {t('data_privacy_description')}
               </Typography>
               <Button
                 variant="contained"
@@ -65,7 +66,7 @@ const AskQuestionStep3: React.FC = () => {
                 color="primary"
                 sx={{ textTransform: 'capitalize' }}
                 onClick={handleAskQuestionClick}>
-                Continue
+                {t('continue')}
               </Button>
               <Box sx={{ marginTop: '40px' }}>
                 <CheckboxContainer>
@@ -73,16 +74,16 @@ const AskQuestionStep3: React.FC = () => {
                     <Checkbox
                       checked={termsChecked}
                       onChange={(e) => setTermsChecked(e.target.checked)} />
-                    <Typography>I agree with the
+                    <Typography>{t('agree_first_part')}
                       <span>                  <a href="/terms" target="_blank" rel="noreferrer">
-                        Terms of Use and Privacy Policy
+                        {t('agree_second_part')}
                       </a>
                       </span>
                     </Typography>
                   </Box>
                   {checkboxError && (
                     <Typography color="error" variant="body2">
-                      You must agree to the Terms of Use and Privacy Policy
+                      {t('you_must_agree_terms_and_conditions')}
                     </Typography>
                   )}
                 </CheckboxContainer>

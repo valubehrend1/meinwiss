@@ -11,6 +11,8 @@ import {
 import { useDispatch } from 'react-redux';
 import { setUserQuery } from '../../../config/features/ChatSlice';
 
+import { useTranslation } from 'react-i18next';
+
 interface SharedSearchBarProps {
   mainSearchPage?: boolean;
   sendMessage?: (messageContent: string) => void;
@@ -19,6 +21,7 @@ interface SharedSearchBarProps {
 }
 
 const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendMessage, disabled, error }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = React.useState<string>('');
 
@@ -75,7 +78,7 @@ const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendM
       <SearchBar
         mainSearchPage={mainSearchPage}
         fullWidth
-        placeholder='Try questions like "How do I validate my university degree in Germany?"'
+        placeholder={t('try_questions_like')}
         variant="outlined"
         InputProps={inputProps}
         onChange={handleSearchQueryInputChange}
@@ -89,7 +92,7 @@ const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendM
         <SearchBarError
           mainSearchPage={mainSearchPage}
           severity="error">
-          This field is required.
+          {t('this_field_is_required')}
         </SearchBarError>}
     </Box>
   );

@@ -100,9 +100,7 @@ const AskQuestion: React.FC = () => {
               <Box sx={{ maxWidth: 800 }}>
                 <Title variant='h3'> {t('how_lupai_helps')}</Title>
                 <Description variant='h5'>
-                  You can ask questions about your work or migration status in different languages.
-                  You can ask in English o puedes preguntar en español. Du kannst auf Deutsch fragen oppure si può chiedere in italiano.
-                  You can try aswell in many other languages!
+                  {t('ask_questions_multilang')}
                 </Description>
               </Box>
             </Box>
@@ -126,7 +124,7 @@ const AskQuestion: React.FC = () => {
                 variant="contained"
                 size="large"
                 onClick={handleAskQuestionClick}>
-                Ask question
+                {t('ask_question')}
               </AskButton>
             </Box>
           </motion.div>
