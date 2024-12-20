@@ -26,7 +26,7 @@ import Mora from '../../../assets/Team/Mora.png';
 
 const TeamPage: React.FC = () => {
   const teamMembersColumnOne = [
-    { name: 'Cecilia Maas', title: 'CEO & Product Manager', imgSrc: Ceci },
+    { name: 'Cecilia Maas', title: 'Product Manager', imgSrc: Ceci },
     { name: 'Aquarela Padilla', title: 'Researcher', imgSrc: Aqua },
     { name: 'Lucena Palma', title: 'Communications Manager', imgSrc: Luce },
   ];
