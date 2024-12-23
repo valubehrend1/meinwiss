@@ -8,10 +8,13 @@ import {
   CenteredCardContent
 } from '../HowlupaiWorksSectionStyles';
 
+import { useTranslation } from 'react-i18next';
+
 
 import theme, { orange } from '../../../theme';
 
 const HowLupaiWorksSectionFour: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <>
       <StyledGridContainer container>
@@ -23,10 +26,10 @@ const HowLupaiWorksSectionFour: React.FC = () => {
               <CardContent sx={{ width: '100%' }}>
                 <CenteredCardContent item xs={12}>
                   <Typography variant='h4' sx={{ textAlign: 'center' }}>
-                    Otherwise you can <span style={{ color: orange, textDecoration: 'underline' }}>save this conversation as a PDF</span>
+                    {t('otherwise')} <span style={{ color: orange, textDecoration: 'underline' }}>{t('save_conversation_pdf')}</span>
                   </Typography>
                   <Typography variant='h4' sx={{ textAlign: 'center' }}>
-                    and start a new search
+                    {t('start_a_new_search')}
                   </Typography>
                 </CenteredCardContent>
               </CardContent>
@@ -39,16 +42,15 @@ const HowLupaiWorksSectionFour: React.FC = () => {
             <StyledGridItem item xs={12}>
               <Box>
                 <Typography variant='h3' sx={{ color: theme.palette.primary.main }}>
-                  Want to save Lupai's answers
+                  {t('save_lupai_answers')}
                 </Typography>
                 <Typography variant='h3'>
-                  <span>for later?</span>
-                  <span style={{ color: orange }}> Download </span>
-                  <span>the chat</span>
+                  <span> {t('download_chat.for_later')}</span>
+                  <span style={{ color: orange }}> {t('download_chat.download')} </span>
                 </Typography>
               </Box>
               <Typography>
-                Since Lupai doesn't ask you to log in to ask a question, it can't save your chat history. To keep your answers, you need to download them. You will find a link to do this in every chat.
+                {t('cant_save_chat')}
               </Typography>
             </StyledGridItem>
           </Grid>
