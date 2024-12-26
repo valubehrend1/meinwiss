@@ -27,6 +27,7 @@ interface SharedModalProps {
   onSubmit: () => void;
   onCancel: () => void;
   isPdf?: boolean;
+  isErrorModal?: boolean
 }
 
 const SharedModal: React.FC<SharedModalProps> = ({
@@ -38,7 +39,8 @@ const SharedModal: React.FC<SharedModalProps> = ({
   alternativeString,
   onSubmit,
   onCancel,
-  isPdf
+  isPdf,
+  isErrorModal
 }) => {
   const messages = useSelector(selectMessages);
 
@@ -54,12 +56,15 @@ const SharedModal: React.FC<SharedModalProps> = ({
           <DialogTitle id="alert-dialog-title" variant='h5'>{info}</DialogTitle>
         </Box>
         <Box sx={{ marginRight: '20px', marginTop: '20px' }}>
-          <IconButton
-            aria-label="close"
-            onClick={() => setIsOpen?.(false)}
-          >
-            <CloseIcon />
-          </IconButton>
+          {!isErrorModal &&
+            <IconButton
+              aria-label="close"
+              onClick={() => setIsOpen?.(false)}
+              sx={{ position: 'absolute', right: '8px', top: '8px', color: 'black' }}
+            >
+              <CloseIcon />
+            </IconButton>
+          }
         </Box>
       </Box>
       <DialogContent>
