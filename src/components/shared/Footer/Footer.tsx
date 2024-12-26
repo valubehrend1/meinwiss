@@ -6,11 +6,14 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
+import { useTranslation } from 'react-i18next';
+
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <FooterContainer>
       <Typography variant="h5">
-        Copyright © 2024 Lupai | All Rights Reserved
+        {t('copyright')}
       </Typography>
       <SocialMediaContainer>
         <IconButton
