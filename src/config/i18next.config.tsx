@@ -19,7 +19,7 @@ startTransition(() => {
           global: global_de
         },
       },
-      fallbackLng: "de",
+      fallbackLng: "en",
       debug: true,
 
       react: {

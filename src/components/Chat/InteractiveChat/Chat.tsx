@@ -40,6 +40,8 @@ const Chat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasSentMessage, setHasSentMessage] = useState(false);
 
+  const [socketDown, setSocketDown] = useState(false);
+
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
   const responseError = useSelector(selectError)
 
@@ -49,6 +51,7 @@ const Chat: React.FC = () => {
 
   const handleCloseError = () => {
     dispatch(setError(null));
+    setSocketDown(false);
   }
 
   const onCancelPdfModal = () => {
@@ -84,6 +87,7 @@ const Chat: React.FC = () => {
       setIsWaitingForResponse(true);
     } else {
       console.error('WebSocket no está abierto para enviar mensajes.');
+      setSocketDown(true);
     }
   };
 
@@ -123,6 +127,13 @@ const Chat: React.FC = () => {
     navigate('/ask-lupai');
   };
 
+  useEffect(() => {
+    if (ws && ws.readyState === WebSocket.CLOSED) {
+      setSocketDown(true);
+    }
+  }
+    , [setSocketDown, ws]);
+
   return (
     <>
       <ChatContainer>
@@ -134,7 +145,15 @@ const Chat: React.FC = () => {
             setIsOpen={setIsOpen}
           />
         )}
-        {responseError && <ErrorModal isOpen={true} onClose={handleCloseError} />}
+        {responseError && <ErrorModal
+          isOpen={true}
+          onClose={handleCloseError}
+          content="There was an error loading the answer, please try again." />}
+        {socketDown && <ErrorModal
+          isOpen={true}
+          setisOpen={setIsOpen}
+          onClose={handleCloseError}
+          content="The connection to the server has been lost. Please try again." />}
         {messages.map((message, index) => (
           <MessagesContainer key={index} sender={message.sender}>
             {message.sender === 'user' && (

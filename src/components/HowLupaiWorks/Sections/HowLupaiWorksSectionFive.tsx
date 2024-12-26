@@ -12,10 +12,13 @@ import {
   ReferenceCardGold
 } from '../HowlupaiWorksSectionStyles';
 
+import { useTranslation } from 'react-i18next';
 
-import theme, { orange } from '../../../theme';
+
+import theme from '../../../theme';
 
 const HowLupaiWorksSectionFive: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <>
       <StyledGridContainer container>
@@ -25,14 +28,14 @@ const HowLupaiWorksSectionFive: React.FC = () => {
             <StyledGridItem item xs={12}>
               <Box>
                 <Typography variant='h3' sx={{ color: theme.palette.primary.main }}>
-                  Need more information?
+                  {t('need_more_info')}
                 </Typography>
                 <Typography variant='h3'>
-                  Check the original <span style={{ color: orange }}>sources</span>
+                  {t('check_the_original')}
                 </Typography>
               </Box>
               <Typography>
-                Below each Lupai answer, the fragments of the sources from which Lupai extracted the information are listed with their respective links. You can navigate to any of them to explore further or to check if the Lupai version is up to date. There are three types of data, marked with different colors: laws, official information provided by ministries, and commented information published by reliable portals.
+                {t('sources_info')}
               </Typography>
             </StyledGridItem>
           </Grid>
