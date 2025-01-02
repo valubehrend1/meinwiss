@@ -4,6 +4,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
+import { useTranslation } from 'react-i18next';
+
 
 import {
   PaginationButton,
@@ -32,6 +34,7 @@ interface LupaiResourcesProps {
 const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [pageIndices, setPageIndices] = useState<{ [key: string]: number }>({});
+  const { t } = useTranslation();
 
   const handleChange =
     (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -83,7 +86,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
             {item.length > 0 && (
               <>
                 <Typography variant="h5" sx={{ marginBottom: '10px', fontStyle: 'italic' }}>
-                  Last update on Lupai database: {item[pageIndices[`panel${index}`] || 0].source_date}
+                  {t('last_update')} {item[pageIndices[`panel${index}`] || 0].source_date}
                 </Typography>
                 <Typography variant="h5" sx={{ textDecoration: 'underline', marginBottom: '10px' }}>
                   {item[pageIndices[`panel${index}`] || 0].source_name}
@@ -95,7 +98,7 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
                   href={item[pageIndices[`panel${index}`] || 0].source_url}
                   target="_blank"
                 >
-                  Learn more
+                  {t('learn_more')}
                 </ResourcesUrl>
               </>
             )}
