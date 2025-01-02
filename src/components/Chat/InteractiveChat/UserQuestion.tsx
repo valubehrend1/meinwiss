@@ -2,7 +2,6 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-/* import EditIcon from '@mui/icons-material/Edit'; */
 
 
 const Container = styled(Paper)({
@@ -28,7 +27,6 @@ const UserQuestion: React.FC<UserQuestionProps> = ({ content }) => {
       <Typography variant="h5" style={{ color: '#333' }}>
         {content}
       </Typography>
-      {/*     <EditIcon style={{ color: '#777' }} /> */}
     </Container>
   );
 };
