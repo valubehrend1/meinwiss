@@ -9,7 +9,8 @@ import {
   addUserMessage,
   selectUserContext,
   resetSearch,
-  setError
+  setError,
+  selectAccumulatedOrganizations
 } from '../../../config/features/ChatSlice';
 
 import { Box, IconButton } from '@mui/material';
@@ -22,6 +23,7 @@ import SharedSearchBar from '../../shared/SharedSearchBar/SharedSearchBar';
 import LupaiAnswer from './LupaiAnswer';
 import UserQuestion from './UserQuestion';
 import AddNewQuestion from './AddNewQuestion';
+import LupaiOrganizations from './LupaiOrganizations';
 import { ChatContainer, MessagesContainer } from './ChatStyles';
 
 
@@ -34,6 +36,7 @@ import theme from '../../../theme';
 
 const Chat: React.FC = () => {
   const messages = useSelector(selectMessages);
+  const organizations = useSelector(selectAccumulatedOrganizations);
   const userContext = useSelector(selectUserContext);
   const navigate = useNavigate();
 
@@ -173,6 +176,7 @@ const Chat: React.FC = () => {
             <LupaiAnswer content="" sources={[]} isFinalResponse={false} />
           </MessagesContainer>
         )}
+        {organizations.length !== 0 && <LupaiOrganizations organizations={organizations} />}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '20px' }}>
           <SharedSearchBar
             mainSearchPage={false}
