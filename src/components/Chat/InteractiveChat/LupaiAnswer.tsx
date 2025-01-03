@@ -11,6 +11,8 @@ import { RetrieverItem } from '../../../config/features/ChatSlice';
 
 import logo from '../../../assets/logo.png'
 
+import { useTranslation } from 'react-i18next';
+
 interface LupaiAnswerProps {
   content: string;
   sources: RetrieverItem[];
@@ -23,6 +25,7 @@ interface LupaiAnswerProps {
 const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound, isFinalResponse, isClarification }) => {
   const [displayedText, setDisplayedText] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (index < content.length) {
@@ -49,10 +52,12 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound
             <StyledMarkdown>{displayedText}</StyledMarkdown>
           </Typography>
           {!answerFound && isFinalResponse && !isClarification &&
-            <Box sx={{ gap: '15px', display: 'flex', flexDirection: 'column' }}>
-              <Typography >This response is based on different resources: </Typography>
-              <LupaiResources retrieverItems={sources} />
-            </Box>
+            <>
+              <Box sx={{ gap: '15px', display: 'flex', flexDirection: 'column' }}>
+                <Typography>{t('response_based_on_resources')}</Typography>
+                <LupaiResources retrieverItems={sources} />
+              </Box>
+            </>
           }
         </Box>
       )}

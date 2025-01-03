@@ -9,6 +9,12 @@ export interface Message {
   isClarification?: boolean;
 }
 
+export interface Organization {
+  name: string;
+  description: string;
+  website: string;
+}
+
 interface UserContext {
   originCountry: string;
   timeInGermany: string;
@@ -38,6 +44,7 @@ interface AssistantResponse {
     language_code: string;
     language_name: string;
   };
+  organizations: Organization[] | null;
   domain: string;
   improved_query: string | null;
   is_final_response: boolean;
@@ -56,6 +63,7 @@ interface ChatState {
   error: string | null;
   assistantResponse: AssistantResponse;
   messages: Message[];
+  accumulatedOrganizations: Organization[];
 }
 
 // Estado inicial del slice
@@ -79,6 +87,7 @@ const initialState: ChatState = {
       language_code: "",
       language_name: ""
     },
+    organizations: null,
     domain: "",
     improved_query: null,
     is_final_response: false,
@@ -91,6 +100,7 @@ const initialState: ChatState = {
   isLoading: false,
   error: null,
   messages: [],
+  accumulatedOrganizations: [],
 };
 
 
@@ -104,7 +114,24 @@ const chatSlice = createSlice({
     },
     setAssistantResponse: (state, action) => {
       console.log("setAssistantResponse", action.payload);
+
       state.assistantResponse = action.payload;
+
+      const incomingOrganizations = action.payload.organizations; // Venía como "organizations" del backend
+
+      // 3) Si efectivamente vienen nuevas organizaciones, las procesamos
+      if (Array.isArray(incomingOrganizations) && incomingOrganizations.length > 0) {
+        // Por cada organización nueva, chequeamos si ya existe en el array global `accumulatedOrganizations`
+        incomingOrganizations.forEach((newOrg: Organization) => {
+          const orgAlreadyExists = state.accumulatedOrganizations.some(
+            (existingOrg) => existingOrg.name === newOrg.name
+          );
+          // Si no existe, la agregamos
+          if (!orgAlreadyExists) {
+            state.accumulatedOrganizations.push(newOrg);
+          }
+        });
+      }
 
       state.messages = [...state.messages, {
         sender: 'assistant',
@@ -185,6 +212,7 @@ export const selectTimeInGermany = (state: { chat: ChatState }) => state.chat.us
 export const selectOriginCountry = (state: { chat: ChatState }) => state.chat.userContext.originCountry;
 export const selectLocation = (state: { chat: ChatState }) => state.chat.userContext.location;
 export const selectAge = (state: { chat: ChatState }) => state.chat.userContext.age;
+export const selectAccumulatedOrganizations = (state: { chat: ChatState }) => state.chat.accumulatedOrganizations;
 export const selectIsLoading = (state: { chat: ChatState }) => state.chat.isLoading;
 export const selectError = (state: { chat: ChatState }) => state.chat.error;
 export const selectMessages = (state: { chat: ChatState }) => state.chat.messages;
