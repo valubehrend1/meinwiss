@@ -8,6 +8,7 @@ export interface Message {
   isFinalResponse: boolean;
   isClarification?: boolean;
   status?: unknown;
+  displayedStatus?: string;
 }
 
 export interface Organization {
@@ -41,6 +42,10 @@ interface AssistantResponse {
   };
   retriever_items: RetrieverItem[]; // Puedes reemplazar 'any' con el tipo adecuado si lo tienes
   status: unknown; // Reemplaza 'any' con el tipo adecuado
+  status_diplay: {
+    status: string;
+    display_message: string | null;
+  },
   language: {
     language_code: string;
     language_name: string;
@@ -84,6 +89,10 @@ const initialState: ChatState = {
     },
     retriever_items: [],
     status: null,
+    status_diplay: {
+      status: "",
+      display_message: "",
+    },
     language: {
       language_code: "",
       language_name: ""
@@ -114,9 +123,12 @@ const chatSlice = createSlice({
       state.userQuery = action.payload;
     },
     setAssistantResponse: (state, action) => {
-      console.log("setAssistantResponse", action.payload);
+      console.log("Payload recibido en setAssistantResponse:", action.payload);
 
-      state.assistantResponse = action.payload;
+      state.assistantResponse = action.payload; // Actualiza el estado
+
+      console.log("Estado actualizado en Redux:", state.assistantResponse);
+
 
       const incomingOrganizations = action.payload.organizations; // Venía como "organizations" del backend
 
@@ -134,15 +146,19 @@ const chatSlice = createSlice({
         });
       }
 
-      state.messages = [...state.messages, {
-        sender: 'assistant',
-        content: action.payload.assistant_response.improved_answer,
-        sources: action.payload.retriever_items,
-        answerFound: action.payload.answer_found,
-        isClarification: action.payload.is_clarification,
-        isFinalResponse: action.payload.is_final_response,
-        status: action.payload.status,
-      }];
+      state.messages =
+        [...state.messages,
+        {
+          sender: 'assistant',
+          content: action.payload.assistant_response.improved_answer,
+          sources: action.payload.retriever_items,
+          answerFound: action.payload.answer_found,
+          isClarification: action.payload.is_clarification,
+          isFinalResponse: action.payload.is_final_response,
+          status: action.payload.status,
+          displayedStatus: action.payload.display_message.status_display,
+        }];
+
       // Añadir la respuesta del asistente como un nuevo mensaje
       /*      state.messages.push({
              sender: 'assistant',

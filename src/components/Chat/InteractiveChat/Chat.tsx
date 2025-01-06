@@ -168,7 +168,8 @@ const Chat: React.FC = () => {
                 sources={message.sources || []}
                 isClarification={message.isClarification}
                 isFinalResponse={message.isFinalResponse}
-                status={message.status} />
+                status={message.status}
+                displayedStatus={message.displayedStatus} />
             )}
           </MessagesContainer>
         ))}
