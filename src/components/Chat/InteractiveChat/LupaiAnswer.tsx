@@ -19,10 +19,11 @@ interface LupaiAnswerProps {
   answerFound?: boolean;
   isFinalResponse: boolean;
   isClarification?: boolean;
+  status?: unknown;
 }
 
 
-const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound, isFinalResponse, isClarification }) => {
+const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound, isFinalResponse, isClarification, status }) => {
   const [displayedText, setDisplayedText] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
   const { t } = useTranslation();
@@ -44,23 +45,22 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound
         <img src={logo} alt="Logo" style={{ width: '20px' }} />
       </Box>
 
-      {!content && !isFinalResponse ? (
-        <TypingDots />
-      ) : (
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography variant="h5" style={{ color: '#333' }}>
-            <StyledMarkdown>{displayedText}</StyledMarkdown>
-          </Typography>
-          {!answerFound && isFinalResponse && !isClarification &&
-            <>
-              <Box sx={{ gap: '15px', display: 'flex', flexDirection: 'column' }}>
-                <Typography>{t('response_based_on_resources')}</Typography>
-                <LupaiResources retrieverItems={sources} />
-              </Box>
-            </>
-          }
-        </Box>
-      )}
+      {status !== null && <TypingDots />}
+
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Typography variant="h5" style={{ color: '#333' }}>
+          <StyledMarkdown>{displayedText}</StyledMarkdown>
+        </Typography>
+        {!answerFound && isFinalResponse && !isClarification &&
+          <>
+            <Box sx={{ gap: '15px', display: 'flex', flexDirection: 'column' }}>
+              <Typography>{t('response_based_on_resources')}</Typography>
+              <LupaiResources retrieverItems={sources} />
+            </Box>
+          </>
+        }
+      </Box>
+
     </LupaiAnswerContainer>
   );
 };

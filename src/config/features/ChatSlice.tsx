@@ -7,6 +7,7 @@ export interface Message {
   answerFound?: boolean;
   isFinalResponse: boolean;
   isClarification?: boolean;
+  status?: unknown;
 }
 
 export interface Organization {
@@ -138,8 +139,9 @@ const chatSlice = createSlice({
         content: action.payload.assistant_response.improved_answer,
         sources: action.payload.retriever_items,
         answerFound: action.payload.answer_found,
-        isFinalResponse: action.payload.is_final_response,
         isClarification: action.payload.is_clarification,
+        isFinalResponse: action.payload.is_final_response,
+        status: action.payload.status,
       }];
       // Añadir la respuesta del asistente como un nuevo mensaje
       /*      state.messages.push({
@@ -184,7 +186,7 @@ const chatSlice = createSlice({
         {
           sender: 'user',
           content: action.payload,
-          isClarification: action.payload.is_final_response,
+          isClarification: action.payload.is_clarification,
           isFinalResponse: action.payload.is_final_response,
         },
       ];

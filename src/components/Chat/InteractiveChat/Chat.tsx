@@ -164,10 +164,11 @@ const Chat: React.FC = () => {
             )}
             {message.sender === 'assistant' && (
               <LupaiAnswer
-                content={message.content}
+                content={message.content || ''}
                 sources={message.sources || []}
                 isClarification={message.isClarification}
-                isFinalResponse={message.isFinalResponse} />
+                isFinalResponse={message.isFinalResponse}
+                status={message.status} />
             )}
           </MessagesContainer>
         ))}
