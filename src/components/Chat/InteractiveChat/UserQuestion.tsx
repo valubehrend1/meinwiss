@@ -3,16 +3,15 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-
 const Container = styled(Paper)({
-  backgroundColor: `rgba(0, 48, 30, 0.2)`,
+  backgroundColor: 'rgba(0, 48, 30, 0.2)',
   borderRadius: '22px',
   padding: '32px 40px',
-  width: '80%', // Adjust width as needed
+  width: '80%',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  textTransform: 'none', // Remove uppercase styling from button
+  textTransform: 'none',
   cursor: 'pointer',
   boxShadow: 'none'
 });

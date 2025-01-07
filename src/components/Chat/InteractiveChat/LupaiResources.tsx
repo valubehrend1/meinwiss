@@ -13,7 +13,8 @@ import {
   ResourceAccordionDetails,
   ResourceAccordionSummary,
   LupaiResourcesContainer,
-  ResourcesUrl
+  ResourcesUrl,
+  GeneralContainer,
 } from './LupaiResourcesStyles';
 
 export interface RetrieverItem {
@@ -66,71 +67,74 @@ const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
   }, {} as { [key: string]: Array<{ source_name: string; text: string; source_url: string; source_date: string; }> });
 
   return (
-    <LupaiResourcesContainer>
-      {Object.entries(groupedItems).map(([source, item], index) => (
-        <ResourceAccordion
-          key={source}
-          expanded={expanded === `panel${index}`}
-          onChange={handleChange(`panel${index}`)}
-          source={source}
-        >
-          <ResourceAccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant='h5'>
-              {source ===
-                'Information curated by counseling centers and information portals'
-                ? 'Consultancy services'
-                : source}
-            </Typography>
-          </ResourceAccordionSummary>
-          <ResourceAccordionDetails>
-            {item.length > 0 && (
-              <>
-                <Typography variant="h5" sx={{ marginBottom: '10px', fontStyle: 'italic' }}>
-                  {t('last_update')} {item[pageIndices[`panel${index}`] || 0].source_date}
-                </Typography>
-                <Typography variant="h5" sx={{ textDecoration: 'underline', marginBottom: '10px' }}>
-                  {item[pageIndices[`panel${index}`] || 0].source_name}
-                </Typography>
-                <Typography sx={{ marginBottom: '30px' }}>
-                  {item[pageIndices[`panel${index}`] || 0].text}
-                </Typography>
-                <ResourcesUrl
-                  href={item[pageIndices[`panel${index}`] || 0].source_url}
-                  target="_blank"
+    <GeneralContainer>
+      <Typography>{t('response_based_on_resources')}</Typography>
+      <LupaiResourcesContainer>
+        {Object.entries(groupedItems).map(([source, item], index) => (
+          <ResourceAccordion
+            key={source}
+            expanded={expanded === `panel${index}`}
+            onChange={handleChange(`panel${index}`)}
+            source={source}
+          >
+            <ResourceAccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography variant='h5'>
+                {source ===
+                  'Information curated by counseling centers and information portals'
+                  ? 'Consultancy services'
+                  : source}
+              </Typography>
+            </ResourceAccordionSummary>
+            <ResourceAccordionDetails>
+              {item.length > 0 && (
+                <>
+                  <Typography variant="h5" sx={{ marginBottom: '10px', fontStyle: 'italic' }}>
+                    {t('last_update')} {item[pageIndices[`panel${index}`] || 0].source_date}
+                  </Typography>
+                  <Typography variant="h5" sx={{ textDecoration: 'underline', marginBottom: '10px' }}>
+                    {item[pageIndices[`panel${index}`] || 0].source_name}
+                  </Typography>
+                  <Typography sx={{ marginBottom: '30px' }}>
+                    {item[pageIndices[`panel${index}`] || 0].text}
+                  </Typography>
+                  <ResourcesUrl
+                    href={item[pageIndices[`panel${index}`] || 0].source_url}
+                    target="_blank"
+                  >
+                    {t('learn_more')}
+                  </ResourcesUrl>
+                </>
+              )}
+              {item.length > 1 && (
+                <Box
+                  sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}
                 >
-                  {t('learn_more')}
-                </ResourcesUrl>
-              </>
-            )}
-            {item.length > 1 && (
-              <Box
-                sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}
-              >
-                <PaginationButton
-                  sx={{ color: '#FFF' }}
-                  disabled={pageIndices[`panel${index}`] <= 0}
-                  onClick={() => handlePagination(`panel${index}`, -1)}
-                  startIcon={<NavigateBeforeIcon />}
-                >
-                  Previous
-                </PaginationButton>
-                <PaginationButton
-                  sx={{ color: '#FFF' }}
-                  disabled={
-                    (pageIndices[`panel${index}`] || 0) >=
-                    item.length - 1
-                  }
-                  onClick={() => handlePagination(`panel${index}`, 1)}
-                  endIcon={<NavigateNextIcon />}
-                >
-                  Next
-                </PaginationButton>
-              </Box>
-            )}
-          </ResourceAccordionDetails>
-        </ResourceAccordion>
-      ))}
-    </LupaiResourcesContainer>
+                  <PaginationButton
+                    sx={{ color: '#FFF' }}
+                    disabled={pageIndices[`panel${index}`] <= 0}
+                    onClick={() => handlePagination(`panel${index}`, -1)}
+                    startIcon={<NavigateBeforeIcon />}
+                  >
+                    Previous
+                  </PaginationButton>
+                  <PaginationButton
+                    sx={{ color: '#FFF' }}
+                    disabled={
+                      (pageIndices[`panel${index}`] || 0) >=
+                      item.length - 1
+                    }
+                    onClick={() => handlePagination(`panel${index}`, 1)}
+                    endIcon={<NavigateNextIcon />}
+                  >
+                    Next
+                  </PaginationButton>
+                </Box>
+              )}
+            </ResourceAccordionDetails>
+          </ResourceAccordion>
+        ))}
+      </LupaiResourcesContainer>
+    </GeneralContainer>
   );
 };
 
