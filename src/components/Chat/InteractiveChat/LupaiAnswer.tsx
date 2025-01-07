@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-
-/* import TypingDots from './TypingDots' */
-import { LupaiAnswerContainer, StyledMarkdown } from './ChatStyles'
+import { LupaiAnswerContainer, StyledMarkdown } from './ChatStyles';
 import { Box } from '@mui/material/';
+import { styled } from '@mui/system/';
 import Typography from '@mui/material/Typography';
 
 import LupaiResources from './LupaiResources';
 
-import { RetrieverItem } from '../../../config/features/ChatSlice';
+import {
+  RetrieverItem,
+  selectStatusDisplay,
+  selectOriginalStatus
+} from '../../../config/features/ChatSlice';
+
+import { useSelector } from 'react-redux';
 
 import theme from '../../../theme';
-
-import logo from '../../../assets/logo.png'
-
+import logo from '../../../assets/logo.png';
 
 interface LupaiAnswerProps {
   content: string;
@@ -20,21 +23,34 @@ interface LupaiAnswerProps {
   answerFound?: boolean;
   isFinalResponse: boolean;
   isClarification?: boolean;
-  status?: unknown;
-  displayedStatus?: string;
+  isWaitingForResponse?: boolean;
 }
 
+const SpinnerContainer = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center'
+});
 
-const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound, isFinalResponse, isClarification, status, displayedStatus }) => {
+const AnswerContentContainer = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column'
+});
+
+const LupaiAnswer: React.FC<LupaiAnswerProps> = ({
+  content,
+  sources,
+  answerFound,
+  isFinalResponse,
+  isClarification,
+}) => {
   const [displayedText, setDisplayedText] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
 
-  useEffect(() => {
-    console.log("status in component:", status);
-    console.log("displayedStatus in component:", displayedStatus);
-  }, [displayedStatus, status]);
+  const status = useSelector(selectOriginalStatus);
+  const displayedStatus = useSelector(selectStatusDisplay);
 
-
+  // Simulamos "typo" del contenido
   useEffect(() => {
     if (index < content.length) {
       const timeout = setTimeout(() => {
@@ -50,14 +66,17 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound
     return !answerFound && isFinalResponse && !isClarification;
   };
 
+  const showSpinner = (): boolean => {
+    return status !== null && typeof displayedStatus === 'string' && displayedStatus.length > 0 && !isFinalResponse;
+  };
+
   return (
     <LupaiAnswerContainer>
       <Box>
         <img src={logo} alt="Logo" style={{ width: '20px' }} />
       </Box>
-
-      {status !== null && displayedStatus !== null &&
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {showSpinner() && (
+        <SpinnerContainer>
           <Typography
             variant="h5"
             sx={{
@@ -72,18 +91,20 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({ content, sources, answerFound
           >
             {displayedStatus}
           </Typography>
-        </Box>
-      }
+        </SpinnerContainer>
+      )}
 
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+      <AnswerContentContainer>
         <Typography variant="h5" style={{ color: '#333' }}>
-          <StyledMarkdown>{displayedText}</StyledMarkdown>
+          <StyledMarkdown>
+            {displayedText}
+          </StyledMarkdown>
         </Typography>
-        {showReferences() &&
-          <LupaiResources retrieverItems={sources} />
-        }
-      </Box>
 
+        {showReferences() && (
+          <LupaiResources retrieverItems={sources} />
+        )}
+      </AnswerContentContainer>
     </LupaiAnswerContainer>
   );
 };

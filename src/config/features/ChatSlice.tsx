@@ -7,8 +7,6 @@ export interface Message {
   answerFound?: boolean;
   isFinalResponse: boolean;
   isClarification?: boolean;
-  status?: unknown;
-  displayedStatus?: string;
 }
 
 export interface Organization {
@@ -40,12 +38,12 @@ interface AssistantResponse {
     improved_answer: string;
     answer_found: boolean;
   };
-  retriever_items: RetrieverItem[]; // Puedes reemplazar 'any' con el tipo adecuado si lo tienes
-  status: unknown; // Reemplaza 'any' con el tipo adecuado
-  status_diplay: {
+  retriever_items: RetrieverItem[];
+  status: unknown;
+  status_display: {
     status: string;
     display_message: string | null;
-  },
+  };
   language: {
     language_code: string;
     language_name: string;
@@ -54,13 +52,12 @@ interface AssistantResponse {
   domain: string;
   improved_query: string | null;
   is_final_response: boolean;
-  sensitive_topic: unknown; // Reemplaza 'any' con el tipo adecuado
+  sensitive_topic: unknown;
   is_clarification: boolean;
   intent: string;
   is_loading: boolean;
-  error: null; // Reemplaza 'any' con el tipo adecuado
+  error: null;
 }
-
 
 interface ChatState {
   userQuery: string;
@@ -70,9 +67,10 @@ interface ChatState {
   assistantResponse: AssistantResponse;
   messages: Message[];
   accumulatedOrganizations: Organization[];
+  originalStatus: string;
+  statusDisplay: string;
 }
 
-// Estado inicial del slice
 const initialState: ChatState = {
   userQuery: '',
   userContext: {
@@ -83,27 +81,27 @@ const initialState: ChatState = {
   },
   assistantResponse: {
     assistant_response: {
-      answer: "",
-      improved_answer: "",
+      answer: '',
+      improved_answer: '',
       answer_found: false,
     },
     retriever_items: [],
     status: null,
-    status_diplay: {
-      status: "",
-      display_message: "",
+    status_display: {
+      status: '',
+      display_message: '',
     },
     language: {
-      language_code: "",
-      language_name: ""
+      language_code: '',
+      language_name: '',
     },
     organizations: null,
-    domain: "",
+    domain: '',
     improved_query: null,
     is_final_response: false,
     sensitive_topic: null,
     is_clarification: false,
-    intent: "",
+    intent: '',
     is_loading: false,
     error: null,
   },
@@ -111,10 +109,10 @@ const initialState: ChatState = {
   error: null,
   messages: [],
   accumulatedOrganizations: [],
+  originalStatus: '',
+  statusDisplay: '',
 };
 
-
-// Crear el slice de Redux
 const chatSlice = createSlice({
   name: 'chat',
   initialState,
@@ -123,47 +121,69 @@ const chatSlice = createSlice({
       state.userQuery = action.payload;
     },
     setAssistantResponse: (state, action) => {
-      console.log("Payload recibido en setAssistantResponse:", action.payload);
 
-      state.assistantResponse = action.payload; // Actualiza el estado
+      const {
+        assistant_response,
+        retriever_items = [],
+        is_clarification = false,
+        is_final_response = false,
+        status = null,
+        status_display = { status: null, display_message: null },
+        organizations = [],
+      } = action.payload;
 
-      console.log("Estado actualizado en Redux:", state.assistantResponse);
+      // Manejar payload nulo
+      const safeAssistantResponse = assistant_response || { improved_answer: '', answer_found: false };
+      const improvedAnswer = safeAssistantResponse.improved_answer || '';
 
+      // Asignar originalStatus (si es null, lo pasamos como string vacío)
+      state.originalStatus = status || '';
 
-      const incomingOrganizations = action.payload.organizations; // Venía como "organizations" del backend
+      // Solo actualizamos el estado si *no* es null/undefined
+      if (
+        status_display &&
+        status_display.display_message !== null &&
+        status_display.display_message !== undefined
+      ) {
+        state.statusDisplay = status_display.display_message;
+      }
 
-      // 3) Si efectivamente vienen nuevas organizaciones, las procesamos
-      if (Array.isArray(incomingOrganizations) && incomingOrganizations.length > 0) {
-        // Por cada organización nueva, chequeamos si ya existe en el array global `accumulatedOrganizations`
-        incomingOrganizations.forEach((newOrg: Organization) => {
+      // Buscar si el último mensaje del asistente es parcial o final
+      const lastMessage = state.messages[state.messages.length - 1];
+      const isLastMessageAssistant =
+        lastMessage && lastMessage.sender === 'assistant' && !lastMessage.isFinalResponse;
+
+      if (isLastMessageAssistant) {
+        // Concatenamos (o sobrescribimos) el texto parcial
+        lastMessage.content += improvedAnswer;
+        lastMessage.answerFound = safeAssistantResponse.answer_found;
+        lastMessage.isClarification = is_clarification;
+        lastMessage.isFinalResponse = is_final_response;
+        lastMessage.sources = retriever_items;
+      } else {
+        // Creamos un nuevo mensaje
+        const newMessage: Message = {
+          sender: 'assistant',
+          content: improvedAnswer,
+          sources: retriever_items,
+          answerFound: safeAssistantResponse.answer_found,
+          isClarification: is_clarification,
+          isFinalResponse: is_final_response,
+        };
+        state.messages.push(newMessage);
+      }
+
+      // Manejo de organizaciones
+      if (Array.isArray(organizations) && organizations.length > 0) {
+        organizations.forEach((newOrg: Organization) => {
           const orgAlreadyExists = state.accumulatedOrganizations.some(
             (existingOrg) => existingOrg.name === newOrg.name
           );
-          // Si no existe, la agregamos
           if (!orgAlreadyExists) {
             state.accumulatedOrganizations.push(newOrg);
           }
         });
       }
-
-      state.messages =
-        [...state.messages,
-        {
-          sender: 'assistant',
-          content: action.payload.assistant_response.improved_answer,
-          sources: action.payload.retriever_items,
-          answerFound: action.payload.answer_found,
-          isClarification: action.payload.is_clarification,
-          isFinalResponse: action.payload.is_final_response,
-          status: action.payload.status,
-          displayedStatus: action.payload.display_message.status_display,
-        }];
-
-      // Añadir la respuesta del asistente como un nuevo mensaje
-      /*      state.messages.push({
-             sender: 'assistant',
-             content: action.payload.assistant_response.improved_answer || '',
-           }); */
     },
     setOriginCountry: (state, action) => {
       state.userContext.originCountry = action.payload;
@@ -195,22 +215,28 @@ const chatSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.messages = [];
+      state.accumulatedOrganizations = [];
+      state.originalStatus = '';
+      state.statusDisplay = '';
+    },
+    finalizeOldAssistantMessages: (state) => {
+      state.messages.forEach((msg) => {
+        if (msg.sender === 'assistant') {
+          msg.isFinalResponse = true;
+        }
+      });
     },
     addUserMessage: (state, action) => {
-      state.messages = [
-        ...state.messages,
-        {
-          sender: 'user',
-          content: action.payload,
-          isClarification: action.payload.is_clarification,
-          isFinalResponse: action.payload.is_final_response,
-        },
-      ];
+      state.messages.push({
+        sender: 'user',
+        content: action.payload,
+        isClarification: action.payload.is_clarification,
+        isFinalResponse: action.payload.is_final_response,
+      });
     },
   },
 });
 
-// Exportar las acciones y el reducer
 export const {
   setUserQuery,
   setAssistantResponse,
@@ -221,7 +247,9 @@ export const {
   setLoading,
   setError,
   addUserMessage,
-  resetSearch } = chatSlice.actions;
+  resetSearch,
+  finalizeOldAssistantMessages,
+} = chatSlice.actions;
 
 export const selectUserQuery = (state: { chat: ChatState }) => state.chat.userQuery;
 export const selectAssistantResponse = (state: { chat: ChatState }) => state.chat.assistantResponse;
@@ -231,6 +259,8 @@ export const selectOriginCountry = (state: { chat: ChatState }) => state.chat.us
 export const selectLocation = (state: { chat: ChatState }) => state.chat.userContext.location;
 export const selectAge = (state: { chat: ChatState }) => state.chat.userContext.age;
 export const selectAccumulatedOrganizations = (state: { chat: ChatState }) => state.chat.accumulatedOrganizations;
+export const selectStatusDisplay = (state: { chat: ChatState }) => state.chat.statusDisplay;
+export const selectOriginalStatus = (state: { chat: ChatState }) => state.chat.originalStatus;
 export const selectIsLoading = (state: { chat: ChatState }) => state.chat.isLoading;
 export const selectError = (state: { chat: ChatState }) => state.chat.error;
 export const selectMessages = (state: { chat: ChatState }) => state.chat.messages;
