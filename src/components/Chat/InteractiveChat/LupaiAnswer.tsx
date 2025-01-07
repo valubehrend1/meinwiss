@@ -63,7 +63,7 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({
   }, [index, content]);
 
   const showReferences = (): boolean => {
-    return !answerFound && isFinalResponse && !isClarification;
+    return !!answerFound && isFinalResponse && !isClarification;
   };
 
   const showSpinner = (): boolean => {
