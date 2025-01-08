@@ -44,7 +44,7 @@ const App: React.FC = () => {
         <Route path="/über" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/kontakt" element={<Contact />} />
-        <Route path="/how-does-lupai-works" element={<HowlupaiWorksSection />} />
+        <Route path="/how-lupai-works" element={<HowlupaiWorksSection />} />
         <Route path="/wie-lupai-funktioniert" element={<HowlupaiWorksSection />} />
         <Route path="/login" element={<LoginForm />} />
         <Route element={<PrivateRoute />}>
