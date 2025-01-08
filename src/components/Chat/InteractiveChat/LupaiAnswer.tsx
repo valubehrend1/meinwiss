@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 
 import theme from '../../../theme';
 import logo from '../../../assets/logo.png';
+import ErrorModal from '../ErrorModal/ErrorModal';
 
 interface LupaiAnswerProps {
   content: string;
@@ -24,6 +25,9 @@ interface LupaiAnswerProps {
   isFinalResponse: boolean;
   isClarification?: boolean;
   isWaitingForResponse?: boolean;
+  error?: string | null;
+  setIsOpen: (isOpen: boolean) => void;
+  open?: boolean;
 }
 
 const SpinnerContainer = styled(Box)({
@@ -43,12 +47,19 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({
   answerFound,
   isFinalResponse,
   isClarification,
+  error,
+  setIsOpen,
 }) => {
   const [displayedText, setDisplayedText] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
 
   const status = useSelector(selectOriginalStatus);
   const displayedStatus = useSelector(selectStatusDisplay);
+
+  const handleCloseError = () => {
+    setIsOpen(false);
+  }
+
 
   // Simulamos "typo" del contenido
   useEffect(() => {
@@ -71,41 +82,50 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({
   };
 
   return (
-    <LupaiAnswerContainer>
-      <Box>
-        <img src={logo} alt="Logo" style={{ width: '20px' }} />
-      </Box>
-      {showSpinner() && (
-        <SpinnerContainer>
-          <Typography
-            variant="h5"
-            sx={{
-              color: theme.palette.primary.main,
-              animation: 'pulse 1.5s infinite',
-              '@keyframes pulse': {
-                '0%': { opacity: 0.5 },
-                '50%': { opacity: 1 },
-                '100%': { opacity: 0.5 },
-              },
-            }}
-          >
-            {displayedStatus}
-          </Typography>
-        </SpinnerContainer>
+    <>
+      {error && (
+        <ErrorModal
+          isOpen={true}
+          onClose={handleCloseError}
+          content="There was an error loading the answer, please try again."
+        />
       )}
-
-      <AnswerContentContainer>
-        <Typography variant="h5" style={{ color: '#333' }}>
-          <StyledMarkdown>
-            {displayedText}
-          </StyledMarkdown>
-        </Typography>
-
-        {showReferences() && (
-          <LupaiResources retrieverItems={sources} />
+      <LupaiAnswerContainer>
+        <Box>
+          <img src={logo} alt="Logo" style={{ width: '20px' }} />
+        </Box>
+        {showSpinner() && (
+          <SpinnerContainer>
+            <Typography
+              variant="h5"
+              sx={{
+                color: theme.palette.primary.main,
+                animation: 'pulse 1.5s infinite',
+                '@keyframes pulse': {
+                  '0%': { opacity: 0.5 },
+                  '50%': { opacity: 1 },
+                  '100%': { opacity: 0.5 },
+                },
+              }}
+            >
+              {displayedStatus}
+            </Typography>
+          </SpinnerContainer>
         )}
-      </AnswerContentContainer>
-    </LupaiAnswerContainer>
+
+        <AnswerContentContainer>
+          <Typography variant="h5" style={{ color: '#333' }}>
+            <StyledMarkdown>
+              {displayedText}
+            </StyledMarkdown>
+          </Typography>
+
+          {showReferences() && (
+            <LupaiResources retrieverItems={sources} />
+          )}
+        </AnswerContentContainer>
+      </LupaiAnswerContainer>
+    </>
   );
 };
 
