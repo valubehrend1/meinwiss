@@ -20,19 +20,22 @@ const ActionButton = styled(Button)({
 interface SharedModalProps {
   open: boolean;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsRefreshModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   info: string;
   content: string;
   submitString: string;
   alternativeString: string;
-  onSubmit: () => void;
+  onSubmit?: () => void;
   onCancel: () => void;
   isPdf?: boolean;
   isErrorModal?: boolean
+  isRefreshModal?: boolean;
 }
 
 const SharedModal: React.FC<SharedModalProps> = ({
   open,
   setIsOpen,
+  setIsRefreshModalOpen,
   info,
   content,
   submitString,
@@ -40,9 +43,19 @@ const SharedModal: React.FC<SharedModalProps> = ({
   onSubmit,
   onCancel,
   isPdf,
-  isErrorModal
+  isErrorModal,
+  isRefreshModal
 }) => {
   const messages = useSelector(selectMessages);
+
+  const handleClose = () => {
+    if (isRefreshModal) {
+      setIsRefreshModalOpen?.(false);
+    }
+    else {
+      setIsOpen?.(false);
+    }
+  }
 
   return (
     <Dialog
@@ -59,7 +72,7 @@ const SharedModal: React.FC<SharedModalProps> = ({
           {!isErrorModal &&
             <IconButton
               aria-label="close"
-              onClick={() => setIsOpen?.(false)}
+              onClick={handleClose}
               sx={{ position: 'absolute', right: '8px', top: '8px', color: 'black' }}
             >
               <CloseIcon />
@@ -72,7 +85,7 @@ const SharedModal: React.FC<SharedModalProps> = ({
       </DialogContent>
       <DialogActions>
         {
-          isPdf ? (
+          isPdf || isRefreshModal ? (
             <>
               <PDFDownloadLink
                 document={<PdfExport messages={messages} />}

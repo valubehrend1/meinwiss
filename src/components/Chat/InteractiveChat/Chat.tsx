@@ -30,6 +30,7 @@ import ErrorModal from '../ErrorModal/ErrorModal';
 
 import { useNavigate } from 'react-router-dom';
 import theme from '../../../theme';
+import RefreshModalError from '../ErrorModal/RefreshModalError';
 
 const Chat: React.FC = () => {
   const messages = useSelector(selectMessages);
@@ -41,19 +42,52 @@ const Chat: React.FC = () => {
   const dispatch = useDispatch();
   const { ws } = useWebSocket();
 
-  // Control del modal PDF / error
   const [isOpen, setIsOpen] = useState(false);
+  const [isRefreshModalOpen, setIsRefreshModalOpen] = useState(false);
   const [socketDown, setSocketDown] = useState(false);
 
   // Evita re-enviar el mismo mensaje del usuario varias veces
   const [hasSentMessage, setHasSentMessage] = useState(false);
 
-
   // Manejo Modal
   const handleOpen = () => {
     setIsOpen(true);
   };
-  const onCancelPdfModal = () => {
+
+  // Interceptar F5, Ctrl+R / Cmd+R
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Detectar F5
+      if (event.key === 'F5') {
+        event.preventDefault();
+        setIsRefreshModalOpen(true);
+      }
+      // Detectar Ctrl+R o Cmd+R
+      const isCtrlOrCmd = event.ctrlKey || event.metaKey;
+      if (isCtrlOrCmd && event.key.toLowerCase() === 'r') {
+        event.preventDefault();
+        setIsRefreshModalOpen(true);
+
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  const handleRefreshConfirm = () => {
+    setIsRefreshModalOpen(false);
+    dispatch(resetSearch());
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({ type: 'new_search' }));
+    }
+    navigate('/ask-lupai');
+    window.location.reload();  // <-- recargamos la página
+  };
+
+  const onCancelModal = () => {
     setIsOpen(false);
     navigate('/ask-lupai');
     window.location.reload();
@@ -61,7 +95,9 @@ const Chat: React.FC = () => {
 
   // Manejo ErrorModal
   const handleCloseError = () => {
-    dispatch(setError(null));
+    if (responseError) {
+      dispatch(setError(null));
+    }
     setSocketDown(false);
   };
 
@@ -117,14 +153,6 @@ const Chat: React.FC = () => {
     }
   }, [messages, hasSentMessage]); // eslint-disable-line
 
-  // Nueva búsqueda
-  const handleNewQuestion = () => {
-    dispatch(resetSearch());
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ type: 'new_search' }));
-    }
-    navigate('/ask-lupai');
-  };
 
   // Manejo de socket cerrado
   useEffect(() => {
@@ -139,11 +167,20 @@ const Chat: React.FC = () => {
         {isOpen && (
           <NewQuestionModal
             isOpen={isOpen}
-            onNewQuestion={handleNewQuestion}
-            onCancel={onCancelPdfModal}
+            onNewQuestion={onCancelModal}
             setIsOpen={setIsOpen}
           />
         )}
+
+        {isRefreshModalOpen && (
+          <RefreshModalError
+            isOpen={isRefreshModalOpen}
+            setIsRefreshModalOpen={setIsRefreshModalOpen}
+            onReset={handleRefreshConfirm}
+            onCancel={onCancelModal}
+          />
+        )}
+
         {responseError && (
           <ErrorModal
             isOpen={true}
@@ -173,6 +210,9 @@ const Chat: React.FC = () => {
                 isClarification={message.isClarification}
                 isFinalResponse={message.isFinalResponse}
                 answerFound={message.answerFound}
+                error={message.error}
+                setIsOpen={setIsOpen}
+                open={isOpen}
               />
             )}
           </MessagesContainer>
