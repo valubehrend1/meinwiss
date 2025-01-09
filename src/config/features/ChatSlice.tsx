@@ -7,6 +7,7 @@ export interface Message {
   answerFound?: boolean;
   isFinalResponse: boolean;
   isClarification?: boolean;
+  error?: string;
 }
 
 export interface Organization {
@@ -56,7 +57,7 @@ interface AssistantResponse {
   is_clarification: boolean;
   intent: string;
   is_loading: boolean;
-  error: null;
+  error: string | null;
 }
 
 interface ChatState {
@@ -130,6 +131,7 @@ const chatSlice = createSlice({
         status = null,
         status_display = { status: null, display_message: null },
         organizations = [],
+        error = null
       } = action.payload;
 
       // Manejar payload nulo
@@ -153,6 +155,8 @@ const chatSlice = createSlice({
       const isLastMessageAssistant =
         lastMessage && lastMessage.sender === 'assistant' && !lastMessage.isFinalResponse;
 
+      const messageError = safeAssistantResponse.error || error;
+
       if (isLastMessageAssistant) {
         // Concatenamos (o sobrescribimos) el texto parcial
         lastMessage.content += improvedAnswer;
@@ -160,6 +164,7 @@ const chatSlice = createSlice({
         lastMessage.isClarification = is_clarification;
         lastMessage.isFinalResponse = is_final_response;
         lastMessage.sources = retriever_items;
+        lastMessage.error = messageError || null;
       } else {
         // Creamos un nuevo mensaje
         const newMessage: Message = {

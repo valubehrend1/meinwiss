@@ -173,6 +173,9 @@ const Chat: React.FC = () => {
                 isClarification={message.isClarification}
                 isFinalResponse={message.isFinalResponse}
                 answerFound={message.answerFound}
+                error={message.error}
+                setIsOpen={setIsOpen}
+                open={isOpen}
               />
             )}
           </MessagesContainer>
