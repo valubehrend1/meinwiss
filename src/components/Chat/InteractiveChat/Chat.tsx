@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
-
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectMessages,
@@ -9,21 +7,22 @@ import {
   addUserMessage,
   selectUserContext,
   resetSearch,
-  setError
+  setError,
+  selectAccumulatedOrganizations,
+  finalizeOldAssistantMessages,
 } from '../../../config/features/ChatSlice';
 
 import { Box, IconButton } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
-
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import PdfExport from '../PdfExport';
 
+import PdfExport from '../PdfExport';
 import SharedSearchBar from '../../shared/SharedSearchBar/SharedSearchBar';
 import LupaiAnswer from './LupaiAnswer';
 import UserQuestion from './UserQuestion';
 import AddNewQuestion from './AddNewQuestion';
+import LupaiOrganizations from './LupaiOrganizations';
 import { ChatContainer, MessagesContainer } from './ChatStyles';
-
 
 import { useWebSocket } from '../../../context/useWebSocket';
 import NewQuestionModal from './NewQuestionModal';
@@ -35,78 +34,86 @@ import RefreshModalError from '../ErrorModal/RefreshModalError';
 
 const Chat: React.FC = () => {
   const messages = useSelector(selectMessages);
+  const organizations = useSelector(selectAccumulatedOrganizations);
   const userContext = useSelector(selectUserContext);
+  const responseError = useSelector(selectError);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { ws } = useWebSocket();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isRefreshModalOpen, setIsRefreshModalOpen] = useState(false);
-  /*  const [isRefreshAttempted, setIsRefreshAttempted] = useState(false); */
+  const [socketDown, setSocketDown] = useState(false);
+
+  // Evita re-enviar el mismo mensaje del usuario varias veces
   const [hasSentMessage, setHasSentMessage] = useState(false);
 
-  const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
-  const responseError = useSelector(selectError)
-
+  // Manejo Modal
   const handleOpen = () => {
     setIsOpen(true);
   };
 
-  const handleCloseError = () => {
-    dispatch(setError(null));
-  }
-
-  const [allowRefresh, setAllowRefresh] = useState(false);
-
+  // Interceptar F5, Ctrl+R / Cmd+R
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.ctrlKey || event.metaKey) && event.key === 'r') {
+      // Detectar F5
+      if (event.key === 'F5') {
         event.preventDefault();
-        setIsRefreshModalOpen(true); // Mostrar el modal en lugar de recargar
+        setIsRefreshModalOpen(true);
       }
-    };
+      // Detectar Ctrl+R o Cmd+R
+      const isCtrlOrCmd = event.ctrlKey || event.metaKey;
+      if (isCtrlOrCmd && event.key.toLowerCase() === 'r') {
+        event.preventDefault();
+        setIsRefreshModalOpen(true);
 
-    const handleRefreshAttempt = () => {
-      if (!allowRefresh) {
-        setIsRefreshModalOpen(true); // Bloquear la recarga manual
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('beforeunload', handleRefreshAttempt);
-
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('beforeunload', handleRefreshAttempt);
     };
-  }, [allowRefresh]);
+  }, []);
 
   const handleRefreshConfirm = () => {
-    setAllowRefresh(true); // Permitir la recarga
     setIsRefreshModalOpen(false);
-    window.location.reload(); // Refrescar manualmente
+    dispatch(resetSearch());
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({ type: 'new_search' }));
+    }
+    navigate('/ask-lupai');
+    window.location.reload();  // <-- recargamos la página
   };
 
-  const handleRefreshCancel = () => {
-    setIsRefreshModalOpen(false); // Bloquear la recarga
-  };
-
-  const onCancelPdfModal = () => {
+  const onCancelModal = () => {
     setIsOpen(false);
     navigate('/ask-lupai');
     window.location.reload();
   };
 
-  const dispatch = useDispatch();
-  const { ws } = useWebSocket();
+  // Manejo ErrorModal
+  const handleCloseError = () => {
+    if (responseError) {
+      dispatch(setError(null));
+    }
+    setSocketDown(false);
+  };
 
+  // Escucha mensajes WebSocket
   if (ws) {
     ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      dispatch(setAssistantResponse(message));
-      setIsWaitingForResponse(false);
+      try {
+        const message = JSON.parse(event.data);
+        dispatch(setAssistantResponse(message));
+      } catch (error) {
+        console.error('Error parsing WebSocket message:', error);
+      }
     };
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // Enviar mensaje al server
   const sendMessage = (messageContent: string) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       const messageToSend = {
@@ -119,47 +126,40 @@ const Chat: React.FC = () => {
         location: userContext.location,
       };
       ws.send(JSON.stringify(messageToSend));
-      setIsWaitingForResponse(true);
     } else {
       console.error('WebSocket no está abierto para enviar mensajes.');
+      setSocketDown(true);
     }
   };
 
-  // Hook useEffect para manejar el envío de mensajes(si hay modificaciones en las variables dependientes)
+  const sendUserMessage = (messageContent: string) => {
+    dispatch(finalizeOldAssistantMessages());
+    dispatch(addUserMessage(messageContent));
+    sendMessage(messageContent);
+  };
 
+  // Cuando se agrega un nuevo mensaje de usuario, lo enviamos al backend
   useEffect(() => {
-    // Comprobación para asegurarse de que hay mensajes, el último mensaje es del usuario, y no se ha enviado aún.
     if (
-      messages.length > 0 && // Verifica que hay al menos un mensaje.
-      messages[messages.length - 1].sender === 'user' && // Verifica que el último mensaje fue enviado por el usuario.
-      // (message.lenght - 1 = 0 (indice array) y el sender es el usuario
-      !hasSentMessage  // Verifica que el último mensaje aún no ha sido enviado.
+      messages.length > 0 &&
+      messages[messages.length - 1].sender === 'user' &&
+      !hasSentMessage
     ) {
-      const lastUserMessage = messages[messages.length - 1].content; // Obtiene el contenido del último mensaje del usuario.
-
-      // Envía el mensaje con el último contenido del usuario y los datos del contexto.
-      sendMessage(lastUserMessage); // Envía el último mensaje del usuario usando la función sendMessage.
-      setHasSentMessage(true); // Marca que se ha enviado el mensaje
-    } else if (messages.length === 0) { // Verifica si la lista de mensajes está vacía.
-      setHasSentMessage(false); // Reinicia el estado si no hay nuevos  mensajes
+      const lastUserMessage = messages[messages.length - 1].content;
+      sendMessage(lastUserMessage);
+      setHasSentMessage(true);
+    } else if (messages.length === 0) {
+      setHasSentMessage(false);
     }
-  }, [messages, sendMessage, hasSentMessage]);
+  }, [messages, hasSentMessage]); // eslint-disable-line
 
-  const handleNewQuestion = () => {
-    // Vaciar campos de búsqueda y otros estados relacionados
-    dispatch(resetSearch()); // Suponiendo que resetSearch() vacía todos los campos y estados de búsqueda relevante
 
-    // Preparar y enviar mensaje al backend
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      const newSearchMessage = {
-        type: 'new_search', // Asegúrate de que el backend maneje este tipo de mensaje
-      };
-      ws.send(JSON.stringify(newSearchMessage));
+  // Manejo de socket cerrado
+  useEffect(() => {
+    if (ws && ws.readyState === WebSocket.CLOSED) {
+      setSocketDown(true);
     }
-
-    // Redirigir a /ask-lupai
-    navigate('/ask-lupai');
-  };
+  }, [ws]);
 
   return (
     <>
@@ -167,39 +167,62 @@ const Chat: React.FC = () => {
         {isOpen && (
           <NewQuestionModal
             isOpen={isOpen}
-            onNewQuestion={handleNewQuestion}
-            onCancel={onCancelPdfModal}
+            onNewQuestion={onCancelModal}
             setIsOpen={setIsOpen}
           />
         )}
-        {responseError && <ErrorModal isOpen={true} onClose={handleCloseError} />}
-        {isRefreshModalOpen &&
+
+        {isRefreshModalOpen && (
           <RefreshModalError
             isOpen={isRefreshModalOpen}
-            onClose={handleRefreshCancel}
-            onReset={handleRefreshConfirm} />}
+            setIsRefreshModalOpen={setIsRefreshModalOpen}
+            onReset={handleRefreshConfirm}
+            onCancel={onCancelModal}
+          />
+        )}
+
+        {responseError && (
+          <ErrorModal
+            isOpen={true}
+            onClose={handleCloseError}
+            content="There was an error loading the answer, please try again."
+          />
+        )}
+        {socketDown && (
+          <ErrorModal
+            isOpen={true}
+            setisOpen={setIsOpen}
+            onClose={handleCloseError}
+            content="The connection to the server has been lost. Please try again."
+          />
+        )}
+
+        {/* Renderizamos TODOS los mensajes (user / assistant) */}
         {messages.map((message, index) => (
           <MessagesContainer key={index} sender={message.sender}>
             {message.sender === 'user' && (
               <UserQuestion content={message.content} />
             )}
             {message.sender === 'assistant' && (
-              <LupaiAnswer content={message.content} sources={message.sources || []} isClarification={message.isClarification} />
+              <LupaiAnswer
+                content={message.content || ''}
+                sources={message.sources || []}
+                isClarification={message.isClarification}
+                isFinalResponse={message.isFinalResponse}
+                answerFound={message.answerFound}
+              />
             )}
           </MessagesContainer>
         ))}
-        {isWaitingForResponse && (
-          <MessagesContainer sender="assistant">
-            <LupaiAnswer content="" sources={[]} />
-          </MessagesContainer>
+
+        {organizations.length !== 0 && (
+          <LupaiOrganizations organizations={organizations} />
         )}
+
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '20px' }}>
           <SharedSearchBar
             mainSearchPage={false}
-            sendMessage={(messageContent) => {
-              dispatch(addUserMessage(messageContent));
-              sendMessage(messageContent);
-            }}
+            sendMessage={sendUserMessage}
           />
           <PDFDownloadLink
             document={<PdfExport messages={messages} />}
@@ -211,6 +234,7 @@ const Chat: React.FC = () => {
             </IconButton>
           </PDFDownloadLink>
         </Box>
+
         <AddNewQuestion handleOpen={handleOpen} />
       </ChatContainer>
     </>

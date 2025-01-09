@@ -7,7 +7,7 @@ type LanguageState = {
 };
 
 const initialState: LanguageState = {
-  current: Language.DE,
+  current: Language.EN,
 };
 
 export const languageSlice = createSlice({
@@ -25,8 +25,8 @@ export const languageSlice = createSlice({
 });
 
 export const selectCurrentLanguage = (state: {
-  language: { currentLanguage: Language };
-}) => state.language.currentLanguage;
+  language: { current: Language };
+}) => state.language.current;
 
 export const { setLanguage } = languageSlice.actions;
 export const languageReducer = languageSlice.reducer;

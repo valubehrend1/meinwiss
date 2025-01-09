@@ -6,10 +6,12 @@ import SharedModal from '../../shared/SharedModal/SharedModal';
 
 interface ErrorModalProps {
   isOpen: boolean;
+  setisOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   onClose: () => void;
+  content: string;
 }
 
-const ErrorModal: React.FC<ErrorModalProps> = ({ isOpen, onClose }) => {
+const ErrorModal: React.FC<ErrorModalProps> = ({ isOpen, onClose, content, setisOpen }) => {
   const navigate = useNavigate()
 
   const handleError = () => {
@@ -19,14 +21,16 @@ const ErrorModal: React.FC<ErrorModalProps> = ({ isOpen, onClose }) => {
   }
   return (
     <SharedModal open={isOpen}
-      onCancel={onClose}
+      onCancel={handleError}
+      setIsOpen={setisOpen}
       onSubmit={handleError}
-      submitString="Try again"
-      alternativeString="Cancel"
+      submitString="Start again"
+      alternativeString="Download as PDF and start again"
       info="Error"
-      content="There was an error loading the answer, please try again."
-      isPdf={false}>
-    </SharedModal>
+      content={content}
+      isPdf={true}
+      isErrorModal={true}>
+    </SharedModal >
   );
 };
 

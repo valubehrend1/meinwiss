@@ -5,7 +5,14 @@ export interface Message {
   content: string;
   sources?: RetrieverItem[];
   answerFound?: boolean;
+  isFinalResponse: boolean;
   isClarification?: boolean;
+}
+
+export interface Organization {
+  name: string;
+  description: string;
+  website: string;
 }
 
 interface UserContext {
@@ -20,6 +27,7 @@ export interface RetrieverItem {
     source_type: string;
     source_name?: string;
     source_url?: string;
+    source_date?: string;
   };
   text: string;
 }
@@ -30,21 +38,26 @@ interface AssistantResponse {
     improved_answer: string;
     answer_found: boolean;
   };
-  retriever_items: RetrieverItem[]; // Puedes reemplazar 'any' con el tipo adecuado si lo tienes
-  status: unknown; // Reemplaza 'any' con el tipo adecuado
+  retriever_items: RetrieverItem[];
+  status: unknown;
+  status_display: {
+    status: string;
+    display_message: string | null;
+  };
   language: {
     language_code: string;
     language_name: string;
   };
+  organizations: Organization[] | null;
   domain: string;
   improved_query: string | null;
-  sensitive_topic: unknown; // Reemplaza 'any' con el tipo adecuado
+  is_final_response: boolean;
+  sensitive_topic: unknown;
   is_clarification: boolean;
   intent: string;
   is_loading: boolean;
-  error: null; // Reemplaza 'any' con el tipo adecuado
+  error: null;
 }
-
 
 interface ChatState {
   userQuery: string;
@@ -53,9 +66,11 @@ interface ChatState {
   error: string | null;
   assistantResponse: AssistantResponse;
   messages: Message[];
+  accumulatedOrganizations: Organization[];
+  originalStatus: string;
+  statusDisplay: string;
 }
 
-// Estado inicial del slice
 const initialState: ChatState = {
   userQuery: '',
   userContext: {
@@ -66,31 +81,38 @@ const initialState: ChatState = {
   },
   assistantResponse: {
     assistant_response: {
-      answer: "",
-      improved_answer: "",
+      answer: '',
+      improved_answer: '',
       answer_found: false,
     },
     retriever_items: [],
     status: null,
-    language: {
-      language_code: "",
-      language_name: ""
+    status_display: {
+      status: '',
+      display_message: '',
     },
-    domain: "",
+    language: {
+      language_code: '',
+      language_name: '',
+    },
+    organizations: null,
+    domain: '',
     improved_query: null,
+    is_final_response: false,
     sensitive_topic: null,
     is_clarification: false,
-    intent: "",
+    intent: '',
     is_loading: false,
     error: null,
   },
   isLoading: false,
   error: null,
   messages: [],
+  accumulatedOrganizations: [],
+  originalStatus: '',
+  statusDisplay: '',
 };
 
-
-// Crear el slice de Redux
 const chatSlice = createSlice({
   name: 'chat',
   initialState,
@@ -99,21 +121,69 @@ const chatSlice = createSlice({
       state.userQuery = action.payload;
     },
     setAssistantResponse: (state, action) => {
-      console.log("setAssistantResponse", action.payload);
-      state.assistantResponse = action.payload;
 
-      state.messages = [...state.messages, {
-        sender: 'assistant',
-        content: action.payload.assistant_response.improved_answer,
-        sources: action.payload.retriever_items,
-        answerFound: action.payload.answer_found,
-        isClarification: action.payload.is_clarification,
-      }];
-      // Añadir la respuesta del asistente como un nuevo mensaje
-      /*      state.messages.push({
-             sender: 'assistant',
-             content: action.payload.assistant_response.improved_answer || '',
-           }); */
+      const {
+        assistant_response,
+        retriever_items = [],
+        is_clarification = false,
+        is_final_response = false,
+        status = null,
+        status_display = { status: null, display_message: null },
+        organizations = [],
+      } = action.payload;
+
+      // Manejar payload nulo
+      const safeAssistantResponse = assistant_response || { improved_answer: '', answer_found: false };
+      const improvedAnswer = safeAssistantResponse.improved_answer || '';
+
+      // Asignar originalStatus (si es null, lo pasamos como string vacío)
+      state.originalStatus = status || '';
+
+      // Solo actualizamos el estado si *no* es null/undefined
+      if (
+        status_display &&
+        status_display.display_message !== null &&
+        status_display.display_message !== undefined
+      ) {
+        state.statusDisplay = status_display.display_message;
+      }
+
+      // Buscar si el último mensaje del asistente es parcial o final
+      const lastMessage = state.messages[state.messages.length - 1];
+      const isLastMessageAssistant =
+        lastMessage && lastMessage.sender === 'assistant' && !lastMessage.isFinalResponse;
+
+      if (isLastMessageAssistant) {
+        // Concatenamos (o sobrescribimos) el texto parcial
+        lastMessage.content += improvedAnswer;
+        lastMessage.answerFound = safeAssistantResponse.answer_found;
+        lastMessage.isClarification = is_clarification;
+        lastMessage.isFinalResponse = is_final_response;
+        lastMessage.sources = retriever_items;
+      } else {
+        // Creamos un nuevo mensaje
+        const newMessage: Message = {
+          sender: 'assistant',
+          content: improvedAnswer,
+          sources: retriever_items,
+          answerFound: safeAssistantResponse.answer_found,
+          isClarification: is_clarification,
+          isFinalResponse: is_final_response,
+        };
+        state.messages.push(newMessage);
+      }
+
+      // Manejo de organizaciones
+      if (Array.isArray(organizations) && organizations.length > 0) {
+        organizations.forEach((newOrg: Organization) => {
+          const orgAlreadyExists = state.accumulatedOrganizations.some(
+            (existingOrg) => existingOrg.name === newOrg.name
+          );
+          if (!orgAlreadyExists) {
+            state.accumulatedOrganizations.push(newOrg);
+          }
+        });
+      }
     },
     setOriginCountry: (state, action) => {
       state.userContext.originCountry = action.payload;
@@ -145,20 +215,28 @@ const chatSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.messages = [];
+      state.accumulatedOrganizations = [];
+      state.originalStatus = '';
+      state.statusDisplay = '';
+    },
+    finalizeOldAssistantMessages: (state) => {
+      state.messages.forEach((msg) => {
+        if (msg.sender === 'assistant') {
+          msg.isFinalResponse = true;
+        }
+      });
     },
     addUserMessage: (state, action) => {
-      state.messages = [
-        ...state.messages,
-        {
-          sender: 'user',
-          content: action.payload,
-        },
-      ];
+      state.messages.push({
+        sender: 'user',
+        content: action.payload,
+        isClarification: action.payload.is_clarification,
+        isFinalResponse: action.payload.is_final_response,
+      });
     },
   },
 });
 
-// Exportar las acciones y el reducer
 export const {
   setUserQuery,
   setAssistantResponse,
@@ -169,7 +247,9 @@ export const {
   setLoading,
   setError,
   addUserMessage,
-  resetSearch } = chatSlice.actions;
+  resetSearch,
+  finalizeOldAssistantMessages,
+} = chatSlice.actions;
 
 export const selectUserQuery = (state: { chat: ChatState }) => state.chat.userQuery;
 export const selectAssistantResponse = (state: { chat: ChatState }) => state.chat.assistantResponse;
@@ -178,6 +258,9 @@ export const selectTimeInGermany = (state: { chat: ChatState }) => state.chat.us
 export const selectOriginCountry = (state: { chat: ChatState }) => state.chat.userContext.originCountry;
 export const selectLocation = (state: { chat: ChatState }) => state.chat.userContext.location;
 export const selectAge = (state: { chat: ChatState }) => state.chat.userContext.age;
+export const selectAccumulatedOrganizations = (state: { chat: ChatState }) => state.chat.accumulatedOrganizations;
+export const selectStatusDisplay = (state: { chat: ChatState }) => state.chat.statusDisplay;
+export const selectOriginalStatus = (state: { chat: ChatState }) => state.chat.originalStatus;
 export const selectIsLoading = (state: { chat: ChatState }) => state.chat.isLoading;
 export const selectError = (state: { chat: ChatState }) => state.chat.error;
 export const selectMessages = (state: { chat: ChatState }) => state.chat.messages;

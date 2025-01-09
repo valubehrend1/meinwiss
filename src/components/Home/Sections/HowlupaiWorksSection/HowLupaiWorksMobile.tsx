@@ -15,12 +15,15 @@ import {
 } from './HowlupaiWorksSectionStyles';
 import { ButtonContainer } from '../WhatIsLupaiSection/WhatIsLupaiStyles';
 
+import { useTranslation } from 'react-i18next';
+
 const HowLupaiWorksMobile: React.FC = () => {
+  const { t } = useTranslation();
 
   const cardData = [
     {
-      primaryText: "Ask Lupai like you would",
-      secondaryText: "ask a friend"
+      primaryText: t('ask_lupai_as_a_friend_first'),
+      secondaryText: t('ask_lupai_as_a_friend_second')
     },
     {
       primaryText: "Not satisfied with the answer?",

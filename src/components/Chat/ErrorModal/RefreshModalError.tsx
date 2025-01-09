@@ -1,26 +1,29 @@
 import React from 'react';
 
-
-
 import SharedModal from '../../shared/SharedModal/SharedModal';
+
+import { useTranslation } from 'react-i18next';
 
 interface RefreshModalErrorProps {
   isOpen: boolean;
-  onClose: () => void;
+  onCancel: () => void;
   onReset: () => void;
+  setIsRefreshModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RefreshModalError: React.FC<RefreshModalErrorProps> = ({ isOpen, onClose, onReset }) => {
-
+const RefreshModalError: React.FC<RefreshModalErrorProps> = ({ isOpen, onCancel, onReset, setIsRefreshModalOpen }) => {
+  const { t } = useTranslation();
   return (
     <SharedModal open={isOpen}
-      onCancel={onClose}
+      onCancel={onCancel}
       onSubmit={onReset}
-      submitString="Try again"
-      alternativeString="Cancel"
+      setIsRefreshModalOpen={setIsRefreshModalOpen}
+      submitString={t('start_again')}
+      alternativeString={t('download_conversation')}
       info="Error"
-      content="There was an error loading the answer, please try again."
-      isPdf={false}>
+      content={t('refreshing_alert')}
+      isPdf={false}
+      isRefreshModal>
     </SharedModal>
   );
 };
