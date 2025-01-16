@@ -55,27 +55,19 @@ const AskQuestionStep3: React.FC = () => {
                   color: theme.palette.secondary.main
                 }} />
               <Typography variant="h3" gutterBottom>
-                {t('keep_in_mind')}
+                {t('data_privacy')}
               </Typography>
               <Typography variant="h4" sx={{ mb: 3 }}>
                 {t('data_privacy_description')}
               </Typography>
-              <Button
-                variant="contained"
-                size="large"
-                color="primary"
-                sx={{ textTransform: 'capitalize' }}
-                onClick={handleAskQuestionClick}>
-                {t('continue')}
-              </Button>
-              <Box sx={{ marginTop: '40px' }}>
+              <Box sx={{ marginTop: '20px' }}>
                 <CheckboxContainer>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Checkbox
                       checked={termsChecked}
                       onChange={(e) => setTermsChecked(e.target.checked)} />
                     <Typography>{t('agree_first_part')}
-                      <span>                  <a href="/terms" target="_blank" rel="noreferrer">
+                      <span><a href="/terms" target="_blank" rel="noreferrer">
                         {t('agree_second_part')}
                       </a>
                       </span>
@@ -88,6 +80,15 @@ const AskQuestionStep3: React.FC = () => {
                   )}
                 </CheckboxContainer>
               </Box>
+              <Button
+                variant="contained"
+                size="large"
+                color="primary"
+                sx={{ textTransform: 'capitalize' }}
+                onClick={handleAskQuestionClick}>
+                {t('continue')}
+              </Button>
+
             </InsideContainer>
           </motion.div>
         )}
