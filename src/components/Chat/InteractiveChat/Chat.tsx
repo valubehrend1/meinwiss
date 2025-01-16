@@ -49,6 +49,8 @@ const Chat: React.FC = () => {
   // Evita re-enviar el mismo mensaje del usuario varias veces
   const [hasSentMessage, setHasSentMessage] = useState(false);
 
+  const [skipNativePrompt, setSkipNativePrompt] = useState(false);
+
   // Manejo Modal
   const handleOpen = () => {
     setIsOpen(true);
@@ -77,8 +79,23 @@ const Chat: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (!skipNativePrompt) {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [skipNativePrompt]);
+
   const handleRefreshConfirm = () => {
     setIsRefreshModalOpen(false);
+    setSkipNativePrompt(true);
     dispatch(resetSearch());
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ type: 'new_search' }));
