@@ -1,6 +1,6 @@
 {
   "language": "DEUTSCH!",
-  "about": "Über",
+  "about": "Über Uns",
   "about_lupai_description": "Lupai entstand aus den konkreten Bedürfnissen von Migrant:innen, die mit den Schwierigkeiten der Bürokratie in Deutschland konfrontiert sind. Da es keine einzige, verlässliche Informationsquelle in unserer Sprache gibt, haben wir uns entschlossen, eine Anwendung zu entwickeln, die diesen Bedürfnissen gerecht wird und der gesamten Community hilft.",
   "advice_about_answer": "Ich habe eine sehr spezifische Frage, die Lupai nicht beantworten kann. Was soll ich tun?",
   "age": "Alter",
@@ -92,7 +92,7 @@
   "location": "Standort",
   "lupai_combines_technology": "Lupai kombiniert verschiedene KI-Technologien und implementiert für jede Aufgabe die am besten geeignete Technologie auf dem neuesten Stand der Technik. Es ist modular aufgebaut, was es einfach macht, die verschiedenen Module entsprechend dem technischen Fortschritt auszutauschen...",
   "lupai_cost_question": "Wird Lupai weiterhin kostenlos nutzbar sein?",
-  "legal_consultation_disclaimer": "Lupai ersetzt keine Rechtsberatung. Lupai führt eine KI-gestützte Suche in einer Datenbank mit öffentlichen und von Expert:innen kuratierten Dokumenten durch und formuliert eine Antwort, um Dich zu informieren und Deine Fragen zu beantworten. Falls Du spezifische Zweifel hast, die Lupai nicht beantworten kann, konsultiere bitte einen Anwalt oder eine Anwältin.",
+  "legal_consultation_disclaimer": "Lupai ersetzt keine juristische Beratung. Lupai führt eine KI-gestützte Suche in einer Datenbank mit öffentlichen und von Expert:innen kuratierten Dokumenten durch und formuliert eine Antwort, um dich zu informieren und deine Fragen zu beantworten. Lupai kann Fehler machen. Eine Überprüfung der Quellen sowie eine Konsultation bei Expert:innen ist empfehlenswert.",
   "lupai_external_integration": "Ist es möglich, Lupai in die Website meiner Organisation zu integrieren und als KI-basierte Suchmaschine zu nutzen?",
   "lupai_features": "Was bietet Lupai??",
   "lupai_founded_by": "Lupai wird finanziert von",

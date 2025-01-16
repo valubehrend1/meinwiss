@@ -2,19 +2,32 @@ import React from 'react';
 
 import { FooterContainer, SocialMediaContainer } from './FooterStyles';
 
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import { IconButton, Typography, Box } from '@mui/material/';
+import { styled } from '@mui/system/';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
 import { useTranslation } from 'react-i18next';
+
+const Link = styled('a')({
+  color: '#fff'
+});
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
   return (
     <FooterContainer>
-      <Typography variant="h5">
-        {t('copyright')}
-      </Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Typography variant="h5">
+          {t('copyright')}
+        </Typography>
+        <Link
+          href="/impressum" target="_blank" rel="noreferrer">
+          Impressum
+        </Link>
+        <Link href="/terms" target="_blank" rel="noreferrer">
+          {t('data_privacy')}
+        </Link>
+      </Box>
       <SocialMediaContainer>
         <IconButton
           color="inherit"
