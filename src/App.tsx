@@ -27,13 +27,13 @@ import AskQuestionStep2 from './components/Chat/AskQuestion/AskQuestion/AskQuest
 import AskQuestionStep3 from './components/Chat/AskQuestion/AskQuestion/AskQuestionStep3';
 import ProcessingQuestion from './components/Chat/AskQuestion/AskQuestion/ProcessingQuestion';
 import Chat from './components/Chat/InteractiveChat/Chat';
-import LoginForm from './components/BetaLogin/LoginForm';
+/* import LoginForm from './components/BetaLogin/LoginForm'; */
 import DataPrivacy from './components/Chat/DataPrivacy/DataPrivacy';
 import Impressum from './components/Impressum/Impressum';
 
 import { WebSocketProvider } from './context/WebSocketContext';
 import HowlupaiWorksSection from './components/HowLupaiWorks/HowlupaiWorksSection';
-import PrivateRoute from './components/BetaLogin/PrivateRoute';
+/* import PrivateRoute from './components/BetaLogin/PrivateRoute'; */
 
 const App: React.FC = () => {
 
@@ -47,10 +47,10 @@ const App: React.FC = () => {
         <Route path="/kontakt" element={<Contact />} />
         <Route path="/how-lupai-works" element={<HowlupaiWorksSection />} />
         <Route path="/wie-lupai-funktioniert" element={<HowlupaiWorksSection />} />
-        <Route path="/login" element={<LoginForm />} />
+        {/*       <Route path="/login" element={<LoginForm />} />*/}
         <Route path="/terms" element={<DataPrivacy />} />
         <Route path="/impressum" element={<Impressum />} />
-        <Route element={<PrivateRoute />}>
+        {/* <Route element={<PrivateRoute />} >*/}
           <Route path="/ask-lupai" element={<AskQuestion />} />
           <Route path="/frage-lupai" element={<AskQuestion />} />
           <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
