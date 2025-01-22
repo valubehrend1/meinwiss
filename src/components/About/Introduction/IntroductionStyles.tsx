@@ -23,6 +23,11 @@ export const IntroContainer = styled(Grid)(() => ({
   [theme.breakpoints.down('md')]: {
     gap: theme.spacing(1)
   },
+  [theme.breakpoints.up('md')]: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 }));
 
 export const IntroText = styled(Typography)(({ theme }) => ({

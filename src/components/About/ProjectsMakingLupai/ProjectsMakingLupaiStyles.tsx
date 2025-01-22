@@ -52,7 +52,7 @@ export const LohanaLogo = styled('img')({
 });
 
 export const AurekaLogoImage = styled('img')({
-  width: '60%',
+  width: '50%',
   marginBottom: theme.spacing(3)
 });
 
@@ -62,7 +62,7 @@ export const CardContent = styled(Box)({
   flexDirection: 'column'
 });
 
-export const LearnMoreButtonContainer = styled(Button)({
+export const LearnMoreButtonContainer = styled(Box)({
   display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'flex-start',

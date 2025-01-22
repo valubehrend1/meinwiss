@@ -11,6 +11,7 @@ import Team from './Team/Team';
 const MainContainer = styled(Box)({
   width: '100%',
   overflowX: 'hidden',
+  marginBottom: '2rem',
 });
 
 const About: React.FC = () => {
