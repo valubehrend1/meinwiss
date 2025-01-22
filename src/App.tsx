@@ -51,13 +51,12 @@ const App: React.FC = () => {
         <Route path="/terms" element={<DataPrivacy />} />
         <Route path="/impressum" element={<Impressum />} />
         {/* <Route element={<PrivateRoute />} >*/}
-          <Route path="/ask-lupai" element={<AskQuestion />} />
-          <Route path="/frage-lupai" element={<AskQuestion />} />
-          <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
-          <Route path="/ask-lupai/step3" element={<AskQuestionStep3 />} />
-          <Route path="/ask-lupai/step4" element={<ProcessingQuestion />} />
-          <Route path="/ask-lupai/chat" element={<Chat />} />
-        </Route>
+        <Route path="/ask-lupai" element={<AskQuestion />} />
+        <Route path="/frage-lupai" element={<AskQuestion />} />
+        <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
+        <Route path="/ask-lupai/step3" element={<AskQuestionStep3 />} />
+        <Route path="/ask-lupai/step4" element={<ProcessingQuestion />} />
+        <Route path="/ask-lupai/chat" element={<Chat />} />
         <Route path="*" element={<ErrorNotFoundPage />} />
       </Route>
     ),

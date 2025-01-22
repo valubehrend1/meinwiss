@@ -61,7 +61,7 @@ const ProjectsMakingLupai: React.FC = () => {
             <CardContent>
               <AurekaLogoImage src={AurekaLogo} alt="logo-lohana-berkins" />
               <Typography variant="h3">aureka</Typography>
-              <Typography variant="h4" sx={{ my: 2 }}>
+              <Typography variant="h4" /* sx={{ my: 2 }} */>
                 {t('aureka_description')}
               </Typography>
               <LearnMoreButtonContainer>
