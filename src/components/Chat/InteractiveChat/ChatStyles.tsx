@@ -9,7 +9,7 @@ export const ChatContainer = styled(Box)(({ theme }) => ({
   paddingLeft: '200px',
   paddingTop: '50px',
   margin: theme.spacing(2),
-  marginBottom: '40px',
+  marginBottom: '70px',
   borderRadius: theme.shape.borderRadius,
 }));
 

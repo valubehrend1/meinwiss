@@ -62,3 +62,9 @@ export const ResourcesUrl = styled('a')({
   borderRadius: '40px',
   textDecoration: 'none',
 });
+
+export const GeneralContainer = styled(Box)(() => ({
+  gap: '15px',
+  display: 'flex',
+  flexDirection: 'column'
+}));

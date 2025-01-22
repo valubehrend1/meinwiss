@@ -7,18 +7,16 @@ import { useTranslation } from 'react-i18next';
 interface NewQuestionModalProps {
   isOpen: boolean;
   onNewQuestion: () => void;
-  onCancel: () => void;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NewQuestionModal: React.FC<NewQuestionModalProps> = ({ isOpen, onNewQuestion, onCancel, setIsOpen }) => {
+const NewQuestionModal: React.FC<NewQuestionModalProps> = ({ isOpen, onNewQuestion, setIsOpen }) => {
   const { t } = useTranslation();
   return (
     <SharedModal
       open={isOpen}
       setIsOpen={setIsOpen}
-      onCancel={onCancel}
-      onSubmit={onNewQuestion}
+      onCancel={onNewQuestion}
       submitString={t('new_question')}
       alternativeString={t('download_conversation')}
       info={t('new_search_warning')}

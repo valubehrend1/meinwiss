@@ -2,18 +2,16 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-/* import EditIcon from '@mui/icons-material/Edit'; */
-
 
 const Container = styled(Paper)({
-  backgroundColor: `rgba(0, 48, 30, 0.2)`,
+  backgroundColor: 'rgba(0, 48, 30, 0.2)',
   borderRadius: '22px',
   padding: '32px 40px',
-  width: '80%', // Adjust width as needed
+  width: '80%',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  textTransform: 'none', // Remove uppercase styling from button
+  textTransform: 'none',
   cursor: 'pointer',
   boxShadow: 'none'
 });
@@ -28,7 +26,6 @@ const UserQuestion: React.FC<UserQuestionProps> = ({ content }) => {
       <Typography variant="h5" style={{ color: '#333' }}>
         {content}
       </Typography>
-      {/*     <EditIcon style={{ color: '#777' }} /> */}
     </Container>
   );
 };

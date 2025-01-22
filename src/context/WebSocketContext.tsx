@@ -1,5 +1,9 @@
 import React, { createContext, useEffect, useState, ReactNode } from 'react';
 
+import { setError } from '../config/features/ErrorSlice';
+
+import { useDispatch } from 'react-redux';
+
 // Ping interval in ms
 const WSPingInterval = 10000;
 
@@ -22,6 +26,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
   children,
 }) => {
   const [ws, setWs] = useState<WebSocket | null>(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const wsInstance = new WebSocket('/lupai/multi_agent/chat');
@@ -33,6 +38,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 
     wsInstance.onclose = () => {
       console.log('WebSocket connection closed.');
+      dispatch(setError(true));
     };
 
     setInterval(() => {

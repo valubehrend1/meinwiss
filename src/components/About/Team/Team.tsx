@@ -1,6 +1,8 @@
 import React from 'react';
 import { Grid, Typography, Link } from '@mui/material';
 
+import { useTranslation } from 'react-i18next';
+
 import {
   SectionContainer,
   TeamTextContainer,
@@ -25,8 +27,9 @@ import Bas from '../../../assets/Team/Bas.png';
 import Mora from '../../../assets/Team/Mora.png';
 
 const TeamPage: React.FC = () => {
+  const { t } = useTranslation();
   const teamMembersColumnOne = [
-    { name: 'Cecilia Maas', title: 'CEO & Product Manager', imgSrc: Ceci },
+    { name: 'Cecilia Maas', title: 'Product Manager', imgSrc: Ceci },
     { name: 'Aquarela Padilla', title: 'Researcher', imgSrc: Aqua },
     { name: 'Lucena Palma', title: 'Communications Manager', imgSrc: Luce },
   ];
@@ -35,7 +38,7 @@ const TeamPage: React.FC = () => {
     { name: 'Ryan della Salla', title: 'Researcher', imgSrc: Ry },
     { name: 'Lionel Chamorro', title: 'AI Architect', imgSrc: Lio },
     { name: 'Max Telias', title: 'Administrative Manager', imgSrc: Max },
-    { name: 'Jan Kühn', title: 'Data Consultant', imgSrc: Jan },
+    { name: 'Jan Kühn', title: 'Developer', imgSrc: Jan },
   ];
 
   const teamMembersColumnThree = [
@@ -51,13 +54,13 @@ const TeamPage: React.FC = () => {
         <Grid item xs={12} md={4}>
           <TeamTextContainer>
             <Typography variant="h3" sx={{ fontWeight: 'bold', marginBottom: '20px' }}>
-              Meet our team members
+              {t('our_member_team')}
             </Typography>
             <Typography variant="h5" sx={{ marginBottom: '20px' }}>
-              Explore the skilled professionals whose collaborative efforts and expertise drive our team's achievements and success.
+              {t('get_to_know_us')}
             </Typography>
             <TeamContactBox>
-              <Typography variant="h5">Contact person</Typography>
+              <Typography variant="h5">{t('contact_person')}</Typography>
               <Typography variant="h5">Dr. Cecilia Maas</Typography>
               <UnderlinedText variant="h5">E-Mail: cecilia.maas@aureka.ai</UnderlinedText>
               <Link

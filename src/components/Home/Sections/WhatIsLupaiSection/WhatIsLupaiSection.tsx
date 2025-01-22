@@ -96,7 +96,7 @@ const WhatIsLupaiSection: React.FC = () => {
           color='secondary'
           onClick={handleNavigateToAboutUs}
         >
-          {t('learn_more')}
+          {t('learn_more_about_lupai')}
         </LearnMoreButton>
       </ButtonContainer>
     </SectionMainContainer>

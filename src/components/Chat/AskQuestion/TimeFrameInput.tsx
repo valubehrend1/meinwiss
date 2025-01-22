@@ -22,8 +22,8 @@ const TimeFrameInput: React.FC<TimeFrameInputProps> = ({ timeError }) => {
   const [inputValue, setInputValue] = useState<string>('');
 
   const timeFrameArray = [
-    "I don't live in germany",
-    "Im in Germany as a turist",
+    t('i_dont_live_in_germany'),
+    t('in_germany_as_tourist'),
     t('zero_to_one_year'),
     t('one_to_five_year'),
     t('plus_five_year')

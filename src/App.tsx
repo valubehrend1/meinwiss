@@ -29,6 +29,7 @@ import ProcessingQuestion from './components/Chat/AskQuestion/AskQuestion/Proces
 import Chat from './components/Chat/InteractiveChat/Chat';
 /* import LoginForm from './components/BetaLogin/LoginForm'; */
 import DataPrivacy from './components/Chat/DataPrivacy/DataPrivacy';
+import Impressum from './components/Impressum/Impressum';
 
 import { WebSocketProvider } from './context/WebSocketContext';
 import HowlupaiWorksSection from './components/HowLupaiWorks/HowlupaiWorksSection';
@@ -44,18 +45,19 @@ const App: React.FC = () => {
         <Route path="/über" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/kontakt" element={<Contact />} />
-        <Route path="/how-does-lupai-works" element={<HowlupaiWorksSection />} />
+        <Route path="/how-lupai-works" element={<HowlupaiWorksSection />} />
         <Route path="/wie-lupai-funktioniert" element={<HowlupaiWorksSection />} />
-        {/*       <Route path="/login" element={<LoginForm />} />
-        <Route element={<PrivateRoute />}> */}
+        {/*       <Route path="/login" element={<LoginForm />} />*/}
         <Route path="/terms" element={<DataPrivacy />} />
-        <Route path="/ask-lupai" element={<AskQuestion />} />
-        <Route path="/frage-lupai" element={<AskQuestion />} />
-        <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
-        <Route path="/ask-lupai/step3" element={<AskQuestionStep3 />} />
-        <Route path="/ask-lupai/step4" element={<ProcessingQuestion />} />
-        <Route path="/ask-lupai/chat" element={<Chat />} />
-        {/*  </Route> */}
+        <Route path="/impressum" element={<Impressum />} />
+        {/* <Route element={<PrivateRoute />} >*/}
+          <Route path="/ask-lupai" element={<AskQuestion />} />
+          <Route path="/frage-lupai" element={<AskQuestion />} />
+          <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
+          <Route path="/ask-lupai/step3" element={<AskQuestionStep3 />} />
+          <Route path="/ask-lupai/step4" element={<ProcessingQuestion />} />
+          <Route path="/ask-lupai/chat" element={<Chat />} />
+        </Route>
         <Route path="*" element={<ErrorNotFoundPage />} />
       </Route>
     ),

@@ -15,11 +15,14 @@ import {
   FAQSLink
 } from '../HowlupaiWorksSectionStyles';
 
+import { useTranslation } from 'react-i18next';
+
 import { useNavigate } from 'react-router-dom';
 
 import theme from '../../../theme';
 
 const HowLupaiWorksSectionSeven: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <>
@@ -30,15 +33,15 @@ const HowLupaiWorksSectionSeven: React.FC = () => {
             <StyledGridItem item xs={12}>
               <Box>
                 <Typography variant='h3' sx={{ color: theme.palette.primary.main }}>
-                  Do you have more questions or want to know how the technology behind Lupai
+                  {t('need_more_info_extended')}
                 </Typography>
                 <Typography variant='h3'>
-                  works? Check out the
+                  {t('check_out_the_faqs')}
                   <FAQSLink onClick={() => navigate('/about')}> FAQs.</FAQSLink>
                 </Typography>
               </Box>
               <Typography>
-                In the Frequently Asked Questions we explain various aspects of Lupai, such as how the AI works, which technologies are used, how the privacy of your questions is protected, and more.
+                {t('what_the_faqs_are')}
               </Typography>
             </StyledGridItem>
           </Grid>
@@ -49,13 +52,13 @@ const HowLupaiWorksSectionSeven: React.FC = () => {
           <LookingForACommunityCard elevation={3}>
             <StyledGreenCardSectionSeven>
               <StyledGreenCardContent>
-                <Typography variant='h4'>Which AI technologies does Lupai use? </Typography>
+                <Typography variant='h4'>{t('which_technology_use')} </Typography>
                 <AddCircleIcon sx={{ fontSize: '50px', color: '#FFF' }} />
               </StyledGreenCardContent>
             </StyledGreenCardSectionSeven>
             <StyledGradientCardSectionSeven >
               <StyledGradientCardContent>
-                <Typography variant='h4'>Lupai combines different AI technologies and implements the most suitable state-of-the-art technology for each task. It is built in a modular way, which makes it easy to change the different modules according to the technical progress... </Typography>
+                <Typography variant='h4'>{t('lupai_combines_technology')} </Typography>
               </StyledGradientCardContent>
             </StyledGradientCardSectionSeven>
           </LookingForACommunityCard>
