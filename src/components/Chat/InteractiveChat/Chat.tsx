@@ -62,37 +62,41 @@ const Chat: React.FC = () => {
       // Detectar F5
       if (event.key === 'F5') {
         event.preventDefault();
-        setIsRefreshModalOpen(true);
+        setSkipNativePrompt(true);         // Omitir el prompt nativo
+        setIsRefreshModalOpen(true);       // Mostrar tu modal
       }
       // Detectar Ctrl+R o Cmd+R
       const isCtrlOrCmd = event.ctrlKey || event.metaKey;
       if (isCtrlOrCmd && event.key.toLowerCase() === 'r') {
         event.preventDefault();
+        setSkipNativePrompt(true);
         setIsRefreshModalOpen(true);
-
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      // Si skipNativePrompt es "false", significa que NO interceptamos
+      // el evento (o sea, viene de refrescar con el botón nativo o cerrar tab).
       if (!skipNativePrompt) {
         event.preventDefault();
+        // Para que la alerta nativa funcione en navegadores modernos
+        event.returnValue = '';
       }
+      // Si skipNativePrompt es true, NO hacemos nada, NO habrá alerta nativa.
+      // (Porque entendemos que vino de F5 / Ctrl+R / Cmd+R, donde tenemos
+      //  nuestro modal propio).
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
-
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [skipNativePrompt]);
-
   const handleRefreshConfirm = () => {
     setIsRefreshModalOpen(false);
     setSkipNativePrompt(true);
