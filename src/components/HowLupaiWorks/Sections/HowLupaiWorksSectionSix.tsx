@@ -21,23 +21,6 @@ const HowLupaiWorksSectionSix: React.FC = () => {
     <>
       <StyledGridContainer container>
 
-        <Grid item xs={12} md={6}>
-          <LookingForACommunityCard elevation={3}>
-            <StyledInnerCard>
-              <Box sx={{ display: 'flex' }}>
-                <Typography variant='h3'>{t('supportive_offline_community')}</Typography>
-                <BackHandOutlinedIcon sx={{ fontSize: '50px' }} />
-              </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant='h4'> {t('check_the_original')}</Typography>
-                <ArrowForwardOutlinedIcon />
-              </Box>
-            </StyledInnerCard>
-
-          </LookingForACommunityCard>
-        </Grid>
-
-
         <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
           <Grid container spacing={2} sx={{ width: '100%' }}>
             <StyledGridItem item xs={12}>
@@ -54,6 +37,22 @@ const HowLupaiWorksSectionSix: React.FC = () => {
               </Typography>
             </StyledGridItem>
           </Grid>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <LookingForACommunityCard elevation={3}>
+            <StyledInnerCard>
+              <Box sx={{ display: 'flex' }}>
+                <Typography variant='h3'>{t('supportive_offline_community')}</Typography>
+                <BackHandOutlinedIcon sx={{ fontSize: '50px' }} />
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant='h4'> {t('check_the_original')}</Typography>
+                <ArrowForwardOutlinedIcon />
+              </Box>
+            </StyledInnerCard>
+
+          </LookingForACommunityCard>
         </Grid>
 
       </StyledGridContainer >
