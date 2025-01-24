@@ -5,7 +5,7 @@ import {
 } from './HowlupaiWorksSectionStyles';
 
 import HowlupaiWorksSectionOne from './Sections/HowLupaiWorksSectionOne';
-import HowLupaiWorksSectionTwo from './Sections/HowLupaiWorksSectionTwo';
+/* import HowLupaiWorksSectionTwo from './Sections/HowLupaiWorksSectionTwo'; */
 import HowlupaiWorksSectionThree from './Sections/HowLupaiWorksSectionThree';
 import HowLupaiWorksSectionFour from './Sections/HowLupaiWorksSectionFour';
 import HowLupaiWorksSectionFive from './Sections/HowLupaiWorksSectionFive'
@@ -17,7 +17,7 @@ const HowlupaiWorksSection: React.FC = () => {
   return (
     <SectionMainContainer>
       <HowlupaiWorksSectionOne />
-      <HowLupaiWorksSectionTwo />
+      {/*   <HowLupaiWorksSectionTwo /> */}
       <HowlupaiWorksSectionThree />
       <HowLupaiWorksSectionFour />
       <HowLupaiWorksSectionFive />

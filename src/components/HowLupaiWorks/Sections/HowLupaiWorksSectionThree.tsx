@@ -22,24 +22,6 @@ const HowlupaiWorksSectionThree: React.FC = () => {
 
       <StyledGridContainer container >
 
-        <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
-          <Grid container spacing={2} sx={{ width: '100%' }}>
-            <StyledGridItem item xs={12}>
-              <Box>
-                <Typography variant='h3' sx={{ color: theme.palette.primary.main }}>
-                  {t('how_to_make_a_new_question_title_one')}
-                </Typography>
-                <Typography variant='h3' sx={{ color: orange }}>
-                  {t('how_to_make_a_new_question_title_two')}
-                </Typography>
-              </Box>
-              <Typography>
-                {t('how_to_make_a_new_question_explanation')}
-              </Typography>
-            </StyledGridItem>
-          </Grid>
-        </Grid>
-
         <StyledGridItem item xs={12} md={6}>
 
           <MainCard elevation={3}>
@@ -75,6 +57,25 @@ const HowlupaiWorksSectionThree: React.FC = () => {
             </Grid>
           </MainCard>
         </StyledGridItem>
+
+
+        <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
+          <Grid container spacing={2} sx={{ width: '100%' }}>
+            <StyledGridItem item xs={12}>
+              <Box>
+                <Typography variant='h3' sx={{ color: theme.palette.primary.main }}>
+                  {t('how_to_make_a_new_question_title_one')}
+                </Typography>
+                <Typography variant='h3' sx={{ color: orange }}>
+                  {t('how_to_make_a_new_question_title_two')}
+                </Typography>
+              </Box>
+              <Typography>
+                {t('how_to_make_a_new_question_explanation')}
+              </Typography>
+            </StyledGridItem>
+          </Grid>
+        </Grid>
 
       </StyledGridContainer >
     </ >

@@ -28,6 +28,22 @@ const HowLupaiWorksSectionSeven: React.FC = () => {
     <>
       <StyledGridContainer container>
 
+        <Grid item xs={12} md={6}>
+          <LookingForACommunityCard elevation={3}>
+            <StyledGreenCardSectionSeven>
+              <StyledGreenCardContent>
+                <Typography variant='h4'>{t('which_technology_use')} </Typography>
+                <AddCircleIcon sx={{ fontSize: '50px', color: '#FFF' }} />
+              </StyledGreenCardContent>
+            </StyledGreenCardSectionSeven>
+            <StyledGradientCardSectionSeven >
+              <StyledGradientCardContent>
+                <Typography variant='h4'>{t('lupai_combines_technology')} </Typography>
+              </StyledGradientCardContent>
+            </StyledGradientCardSectionSeven>
+          </LookingForACommunityCard>
+        </Grid>
+
         <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
           <Grid container spacing={2} sx={{ width: '100%' }}>
             <StyledGridItem item xs={12}>
@@ -45,23 +61,6 @@ const HowLupaiWorksSectionSeven: React.FC = () => {
               </Typography>
             </StyledGridItem>
           </Grid>
-        </Grid>
-
-
-        <Grid item xs={12} md={6}>
-          <LookingForACommunityCard elevation={3}>
-            <StyledGreenCardSectionSeven>
-              <StyledGreenCardContent>
-                <Typography variant='h4'>{t('which_technology_use')} </Typography>
-                <AddCircleIcon sx={{ fontSize: '50px', color: '#FFF' }} />
-              </StyledGreenCardContent>
-            </StyledGreenCardSectionSeven>
-            <StyledGradientCardSectionSeven >
-              <StyledGradientCardContent>
-                <Typography variant='h4'>{t('lupai_combines_technology')} </Typography>
-              </StyledGradientCardContent>
-            </StyledGradientCardSectionSeven>
-          </LookingForACommunityCard>
         </Grid>
 
       </StyledGridContainer >
