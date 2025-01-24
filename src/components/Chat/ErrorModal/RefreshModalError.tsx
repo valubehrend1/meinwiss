@@ -20,7 +20,7 @@ const RefreshModalError: React.FC<RefreshModalErrorProps> = ({ isOpen, onCancel,
       setIsRefreshModalOpen={setIsRefreshModalOpen}
       submitString={t('start_again')}
       alternativeString={t('download_conversation')}
-      info="Error"
+      info="Warning"
       content={t('refreshing_alert')}
       isPdf={false}
       isRefreshModal>

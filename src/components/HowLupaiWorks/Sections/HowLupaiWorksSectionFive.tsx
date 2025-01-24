@@ -23,25 +23,6 @@ const HowLupaiWorksSectionFive: React.FC = () => {
     <>
       <StyledGridContainer container>
 
-        <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
-          <Grid container spacing={2} sx={{ width: '100%' }}>
-            <StyledGridItem item xs={12}>
-              <Box>
-                <Typography variant='h3' sx={{ color: theme.palette.primary.main }}>
-                  {t('need_more_info')}
-                </Typography>
-                <Typography variant='h3'>
-                  {t('check_the_original')}
-                </Typography>
-              </Box>
-              <Typography>
-                {t('sources_info')}
-              </Typography>
-            </StyledGridItem>
-          </Grid>
-        </Grid>
-
-
         <Grid item xs={12} md={6}>
           <SourcesCard elevation={3}>
             <ReferenceCardOrange>
@@ -60,6 +41,23 @@ const HowLupaiWorksSectionFive: React.FC = () => {
           </SourcesCard>
         </Grid>
 
+        <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
+          <Grid container spacing={2} sx={{ width: '100%' }}>
+            <StyledGridItem item xs={12}>
+              <Box>
+                <Typography variant='h3' sx={{ color: theme.palette.primary.main }}>
+                  {t('need_more_info')}
+                </Typography>
+                <Typography variant='h3'>
+                  {t('check_the_original')}
+                </Typography>
+              </Box>
+              <Typography>
+                {t('sources_info')}
+              </Typography>
+            </StyledGridItem>
+          </Grid>
+        </Grid>
 
       </StyledGridContainer >
     </ >

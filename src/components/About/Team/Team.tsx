@@ -43,7 +43,7 @@ const TeamPage: React.FC = () => {
 
   const teamMembersColumnThree = [
     { name: 'Valeria Behrend', title: 'Frontend Developer & UX/UI Designer', imgSrc: Valu },
-    { name: 'BastianBastian Silva', title: 'AI Engineer', imgSrc: Bas },
+    { name: 'Bastian Silva', title: 'AI Engineer', imgSrc: Bas },
     { name: 'Mora Dreszman', title: 'Graphic designer', imgSrc: Mora },
   ];
 
