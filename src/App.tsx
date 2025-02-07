@@ -42,7 +42,7 @@ const App: React.FC = () => {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/über" element={<About />} />
+        <Route path="/über-uns" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/kontakt" element={<Contact />} />
         <Route path="/how-lupai-works" element={<HowlupaiWorksSection />} />
