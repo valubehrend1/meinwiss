@@ -37,6 +37,7 @@ const Navbar: React.FC = () => {
     { text: t('ask_lupai') },
     { text: t('how_lupai_works') },
     { text: t('about') },
+    { text: t('lupai_for_organizations') },
     { text: t('contact') },
   ];
 
