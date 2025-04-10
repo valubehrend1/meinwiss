@@ -21,10 +21,10 @@ const Footer: React.FC = () => {
           {t('copyright')}
         </Typography>
         <Link
-          href="/impressum" target="_blank" rel="noreferrer">
+          href="/#/impressum" target="_blank" rel="noreferrer">
           Impressum
         </Link>
-        <Link href="/terms" target="_blank" rel="noreferrer">
+        <Link href="/#/terms" target="_blank" rel="noreferrer">
           {t('data_privacy')}
         </Link>
       </Box>
