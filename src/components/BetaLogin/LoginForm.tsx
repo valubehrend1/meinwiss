@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
 import { LoginContainer, StyledTextField, SubmitButton } from './LoginFormStyles'
+import LoginModal from './LoginModal';
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Mostrar el modal automáticamente al cargar el componente
+    setIsModalOpen(true);
+  }, []);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     // Simula la validación de credenciales
     const validEmail = 'user@lupai.com';
-    const validPassword = 'password123';
+    const validPassword = '*O71@h3bV!Vd';
 
     if (email === validEmail && password === validPassword) {
       // Autenticación exitosa
@@ -51,6 +58,9 @@ const LoginForm: React.FC = () => {
           Sign In
         </SubmitButton>
       </form>
+
+      {/* Modal informativo */}
+      <LoginModal open={isModalOpen} setIsOpen={setIsModalOpen} />
     </LoginContainer>
   );
 };

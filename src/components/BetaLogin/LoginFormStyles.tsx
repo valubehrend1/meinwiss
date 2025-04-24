@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { Box, TextField, Button } from '@mui/material';
+import theme from '../../theme';
 
 export const LoginContainer = styled(Box)({
   width: '100%',
@@ -24,6 +25,6 @@ export const SubmitButton = styled(Button)({
   padding: '10px 0',
   color: '#fff',
   '&:hover': {
-    backgroundColor: '#1565c0',
+    backgroundColor: theme.palette.primary.light,
   },
 });
