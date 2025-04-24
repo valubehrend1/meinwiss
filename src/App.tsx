@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 
 import {
-  createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
@@ -34,17 +34,20 @@ import Impressum from './components/Impressum/Impressum';
 import { WebSocketProvider } from './context/WebSocketContext';
 import HowlupaiWorksSection from './components/HowLupaiWorks/HowlupaiWorksSection';
 import PrivateRoute from './components/BetaLogin/PrivateRoute';
+import LupaiForOrganizations from './components/LupaiForOrganizations/LupaiForOrganizations';
 
 const App: React.FC = () => {
 
-  const router = createBrowserRouter(
+  const router = createHashRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/über" element={<About />} />
+        <Route path="/über-uns" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/kontakt" element={<Contact />} />
+        <Route path="/lupai-for-organizations" element={<LupaiForOrganizations />} />
+        <Route path="/lupai-für-organisationen" element={<LupaiForOrganizations />} />
         <Route path="/how-lupai-works" element={<HowlupaiWorksSection />} />
         <Route path="/wie-lupai-funktioniert" element={<HowlupaiWorksSection />} />
         <Route path="/login" element={<LoginForm />} />
