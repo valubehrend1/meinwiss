@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 
 import {
-  createHashRouter,
+  createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
@@ -36,41 +36,35 @@ import HowlupaiWorksSection from './components/HowLupaiWorks/HowlupaiWorksSectio
 import PrivateRoute from './components/BetaLogin/PrivateRoute';
 import LupaiForOrganizations from './components/LupaiForOrganizations/LupaiForOrganizations';
 
-const App: React.FC = () => {
-
-  const router = createHashRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/über-uns" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/kontakt" element={<Contact />} />
-        <Route path="/lupai-for-organizations" element={<LupaiForOrganizations />} />
-        <Route path="/lupai-für-organisationen" element={<LupaiForOrganizations />} />
-        <Route path="/how-lupai-works" element={<HowlupaiWorksSection />} />
-        <Route path="/wie-lupai-funktioniert" element={<HowlupaiWorksSection />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/terms" element={<DataPrivacy />} />
-        <Route path="/impressum" element={<Impressum />} />
-        <Route element={<PrivateRoute />} >
-          <Route path="/ask-lupai" element={<AskQuestion />} />
-          <Route path="/frage-lupai" element={<AskQuestion />} />
-          <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
-          <Route path="/ask-lupai/step3" element={<AskQuestionStep3 />} />
-          <Route path="/ask-lupai/step4" element={<ProcessingQuestion />} />
-          <Route path="/ask-lupai/chat" element={<Chat />} />
-          <Route path="*" element={<ErrorNotFoundPage />} />
-        </Route>
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/über-uns" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/kontakt" element={<Contact />} />
+      <Route path="/lupai-for-organizations" element={<LupaiForOrganizations />} />
+      <Route path="/lupai-für-organisationen" element={<LupaiForOrganizations />} />
+      <Route path="/how-lupai-works" element={<HowlupaiWorksSection />} />
+      <Route path="/wie-lupai-funktioniert" element={<HowlupaiWorksSection />} />
+      <Route path="/login" element={<LoginForm />} />
+      <Route path="/terms" element={<DataPrivacy />} />
+      <Route path="/impressum" element={<Impressum />} />
+      <Route element={<PrivateRoute />}>
+        <Route path="/ask-lupai" element={<AskQuestion />} />
+        <Route path="/frage-lupai" element={<AskQuestion />} />
+        <Route path="/ask-lupai/step2" element={<AskQuestionStep2 />} />
+        <Route path="/ask-lupai/step3" element={<AskQuestionStep3 />} />
+        <Route path="/ask-lupai/step4" element={<ProcessingQuestion />} />
+        <Route path="/ask-lupai/chat" element={<Chat />} />
       </Route>
-    ),
-    {
-      future: {
-        v7_startTransition: true,
-      } as const,
-    }
-  );
+      <Route path="*" element={<ErrorNotFoundPage />} />
+    </Route>
+  )
+);
 
+const App: React.FC = () => {
   return (
     <Provider store={store}>
       <StyledEngineProvider injectFirst>
