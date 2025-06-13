@@ -44,8 +44,8 @@ const AskQuestion: React.FC = () => {
   const timeInGermany = useSelector(selectTimeInGermany);
 
   const sendMessage = () => {
-    if (!userQuery.match(/[a-z]/i)) {
-      return
+    if (!userQuery.match(/[\p{L}]/u)) {
+      return;
     }
     dispatch(addUserMessage(userQuery));
   }
