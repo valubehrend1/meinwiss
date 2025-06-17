@@ -9,7 +9,7 @@ import HowlupaiWorksSectionOne from './Sections/HowLupaiWorksSectionOne';
 import HowlupaiWorksSectionThree from './Sections/HowLupaiWorksSectionThree';
 import HowLupaiWorksSectionFour from './Sections/HowLupaiWorksSectionFour';
 import HowLupaiWorksSectionFive from './Sections/HowLupaiWorksSectionFive'
-import HowLupaiWorksSectionSix from './Sections/HowLupaiWorksSectionSix'
+/* import HowLupaiWorksSectionSix from './Sections/HowLupaiWorksSectionSix' */
 import HowLupaiWorksSectionSeven from './Sections/HowLupaiWorksSectionSeven';
 
 
@@ -21,7 +21,7 @@ const HowlupaiWorksSection: React.FC = () => {
       <HowlupaiWorksSectionThree />
       <HowLupaiWorksSectionFour />
       <HowLupaiWorksSectionFive />
-      <HowLupaiWorksSectionSix />
+      {/*    <HowLupaiWorksSectionSix /> */}
       <HowLupaiWorksSectionSeven />
     </SectionMainContainer >
   );
