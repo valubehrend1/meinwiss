@@ -2,7 +2,7 @@ services:
   lupai-front-core:
     image: lupai-front-core
     container_name: lupai-front-core
-    network_mode: host
+    #network_mode: host
     build:
       context: .
       dockerfile: ./docker/core/Dockerfile
@@ -11,3 +11,25 @@ services:
     env_file:
       - .env
     restart: unless-stopped
+    ports:
+      - '4174:4174'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.frontend.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)'
+      - 'traefik.http.routers.frontend.entrypoints=websecure'
+      - 'traefik.http.routers.frontend.tls=true'
+      - 'traefik.http.routers.frontend.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.frontend.tls.domains[0].main=${DOMAIN}'
+      - 'traefik.http.routers.frontend.tls.domains[0].sans=${DOMAIN}'
+      - 'traefik.http.routers.frontend.tls.domains[0].sans=www.${DOMAIN}'
+      - 'traefik.http.routers.frontend.service=frontendservice'
+      - 'traefik.http.services.frontendservice.loadBalancer.server.port=4174'
+      - 'traefik.http.services.frontendservice.loadbalancer.server.scheme=http'
+    networks:
+      - lupai
+
+networks:
+  lupai:
+    name: lupai
+    driver: bridge
+    external: true

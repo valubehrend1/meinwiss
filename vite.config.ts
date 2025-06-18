@@ -6,14 +6,14 @@ export default defineConfig({
     plugins: [react()],
     server: {
         host: "0.0.0.0",
-        proxy: {
-            "/lupai": {
-                target: "ws://lupai.de:8000",
-                changeOrigin: true,
-                secure: false,
-                ws: true,
-            },
-        },
+         proxy: {
+             "/lupai": {
+                 target: "ws://lupai-api:8000",
+                 changeOrigin: true,
+                 secure: false,
+                 ws: true,
+             },
+         },
     },
     preview: {
         port: 4174,
