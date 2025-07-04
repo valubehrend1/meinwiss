@@ -21,37 +21,37 @@ import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
 
 import { useTranslation } from 'react-i18next';
 
-import { useNavigate } from 'react-router-dom';
-
 import { SectionMainContainer } from './WhatIsLupaiStyles';
 
 const WhatIsLupaiSection: React.FC = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const cardsData = [
     {
       icon: <ContactSupportRoundedIcon sx={{ fontSize: '40px' }} />,
       title: t('find_info_first_part'),
       description: t('find_info_description'),
-      cardButtonText: t('join_as_a_beta_tester')
+      cardButtonText: t('join_as_a_beta_tester'),
+      navigateTo: 'https://www.aureka.ai/de/lupai-beta-test-beratende'
     },
     {
       icon: <AutoAwesomeIcon sx={{ fontSize: '40px' }} />,
       title: t('for_support_seekers_first_part'),
       description: t('for_support_seekers_description'),
-      cardButtonText: t('join_waitlist')
+      cardButtonText: t('join_waitlist'),
+      navigateTo: 'https://www.aureka.ai/lupai-beta-test-for-support-seekers'
     },
     {
       icon: <DonutLargeOutlinedIcon sx={{ fontSize: '40px' }} />,
       title: t('for_organisations_first_part'),
       description: t('for_organisations_description'),
-      cardButtonText: t('join_waitlist')
+      cardButtonText: t('join_waitlist'),
+      navigateTo: 'https://www.aureka.ai/de/lupai-beta-test-organisationen'
     }
   ];
 
-  const handleNavigateToAboutUs = () => {
-    navigate('/contact');
+  const handleCardButtonClick = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -85,7 +85,7 @@ const WhatIsLupaiSection: React.FC = () => {
               <LearnMoreButton
                 variant='contained'
                 color='secondary'
-                onClick={handleNavigateToAboutUs}
+                onClick={() => handleCardButtonClick(card.navigateTo)}
               >
                 {card.cardButtonText}
               </LearnMoreButton>
