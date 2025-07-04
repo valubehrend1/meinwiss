@@ -5,7 +5,7 @@ import {
   setAssistantResponse,
   selectError,
   addUserMessage,
-  selectUserContext,
+  /*   selectUserContext, */
   resetSearch,
   setError,
   selectAccumulatedOrganizations,
@@ -35,7 +35,7 @@ import RefreshModalError from '../ErrorModal/RefreshModalError';
 const Chat: React.FC = () => {
   const messages = useSelector(selectMessages);
   const organizations = useSelector(selectAccumulatedOrganizations);
-  const userContext = useSelector(selectUserContext);
+  /*   const userContext = useSelector(selectUserContext); */
   const responseError = useSelector(selectError);
 
   const navigate = useNavigate();
@@ -143,11 +143,12 @@ const Chat: React.FC = () => {
           /*  origin_country: userContext.originCountry,
            time_in_germany: userContext.timeInGermany,
            age: userContext.age, */
-          origin_country: '',
-          time_in_germany: '',
-          age: '',
+          origin_country: null,
+          time_in_germany: null,
+          age: null,
         },
-        location: userContext.location,
+        /* location: userContext.location, */
+        location: 'Berlin',
       };
       ws.send(JSON.stringify(messageToSend));
     } else {
