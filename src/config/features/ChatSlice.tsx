@@ -17,9 +17,9 @@ export interface Organization {
 }
 
 interface UserContext {
-  originCountry: string;
-  timeInGermany: string;
-  age: string;
+  originCountry: string | null;
+  timeInGermany: string | null;
+  age: string | null;
   location: string;
 }
 
@@ -75,10 +75,10 @@ interface ChatState {
 const initialState: ChatState = {
   userQuery: '',
   userContext: {
-    originCountry: '',
-    timeInGermany: '',
-    age: '',
-    location: '',
+    originCountry: null,
+    timeInGermany: null,
+    age: null,
+    location: 'Berlin',
   },
   assistantResponse: {
     assistant_response: {
@@ -210,12 +210,18 @@ const chatSlice = createSlice({
       state.isLoading = false;
     },
     resetSearch: (state) => {
+      /*       state.userQuery = '';
+            state.userContext = {
+              originCountry: '',
+              timeInGermany: '',
+              age: '',
+              location: '', */
       state.userQuery = '';
       state.userContext = {
-        originCountry: '',
-        timeInGermany: '',
-        age: '',
-        location: '',
+        originCountry: null,
+        timeInGermany: null,
+        age: null,
+        location: 'Berlin',
       };
       state.isLoading = false;
       state.error = null;

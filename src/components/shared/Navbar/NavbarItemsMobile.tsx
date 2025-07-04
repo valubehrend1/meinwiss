@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, List, ListItem, ListItemText } from '@mui/material';
 
-import { LanguageContainer, BetaTag } from './NavbarStyles';
+import { LanguageContainer, /* BetaTag */ } from './NavbarStyles';
 import { LanguageSelectorOrientation } from '../../../types';
 import LanguageSelector from '../LanguageSelector';
 
@@ -15,9 +15,9 @@ interface NavbarItemsMobileProps {
 const NavbarItemsMobile: React.FC<NavbarItemsMobileProps> = ({ menuItems, toggleDrawer }) => {
   return (
     <Box onClick={toggleDrawer(false)} sx={{ width: 250 }}>
-      <BetaTag>
+      {/*       <BetaTag>
         Beta version
-      </BetaTag>
+      </BetaTag> */}
       <List>
         {menuItems.map((item, index) => (
           <ListItem key={index}>
