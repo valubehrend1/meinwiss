@@ -17,9 +17,7 @@ import {
 
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import ContactSupportRoundedIcon from '@mui/icons-material/ContactSupportRounded';
-/* import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined'; */
-
-/* import { cardsData } from './CardsContent'; */
+import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
 
 import { useTranslation } from 'react-i18next';
 
@@ -35,23 +33,21 @@ const WhatIsLupaiSection: React.FC = () => {
     {
       icon: <ContactSupportRoundedIcon sx={{ fontSize: '40px' }} />,
       title: t('find_info_first_part'),
-      /*       secondTitle: t('find_info_second_part'), */
       description: t('find_info_description'),
-      cardButtonText: t('request_access')
+      cardButtonText: t('join_as_a_beta_tester')
     },
     {
       icon: <AutoAwesomeIcon sx={{ fontSize: '40px' }} />,
-      title: t('answer_doubts_fitst_part'),
-      /*   secondTitle: t('answer_doubts_second_part'), */
-      description: t('answer_doubts_description'),
-      cardButtonText: t('coming_soon')
+      title: t('for_support_seekers_first_part'),
+      description: t('for_support_seekers_description'),
+      cardButtonText: t('join_waitlist')
     },
-    /*  {
-       icon: <DonutLargeOutlinedIcon sx={{ fontSize: '40px' }} />,
-       title: t('connect_with_institutions_first_part'),
-       secondTitle: t('connect_with_institutions_second_part'),
-       description: t('connect_with_institutions_description')
-     } */
+    {
+      icon: <DonutLargeOutlinedIcon sx={{ fontSize: '40px' }} />,
+      title: t('for_organisations_first_part'),
+      description: t('for_organisations_description'),
+      cardButtonText: t('join_waitlist')
+    }
   ];
 
   const handleNavigateToAboutUs = () => {
@@ -68,7 +64,8 @@ const WhatIsLupaiSection: React.FC = () => {
         <Title>
           <TitleSegment>{t('what_is_lupai_answer_first')}</TitleSegment>
           <TitleSegment>{t('what_is_lupai_answer_second')}</TitleSegment>
-          {/*     <TitleSegment>{t('what_is_lupai_answer_third')}</TitleSegment> */}
+          <TitleSegment>{t('what_is_lupai_answer_third')}</TitleSegment>
+          <TitleSegment>{t('what_is_lupai_answer_fourth')}</TitleSegment>
         </Title>
       </Box>
 
@@ -81,9 +78,6 @@ const WhatIsLupaiSection: React.FC = () => {
                 <Typography variant='h3' sx={{ marginTop: '16px' }}>
                   {card.title}
                 </Typography>
-                {/*           <Typography variant='h3' sx={{ fontFamily: 'MartinaPlantijn' }}>
-                  {card.secondTitle}
-                </Typography> */}
               </Box>
               <CardDescription variant="h4">
                 {card.description}
@@ -92,7 +86,6 @@ const WhatIsLupaiSection: React.FC = () => {
                 variant='contained'
                 color='secondary'
                 onClick={handleNavigateToAboutUs}
-                disabled={card.cardButtonText === t('coming_soon')}
               >
                 {card.cardButtonText}
               </LearnMoreButton>
@@ -101,13 +94,6 @@ const WhatIsLupaiSection: React.FC = () => {
         ))}
       </CardsContainer>
       <ButtonContainer>
-        {/*      <LearnMoreButton
-          variant='contained'
-          color='secondary'
-          onClick={handleNavigateToAboutUs}
-        >
-          {t('learn_more_about_lupai')}
-        </LearnMoreButton> */}
       </ButtonContainer>
     </SectionMainContainer>
   );
