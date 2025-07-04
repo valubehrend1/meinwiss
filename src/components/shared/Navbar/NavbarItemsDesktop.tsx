@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 
-import { MenuItemsContainer, MenuItemLink, /* BetaTag */ } from './NavbarStyles';
+import { MenuItemsContainer, MenuItemLink,/*  BetaTag  */ } from './NavbarStyles';
 
 import { LanguageSelectorOrientation } from '../../../types';
 

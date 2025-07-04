@@ -165,3 +165,9 @@ export const SearchMoreButton = styled(Button)(() => ({
   textTransform: 'none',
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
 }));
+
+export const LearnMoreButtonContainer = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: '2rem'
+}));
