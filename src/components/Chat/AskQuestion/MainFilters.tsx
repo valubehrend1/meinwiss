@@ -34,7 +34,7 @@ const MainFilters: React.FC<MainFiltersProps> = ({
   const age = useSelector(selectAge);
   const [userAge, setUserAge] = useState<string | null>(null);
 
-  const errorMessage = parseInt(age) < 1 || parseInt(age) > 120
+  const errorMessage = !age || parseInt(age) < 1 || parseInt(age) > 120
     ? "Your age must be between 1 and 120"
     : "Please enter your age"
 
