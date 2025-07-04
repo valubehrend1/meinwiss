@@ -23,6 +23,16 @@ export const FindAnswerSectionContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
+export const FirstTitleLabel = styled(Typography)(({ theme }) => ({
+  fontSize: '1.25rem',
+  lineHeight: '2.25rem',
+  textDecoration: 'underline',
+  color: theme.palette.primary.main,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '0.75rem',
+    lineHeight: '2.25rem',
+  },
+}));
 
 export const FirstTitle = styled(Typography)(({ theme }) => ({
   fontSize: '5rem',

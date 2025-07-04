@@ -18,7 +18,8 @@ import {
   QuestionsTextContainer,
   ButtonContainer,
   SearchMoreButton,
-  PurpleQuestion
+  PurpleQuestion,
+  LearnMoreButtonContainer
 } from './HowlupaiWorksSectionStyles';
 
 import { LearnMoreButton } from '../WhatIsLupaiSection/WhatIsLupaiStyles';
@@ -82,8 +83,7 @@ const HowlupaiWorksSection: React.FC = () => {
           </Grid>
         </CardContent>
       </MainCard>
-      <Box
-        sx={{ display: 'flex', justifyContent: 'center' }}>
+      <LearnMoreButtonContainer>
         <LearnMoreButton
           variant='contained'
           color='secondary'
@@ -91,7 +91,7 @@ const HowlupaiWorksSection: React.FC = () => {
         >
           {t('learn_more_about_lupai')}
         </LearnMoreButton>
-      </Box>
+      </LearnMoreButtonContainer>
     </SectionMainContainer >
   );
 };

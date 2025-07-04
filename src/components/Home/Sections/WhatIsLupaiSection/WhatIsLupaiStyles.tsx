@@ -62,7 +62,7 @@ export const TitleSegment = styled('span')(({ theme }) => ({
 
 
 export const LearnMoreButton = styled(Button)(({ theme }) => ({
-  marginTop: '3.5rem',
+  marginTop: 'auto',
   padding: '1.75rem 3.5rem',
   textTransform: 'none',
   boxShadow: 'none',
@@ -76,20 +76,34 @@ export const CardsContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: '2.5rem',
   flexDirection: 'row',
+  alignItems: 'stretch',
+  height: '100%',
+  minHeight: 420,
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column',
+    height: 'auto',
   },
 }));
 
 export const StyledCard = styled(Card)({
+  display: 'flex',
+  flexDirection: 'column',
+  flex: '1 1 0%',
+  minWidth: 0,
   backgroundColor: 'rgba(255, 255, 255, 0.2)',
   padding: '3rem 2rem',
-  color: '#FFFFFF'
+  color: '#FFFFFF',
+  '& .MuiCardContent-root': {
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
+  },
 });
 
 export const CardDescription = styled(Typography)({
   color: '#FFFFFF',
-  marginTop: '16px'
+  marginTop: '16px',
+  marginBottom: '2.5rem',
 });
 
 export const ButtonContainer = styled(Box)(({ theme }) => ({
