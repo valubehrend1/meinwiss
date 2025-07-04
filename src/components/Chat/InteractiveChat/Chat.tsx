@@ -140,9 +140,12 @@ const Chat: React.FC = () => {
       const messageToSend = {
         user_query: messageContent,
         user_context: {
-          origin_country: userContext.originCountry,
-          time_in_germany: userContext.timeInGermany,
-          age: userContext.age,
+          /*  origin_country: userContext.originCountry,
+           time_in_germany: userContext.timeInGermany,
+           age: userContext.age, */
+          origin_country: '',
+          time_in_germany: '',
+          age: '',
         },
         location: userContext.location,
       };

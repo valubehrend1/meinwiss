@@ -7,7 +7,7 @@ import {
   AskButton,
   SearchBarContainer,
 } from './AskQuestionsStyle';
-import MainFilters from '../MainFilters';
+/* import MainFilters from '../MainFilters'; */
 
 import SharedSearchBar from '../../../shared/SharedSearchBar/SharedSearchBar';
 
@@ -19,10 +19,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectUserQuery,
   addUserMessage,
-  selectAge,
-  selectOriginCountry,
-  selectLocation,
-  selectTimeInGermany
+  /*   selectAge,
+    selectOriginCountry,
+    selectLocation,
+    selectTimeInGermany */
 } from '../../../../config/features/ChatSlice';
 
 
@@ -32,16 +32,16 @@ const AskQuestion: React.FC = () => {
   const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
   const [error, setError] = React.useState<boolean>(false);
-  const [countryError, setCountryError] = useState<boolean>(false);
-  const [locationError, setLocationError] = useState<boolean>(false);
-  const [timeError, setTimeError] = useState<boolean>(false);
-  const [ageError, setAgeError] = useState<boolean>(false);
+  /*   const [countryError, setCountryError] = useState<boolean>(false);
+    const [locationError, setLocationError] = useState<boolean>(false);
+    const [timeError, setTimeError] = useState<boolean>(false);
+    const [ageError, setAgeError] = useState<boolean>(false); */
 
-  const age = useSelector(selectAge);
   const userQuery = useSelector(selectUserQuery);
-  const originCountry = useSelector(selectOriginCountry);
-  const location = useSelector(selectLocation);
-  const timeInGermany = useSelector(selectTimeInGermany);
+  /*   const age = useSelector(selectAge);
+    const originCountry = useSelector(selectOriginCountry);
+    const location = useSelector(selectLocation);
+    const timeInGermany = useSelector(selectTimeInGermany); */
 
   const sendMessage = () => {
     if (!userQuery.match(/[\p{L}]/u)) {
@@ -69,14 +69,14 @@ const AskQuestion: React.FC = () => {
   const handleAskQuestionClick = () => {
     //Input Validations
     if (!validateInput(userQuery, setError)) return;
-    if (!validateInput(originCountry, setCountryError)) return;
-    if (!validateInput(location, setLocationError)) return;
-    if (!validateInput(timeInGermany, setTimeError)) return;
-    if (!validateInput(age, setAgeError)) return;
-    if (parseInt(age) < 1 || parseInt(age) > 120) {
-      setAgeError(true);
-      return;
-    }
+    /*     if (!validateInput(originCountry, setCountryError)) return;
+        if (!validateInput(location, setLocationError)) return;
+        if (!validateInput(timeInGermany, setTimeError)) return;
+        if (!validateInput(age, setAgeError)) return;
+        if (parseInt(age) < 1 || parseInt(age) > 120) {
+          setAgeError(true);
+          return;
+        } */
     setIsExiting(true);
     sendMessage()
     setTimeout(() => {
@@ -114,11 +114,11 @@ const AskQuestion: React.FC = () => {
               </SearchBarContainer>
             </Box>
 
-            <MainFilters
+            {/*  <MainFilters
               countryError={countryError}
               locationError={locationError}
               timeError={timeError}
-              ageError={ageError} />
+              ageError={ageError} /> */}
             <Box sx={{ marginTop: '40px' }}>
               <AskButton
                 variant="contained"
