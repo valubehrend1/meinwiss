@@ -10,7 +10,7 @@ const FindAnswerSectionSection: React.FC = () => {
   const navigate = useNavigate();
 
   const handleNavigateToAskLupaiPage = () => {
-    navigate('/ask-lupai');
+    navigate('/about');
   };
 
   const { t } = useTranslation();
