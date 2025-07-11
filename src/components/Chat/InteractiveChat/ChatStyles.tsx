@@ -8,8 +8,7 @@ export const ChatContainer = styled(Box)(({ theme }) => ({
   paddingRight: '200px',
   paddingLeft: '200px',
   paddingTop: '50px',
-  margin: theme.spacing(2),
-  marginBottom: '70px',
+  paddingBottom: '100px',
   borderRadius: theme.shape.borderRadius,
 }));
 

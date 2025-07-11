@@ -7,6 +7,7 @@ export const LoginContainer = styled(Box)({
   maxWidth: '400px',
   margin: 'auto',
   marginTop: '50px',
+  marginBottom: '100px',
   padding: '20px',
   display: 'flex',
   flexDirection: 'column',

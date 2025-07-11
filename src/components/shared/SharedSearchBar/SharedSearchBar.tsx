@@ -78,7 +78,7 @@ const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendM
       <SearchBar
         mainSearchPage={mainSearchPage}
         fullWidth
-        placeholder={t('try_questions_like')}
+        placeholder={t('try_question')}
         variant="outlined"
         InputProps={inputProps}
         onChange={handleSearchQueryInputChange}
