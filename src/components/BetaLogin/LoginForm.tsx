@@ -20,8 +20,8 @@ const LoginForm: React.FC = () => {
     event.preventDefault();
 
     // Simula la validación de credenciales
-    const validEmail = 'user@lupai.com';
-    const validPassword = '*O71@h3bV!Vd';
+    const validEmail = import.meta.env.VITE_VALID_EMAIL;
+    const validPassword = import.meta.env.VITE_VALID_PASSWORD;
 
     if (email === validEmail && password === validPassword) {
       // Autenticación exitosa
@@ -42,6 +42,7 @@ const LoginForm: React.FC = () => {
           label="Email"
           type="email"
           variant="outlined"
+          autoComplete="current-user"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -50,6 +51,7 @@ const LoginForm: React.FC = () => {
           label="Password"
           type="password"
           variant="outlined"
+          autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
