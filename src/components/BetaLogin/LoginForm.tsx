@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
 import { LoginContainer, StyledTextField, SubmitButton } from './LoginFormStyles'
-import LoginModal from './LoginModal';
+/* import LoginModal from './LoginModal'; */
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -60,7 +60,7 @@ const LoginForm: React.FC = () => {
       </form>
 
       {/* Modal informativo */}
-      <LoginModal open={isModalOpen} setIsOpen={setIsModalOpen} />
+      {/*  <LoginModal open={isModalOpen} setIsOpen={setIsModalOpen} /> */}
     </LoginContainer>
   );
 };
