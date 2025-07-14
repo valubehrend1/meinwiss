@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState/* , useEffect */ } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
@@ -8,13 +8,12 @@ import { LoginContainer, StyledTextField, SubmitButton } from './LoginFormStyles
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  /* const [isModalOpen, setIsModalOpen] = useState(false); */
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Mostrar el modal automáticamente al cargar el componente
-    setIsModalOpen(true);
-  }, []);
+  /*   useEffect(() => {
+      setIsModalOpen(true);
+    }, []); */
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
