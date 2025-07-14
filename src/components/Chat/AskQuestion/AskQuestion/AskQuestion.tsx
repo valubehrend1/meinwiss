@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import {
   SectionContainer,
@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectUserQuery,
   addUserMessage,
+  resetSearch,
   /*   selectAge,
     selectOriginCountry,
     selectLocation,
@@ -42,6 +43,11 @@ const AskQuestion: React.FC = () => {
     const originCountry = useSelector(selectOriginCountry);
     const location = useSelector(selectLocation);
     const timeInGermany = useSelector(selectTimeInGermany); */
+
+  // Resetear el estado cuando se monta el componente
+  useEffect(() => {
+    dispatch(resetSearch());
+  }, [dispatch]);
 
   const sendMessage = () => {
     if (!userQuery.match(/[\p{L}]/u)) {

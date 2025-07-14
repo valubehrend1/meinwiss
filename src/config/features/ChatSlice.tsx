@@ -70,6 +70,7 @@ interface ChatState {
   accumulatedOrganizations: Organization[];
   originalStatus: string;
   statusDisplay: string;
+  stepsCompleted: boolean;
 }
 
 const initialState: ChatState = {
@@ -112,6 +113,7 @@ const initialState: ChatState = {
   accumulatedOrganizations: [],
   originalStatus: '',
   statusDisplay: '',
+  stepsCompleted: false,
 };
 
 const chatSlice = createSlice({
@@ -245,6 +247,9 @@ const chatSlice = createSlice({
         isFinalResponse: action.payload.is_final_response,
       });
     },
+    completeStep: (state) => {
+      state.stepsCompleted = true;
+    },
   },
 });
 
@@ -260,6 +265,7 @@ export const {
   addUserMessage,
   resetSearch,
   finalizeOldAssistantMessages,
+  completeStep,
 } = chatSlice.actions;
 
 export const selectUserQuery = (state: { chat: ChatState }) => state.chat.userQuery;
@@ -275,6 +281,7 @@ export const selectOriginalStatus = (state: { chat: ChatState }) => state.chat.o
 export const selectIsLoading = (state: { chat: ChatState }) => state.chat.isLoading;
 export const selectError = (state: { chat: ChatState }) => state.chat.error;
 export const selectMessages = (state: { chat: ChatState }) => state.chat.messages;
+export const selectStepsCompleted = (state: { chat: ChatState }) => state.chat.stepsCompleted;
 
 export const chatReducer = chatSlice.reducer;
 export default chatSlice;

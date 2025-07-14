@@ -5,11 +5,11 @@ import {
   setAssistantResponse,
   selectError,
   addUserMessage,
-  /*   selectUserContext, */
   resetSearch,
   setError,
   selectAccumulatedOrganizations,
   finalizeOldAssistantMessages,
+  selectStepsCompleted
 } from '../../../config/features/ChatSlice';
 
 import { Box, IconButton } from '@mui/material';
@@ -37,6 +37,7 @@ const Chat: React.FC = () => {
   const organizations = useSelector(selectAccumulatedOrganizations);
   /*   const userContext = useSelector(selectUserContext); */
   const responseError = useSelector(selectError);
+  const stepsCompleted = useSelector(selectStepsCompleted);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -105,13 +106,12 @@ const Chat: React.FC = () => {
       ws.send(JSON.stringify({ type: 'new_search' }));
     }
     navigate('/ask-lupai');
-    window.location.reload();  // <-- recargamos la página
   };
 
   const onCancelModal = () => {
     setIsOpen(false);
+    dispatch(resetSearch());
     navigate('/ask-lupai');
-    window.location.reload();
   };
 
   // Manejo ErrorModal
@@ -185,6 +185,12 @@ const Chat: React.FC = () => {
       setSocketDown(true);
     }
   }, [ws]);
+
+  useEffect(() => {
+    if (!stepsCompleted) {
+      navigate('/ask-lupai');
+    }
+  }, [stepsCompleted, navigate]);
 
   return (
     <>

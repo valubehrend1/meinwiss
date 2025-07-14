@@ -8,10 +8,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Spinner from './Spinner';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { completeStep } from '../../../../config/features/ChatSlice';
 
 const AskQuestionStep3: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const variants = {
     hidden: { x: 300, opacity: 0 },
@@ -20,12 +23,14 @@ const AskQuestionStep3: React.FC = () => {
   };
 
   useEffect(() => {
+    dispatch(completeStep());
+
     const timer = setTimeout(() => {
       navigate('/ask-lupai/chat');
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [navigate]);
+  }, [navigate, dispatch]);
 
   return (
     <SectionContainerSteps>
