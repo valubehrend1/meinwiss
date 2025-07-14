@@ -8,7 +8,7 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/lupai': {
-        target: 'ws://lupai.de:8000',
+        target: 'wss://api.lupai.de',
         changeOrigin: true,
         secure: false,
         ws: true,
