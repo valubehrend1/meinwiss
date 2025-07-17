@@ -4,7 +4,7 @@ import { Autocomplete } from '@mui/material';
 import {
   InputFieldAutoComplete,
   SearchBarError
-} from './AskQuestion/AskQuestionsStyle'; // Importa los estilos desde el archivo separado
+} from './AskQuestion/AskQuestionsStyle';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setTimeInGermany, selectTimeInGermany } from '../../../config/features/ChatSlice';
@@ -43,8 +43,8 @@ const TimeFrameInput: React.FC<TimeFrameInputProps> = ({ timeError }) => {
         options={timeFrameArray}
         value={timeInGermany || null}
         inputValue={inputValue}
-        onChange={handleTimeFrameChange} // Manejar la selección
-        onInputChange={handleInputChange} // Manejar el texto del input
+        onChange={handleTimeFrameChange}
+        onInputChange={handleInputChange}
         isOptionEqualToValue={(option, value) => option === value}
         renderInput={(params) => (
           <InputFieldAutoComplete {...params} variant="outlined" fullWidth placeholder={t('pick_time_frame')} />

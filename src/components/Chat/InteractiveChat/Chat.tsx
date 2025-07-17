@@ -24,7 +24,7 @@ import AddNewQuestion from './AddNewQuestion';
 import LupaiOrganizations from './LupaiOrganizations';
 import { ChatContainer, MessagesContainer } from './ChatStyles';
 
-import { useWebSocket } from '../../../context/useWebSocket';
+import { useWebSocket } from '../../../hooks/useWebSocket';
 import NewQuestionModal from './NewQuestionModal';
 import ErrorModal from '../ErrorModal/ErrorModal';
 
@@ -47,26 +47,26 @@ const Chat: React.FC = () => {
   const [isRefreshModalOpen, setIsRefreshModalOpen] = useState(false);
   const [socketDown, setSocketDown] = useState(false);
 
-  // Evita re-enviar el mismo mensaje del usuario varias veces
+  // Prevents re-sending the same user message multiple times
   const [hasSentMessage, setHasSentMessage] = useState(false);
 
   const [skipNativePrompt, setSkipNativePrompt] = useState(false);
 
-  // Manejo Modal
+  // Modal Handling
   const handleOpen = () => {
     setIsOpen(true);
   };
 
-  // Interceptar F5, Ctrl+R / Cmd+R
+  // Intercept F5, Ctrl+R / Cmd+R
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Detectar F5
+      // Detect F5
       if (event.key === 'F5') {
         event.preventDefault();
-        setSkipNativePrompt(true);         // Omitir el prompt nativo
-        setIsRefreshModalOpen(true);       // Mostrar tu modal
+        setSkipNativePrompt(true);         // Skip the native prompt
+        setIsRefreshModalOpen(true);       // Show our modal
       }
-      // Detectar Ctrl+R o Cmd+R
+      // Detect Ctrl+R or Cmd+R
       const isCtrlOrCmd = event.ctrlKey || event.metaKey;
       if (isCtrlOrCmd && event.key.toLowerCase() === 'r') {
         event.preventDefault();
@@ -81,16 +81,16 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      // Si skipNativePrompt es "false", significa que NO interceptamos
-      // el evento (o sea, viene de refrescar con el botón nativo o cerrar tab).
+      // If skipNativePrompt is "false", it means we are NOT intercepting
+      // the event (meaning, it comes from refreshing with the native button or closing tab).
       if (!skipNativePrompt) {
         event.preventDefault();
-        // Para que la alerta nativa funcione en navegadores modernos
+        // To make the native alert work in modern browsers
         event.returnValue = '';
       }
-      // Si skipNativePrompt es true, NO hacemos nada, NO habrá alerta nativa.
-      // (Porque entendemos que vino de F5 / Ctrl+R / Cmd+R, donde tenemos
-      //  nuestro modal propio).
+      // If skipNativePrompt is true, we DO NOTHING, there will be NO native alert.
+      // (Because we understand it came from F5 / Ctrl+R / Cmd+R, where we have
+      // our own modal).
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -114,7 +114,7 @@ const Chat: React.FC = () => {
     navigate('/ask-lupai');
   };
 
-  // Manejo ErrorModal
+  // Error Modal Handling
   const handleCloseError = () => {
     if (responseError) {
       dispatch(setError(null));
@@ -122,7 +122,7 @@ const Chat: React.FC = () => {
     setSocketDown(false);
   };
 
-  // Escucha mensajes WebSocket
+  // Listen for WebSocket messages
   if (ws) {
     ws.onmessage = (event) => {
       try {
@@ -134,7 +134,7 @@ const Chat: React.FC = () => {
     };
   }
 
-  // Enviar mensaje al server
+  // Send message to server
   const sendMessage = (messageContent: string) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       const messageToSend = {
@@ -163,7 +163,7 @@ const Chat: React.FC = () => {
     sendMessage(messageContent);
   };
 
-  // Cuando se agrega un nuevo mensaje de usuario, lo enviamos al backend
+  // When a new user message is added, we send it to the backend
   useEffect(() => {
     if (
       messages.length > 0 &&
@@ -179,7 +179,7 @@ const Chat: React.FC = () => {
   }, [messages, hasSentMessage]); // eslint-disable-line
 
 
-  // Manejo de socket cerrado
+  // Handling closed socket
   useEffect(() => {
     if (ws && ws.readyState === WebSocket.CLOSED) {
       setSocketDown(true);
@@ -228,7 +228,7 @@ const Chat: React.FC = () => {
           />
         )}
 
-        {/* Renderizamos TODOS los mensajes (user / assistant) */}
+        {/* Render ALL messages (user / assistant) */}
         {messages.map((message, index) => (
           <MessagesContainer key={index} sender={message.sender}>
             {message.sender === 'user' && (

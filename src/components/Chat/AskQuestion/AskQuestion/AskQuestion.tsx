@@ -71,7 +71,6 @@ const AskQuestion: React.FC = () => {
     return true;
   };
 
-  // Función que maneja el clic del botón
   const handleAskQuestionClick = () => {
     //Input Validations
     if (!validateInput(userQuery, setError)) return;

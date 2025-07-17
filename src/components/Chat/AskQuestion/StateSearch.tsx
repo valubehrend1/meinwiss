@@ -23,7 +23,6 @@ const StateSearch: React.FC<StateSearchProps> = ({ locationError }) => {
   const countryNames = ['Berlin'];
   /*
     useEffect(() => {
-      // Obtener estados de Alemania, utilizando el código ISO 'DE'
       const fetchedStates = State.getStatesOfCountry('DE') || [];
       setStates(fetchedStates);
     }, []);

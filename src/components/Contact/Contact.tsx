@@ -58,7 +58,7 @@ const Contact: React.FC = () => {
         setSnackbarMessage(t('Message sent successfully!'));
         setSnackbarSeverity('success');
         setSnackbarOpen(true);
-        setFormData({ from_name: '', from_email: '', message: '' }); // Reset state
+        setFormData({ from_name: '', from_email: '', message: '' });
         form.current.reset();
       } catch (error) {
         console.error('FAILED...', error);

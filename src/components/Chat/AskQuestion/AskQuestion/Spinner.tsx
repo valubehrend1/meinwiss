@@ -16,7 +16,6 @@ export default function Spinner() {
       }
     });
 
-    // Cambia la dirección del giro cada 3 segundos
     const timer = setTimeout(() => {
       setDirection(-1 * direction);
     }, 3000);

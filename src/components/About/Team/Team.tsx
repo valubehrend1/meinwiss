@@ -50,7 +50,6 @@ const TeamPage: React.FC = () => {
   return (
     <SectionContainer>
       <Grid container spacing={4}>
-        {/* Contenedor para el texto */}
         <Grid item xs={12} md={4}>
           <TeamTextContainer>
             <Typography variant="h3" sx={{ fontWeight: 'bold', marginBottom: '20px' }}>
@@ -74,7 +73,6 @@ const TeamPage: React.FC = () => {
           </TeamTextContainer>
         </Grid>
 
-        {/* Contenedor para las imágenes del equipo */}
         <Grid item xs={12} md={8}>
           <TeamMemberGrid container>
             {[teamMembersColumnOne, teamMembersColumnTwo, teamMembersColumnThree].map(

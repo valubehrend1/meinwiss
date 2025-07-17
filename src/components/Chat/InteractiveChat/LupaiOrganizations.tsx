@@ -38,10 +38,10 @@ const LupaiOrganizations: React.FC<OrganizationsProps> = ({ organizations }) => 
     setExpanded(!expanded);
   };
 
-  // Calculamos el total de páginas según la cantidad de orgs
+  // Calculate total pages based on the number of organizations
   const totalPages = Math.ceil((organizations?.length || 0) / ITEMS_PER_PAGE);
 
-  // Calculamos el rango que se mostrará en la página actual
+  // Calculate the range to be displayed on the current page
   const startIndex = currentPage * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const paginatedOrganizations = organizations.slice(startIndex, endIndex);
@@ -118,7 +118,7 @@ const LupaiOrganizations: React.FC<OrganizationsProps> = ({ organizations }) => 
           ))}
         </List>
 
-        {/* Controles de paginación */}
+        {/* Pagination controls */}
         {organizations.length > ITEMS_PER_PAGE && (
           <Box
             sx={{

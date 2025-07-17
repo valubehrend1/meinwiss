@@ -39,7 +39,6 @@ const ImageGrid: React.FC = () => {
   );
 };
 
-// Componente para animación de imágenes
 const SmoothImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
   const [loaded, setLoaded] = useState(false);
 

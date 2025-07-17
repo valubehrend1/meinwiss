@@ -4,7 +4,7 @@ import { Autocomplete } from '@mui/material';
 import {
   InputFieldAutoComplete,
   SearchBarError
-} from './AskQuestion/AskQuestionsStyle'; // Importa los estilos desde el archivo separado
+} from './AskQuestion/AskQuestionsStyle';
 
 import { countries } from 'countries-list';
 import { useDispatch } from 'react-redux';

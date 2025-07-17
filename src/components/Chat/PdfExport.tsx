@@ -27,16 +27,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#E2F389',
   },
   title: {
-    fontSize: 16, // Cambiado de '1.125rem' a 16
+    fontSize: 16,
     marginBottom: 10,
   },
   content: {
-    fontSize: 12, // Cambiado de '0.75rem' a 12
+    fontSize: 12,
     marginBottom: 5,
   },
   header: {
     backgroundColor: '#00301E',
-    fontSize: 14, // Cambiado de '1rem' a 14
+    fontSize: 14,
     color: '#FFFFFF',
     padding: 10,
   },
@@ -68,5 +68,4 @@ const PdfExport: React.FC<PdfExportProps> = ({ messages }) => {
 };
 
 
-// Exporta el wrapper en lugar del componente PdfExport
 export default PdfExport;

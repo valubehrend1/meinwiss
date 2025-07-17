@@ -46,13 +46,13 @@ export const Overlay = styled(Box)({
   left: 0,
   width: '100%',
   height: '100%',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)', // Capa negra translúcida
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
   color: '#FFF',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  opacity: 0, // Oculta por defecto
+  opacity: 0,
   transition: 'opacity 0.3s ease-in-out',
   fontSize: '1.2rem',
   fontWeight: 'bold',

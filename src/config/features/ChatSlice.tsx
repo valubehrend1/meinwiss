@@ -136,14 +136,14 @@ const chatSlice = createSlice({
         error = null
       } = action.payload;
 
-      // Manejar payload nulo
+      // Handle null payload
       const safeAssistantResponse = assistant_response || { improved_answer: '', answer_found: false };
       const improvedAnswer = safeAssistantResponse.improved_answer || '';
 
-      // Asignar originalStatus (si es null, lo pasamos como string vacío)
+      // Assign originalStatus (if it's null, we pass it as an empty string)
       state.originalStatus = status || '';
 
-      // Solo actualizamos el estado si *no* es null/undefined
+      // We only update the status if it's *not* null/undefined
       if (
         status_display &&
         status_display.display_message !== null &&
@@ -152,7 +152,7 @@ const chatSlice = createSlice({
         state.statusDisplay = status_display.display_message;
       }
 
-      // Buscar si el último mensaje del asistente es parcial o final
+      // Check if the last assistant message is partial or final
       const lastMessage = state.messages[state.messages.length - 1];
       const isLastMessageAssistant =
         lastMessage && lastMessage.sender === 'assistant' && !lastMessage.isFinalResponse;
@@ -160,7 +160,7 @@ const chatSlice = createSlice({
       const messageError = safeAssistantResponse.error || error;
 
       if (isLastMessageAssistant) {
-        // Concatenamos (o sobrescribimos) el texto parcial
+        // We concatenate (or overwrite) the partial text
         lastMessage.content += improvedAnswer;
         lastMessage.answerFound = safeAssistantResponse.answer_found;
         lastMessage.isClarification = is_clarification;
@@ -168,7 +168,7 @@ const chatSlice = createSlice({
         lastMessage.sources = retriever_items;
         lastMessage.error = messageError || null;
       } else {
-        // Creamos un nuevo mensaje
+        // We create a new message
         const newMessage: Message = {
           sender: 'assistant',
           content: improvedAnswer,
@@ -180,7 +180,7 @@ const chatSlice = createSlice({
         state.messages.push(newMessage);
       }
 
-      // Manejo de organizaciones
+      // Organizations handling
       if (Array.isArray(organizations) && organizations.length > 0) {
         organizations.forEach((newOrg: Organization) => {
           const orgAlreadyExists = state.accumulatedOrganizations.some(

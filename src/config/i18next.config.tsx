@@ -5,7 +5,7 @@ import { initReactI18next } from "react-i18next";
 import global_en from '../locales/en/global.json';
 import global_de from '../locales/de/global.json';
 
-console.log('Initializing i18next...'); // Verificar que el archivo se está ejecutando
+console.log('Initializing i18next...');
 
 startTransition(() => {
   i18n

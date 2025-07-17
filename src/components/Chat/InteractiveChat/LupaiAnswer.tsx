@@ -61,7 +61,7 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({
   }
 
 
-  // Simulamos "typo" del contenido
+  // Simulate typing of the content
   useEffect(() => {
     if (index < content.length) {
       const timeout = setTimeout(() => {
