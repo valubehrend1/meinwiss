@@ -17,7 +17,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
 import PdfExport from '../PdfExport';
-import SharedSearchBar from '../../shared/SharedSearchBar/SharedSearchBar';
+import SharedSearchBar from '../../pages/shared/SharedSearchBar/SharedSearchBar';
 import LupaiAnswer from './LupaiAnswer';
 import UserQuestion from './UserQuestion';
 import AddNewQuestion from './AddNewQuestion';

@@ -9,7 +9,7 @@ import {
 } from './AskQuestionsStyle';
 /* import MainFilters from '../MainFilters'; */
 
-import SharedSearchBar from '../../../shared/SharedSearchBar/SharedSearchBar';
+import SharedSearchBar from '../../../../components/pages/shared/SharedSearchBar/SharedSearchBar';
 
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

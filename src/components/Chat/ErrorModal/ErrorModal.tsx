@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useNavigate } from 'react-router-dom'
 
-import SharedModal from '../../shared/SharedModal/SharedModal';
+import SharedModal from '../../pages/shared/SharedModal/SharedModal';
 
 interface ErrorModalProps {
   isOpen: boolean;

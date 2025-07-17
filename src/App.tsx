@@ -18,10 +18,10 @@ import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
 
 import Layout from './components/Layout';
-import ErrorNotFoundPage from './components/ErrorNotFound';
-import Home from './components/Home/Home';
-import About from './components/About/About';
-import Contact from './components/Contact/Contact';
+import ErrorNotFoundPage from './components/pages/ErrorNotFound';
+import Home from './components/pages/Home/Home';
+import About from './components/pages/About/About';
+import Contact from './components/pages/Contact/Contact';
 import AskQuestion from './components/Chat/AskQuestion/AskQuestion/AskQuestion';
 import AskQuestionStep2 from './components/Chat/AskQuestion/AskQuestion/AskQuestionStep2';
 import AskQuestionStep3 from './components/Chat/AskQuestion/AskQuestion/AskQuestionStep3';
@@ -29,12 +29,12 @@ import ProcessingQuestion from './components/Chat/AskQuestion/AskQuestion/Proces
 import Chat from './components/Chat/InteractiveChat/Chat';
 import LoginForm from './components/BetaLogin/LoginForm';
 import DataPrivacy from './components/Chat/DataPrivacy/DataPrivacy';
-import Impressum from './components/Impressum/Impressum';
+import Impressum from './components/pages/Impressum/Impressum';
 
 import { WebSocketProvider } from './context/WebSocketContext';
-import HowlupaiWorksSection from './components/HowLupaiWorks/HowlupaiWorksSection';
+import HowlupaiWorksSection from './components/pages/HowLupaiWorks/HowlupaiWorksSection';
 import PrivateRoute from './components/BetaLogin/PrivateRoute';
-import LupaiForOrganizations from './components/LupaiForOrganizations/LupaiForOrganizations';
+import LupaiForOrganizations from './components/pages/LupaiForOrganizations/LupaiForOrganizations';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
