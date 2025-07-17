@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Organization } from '../../../config/features/ChatSlice';
+import { Organization } from '../../../types/models';
 
 import {
   OrganizationsAccordion,

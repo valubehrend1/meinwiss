@@ -10,10 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTimeInGermany, selectTimeInGermany } from '../../../config/features/ChatSlice';
 
 import { useTranslation } from 'react-i18next';
-
-interface TimeFrameInputProps {
-  timeError: boolean;
-}
+import { TimeFrameInputProps } from '../../../types/components';
 
 const TimeFrameInput: React.FC<TimeFrameInputProps> = ({ timeError }) => {
   const { t } = useTranslation();

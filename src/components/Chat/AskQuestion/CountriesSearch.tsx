@@ -11,10 +11,7 @@ import { useDispatch } from 'react-redux';
 import { setOriginCountry } from '../../../config/features/ChatSlice';
 
 import { useTranslation } from 'react-i18next';
-
-interface CountriesSearchProps {
-  countryError: boolean;
-}
+import { CountriesSearchProps } from '../../../types/components';
 
 
 const CountriesSearch: React.FC<CountriesSearchProps> = ({ countryError }) => {

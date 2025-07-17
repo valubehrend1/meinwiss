@@ -1,77 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface Message {
-  sender: 'user' | 'assistant';
-  content: string;
-  sources?: RetrieverItem[];
-  answerFound?: boolean;
-  isFinalResponse: boolean;
-  isClarification?: boolean;
-  error?: string;
-}
-
-export interface Organization {
-  name: string;
-  description: string;
-  website: string;
-}
-
-interface UserContext {
-  originCountry: string | null;
-  timeInGermany: string | null;
-  age: string | null;
-  location: string;
-}
-
-export interface RetrieverItem {
-  collection_metadata: {
-    source_type: string;
-    source_name?: string;
-    source_url?: string;
-    source_date?: string;
-  };
-  text: string;
-}
-
-interface AssistantResponse {
-  assistant_response: {
-    answer: string;
-    improved_answer: string;
-    answer_found: boolean;
-  };
-  retriever_items: RetrieverItem[];
-  status: unknown;
-  status_display: {
-    status: string;
-    display_message: string | null;
-  };
-  language: {
-    language_code: string;
-    language_name: string;
-  };
-  organizations: Organization[] | null;
-  domain: string;
-  improved_query: string | null;
-  is_final_response: boolean;
-  sensitive_topic: unknown;
-  is_clarification: boolean;
-  intent: string;
-  is_loading: boolean;
-  error: string | null;
-}
-
-interface ChatState {
-  userQuery: string;
-  userContext: UserContext;
-  isLoading: boolean;
-  error: string | null;
-  assistantResponse: AssistantResponse;
-  messages: Message[];
-  accumulatedOrganizations: Organization[];
-  originalStatus: string;
-  statusDisplay: string;
-  stepsCompleted: boolean;
-}
+import {
+  Message,
+  ChatState
+} from '../../types/redux/chat';
+import {
+  Organization
+} from '../../types/models';
 
 const initialState: ChatState = {
   userQuery: '',
@@ -176,6 +110,7 @@ const chatSlice = createSlice({
           answerFound: safeAssistantResponse.answer_found,
           isClarification: is_clarification,
           isFinalResponse: is_final_response,
+          error: messageError || undefined,
         };
         state.messages.push(newMessage);
       }
@@ -184,7 +119,7 @@ const chatSlice = createSlice({
       if (Array.isArray(organizations) && organizations.length > 0) {
         organizations.forEach((newOrg: Organization) => {
           const orgAlreadyExists = state.accumulatedOrganizations.some(
-            (existingOrg) => existingOrg.name === newOrg.name
+            (existingOrg: Organization) => existingOrg.name === newOrg.name
           );
           if (!orgAlreadyExists) {
             state.accumulatedOrganizations.push(newOrg);

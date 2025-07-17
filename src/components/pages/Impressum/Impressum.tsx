@@ -1,22 +1,8 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import { StyledDataPrivacy, Title } from '../../Chat/DataPrivacy/DataPrivacyStyles';
-import { styled } from '@mui/system';
-
-export const Container = styled(Box)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  marginBottom: '80px'
-}));
-
-export const InfoContainer = styled(Box)(() => ({
-  margin: '30px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '5px'
-}));
+import { Container, InfoContainer } from './ImpressumStyles';
 
 const Impressum: React.FC = () => {
   return (
