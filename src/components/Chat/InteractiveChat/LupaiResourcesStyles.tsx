@@ -13,26 +13,26 @@ export const LupaiResourcesContainer = styled(Box)({
 export const ResourceAccordion = styled(Accordion)<{ source: string }>(({ source }) => ({
   flex: '1 1 auto',
   marginBottom: '10px',
-  width: 'calc(50% - 8px)',  // Ajuste para que dos acordeones quepan en una fila, ajustando el margen
+  width: 'calc(50% - 8px)',  // Adjustment so that two accordions fit in a row, adjusting the margin
   backgroundColor: source === 'Laws' ? purple :
     source === 'Administrative processes' ? gold :
-      orange,  // Aplica purple si es 'Laws', gold si es 'Administrative processes', y orange para otros
+      orange,  // Apply purple for 'Laws', gold for 'Administrative processes', and orange for others
   color: '#FFF',
   borderRadius: '12px !important',
   '&:hover': {
     backgroundColor: source === 'Laws' ? purple :
       source === 'Administrative processes' ? gold :
-        orange,  // Mantiene el mismo color al pasar el mouse
+        orange,  // Maintains the same color on mouse hover
   },
   '&.Mui-expanded': {
     borderRadius: '12px',
-    flex: '1 1 100%',  // Se expande para tomar toda la fila cuando está expandido
+    flex: '1 1 100%',  // Expands to take up the entire row when expanded
     color: '#FFF',
     width: '100%',
   },
   '&:before': {
     borderRadius: '12px',
-    display: 'none',  // Elimina la línea divisoria de los acordeones por defecto de MUI
+    display: 'none',  // Removes the default dividing line of MUI accordions
   },
 }));
 

@@ -9,9 +9,7 @@ import { setLocation /* selectLocation */ } from '../../../config/features/ChatS
 import { useTranslation } from 'react-i18next';
 
 
-interface StateSearchProps {
-  locationError: boolean;
-}
+import { StateSearchProps } from '../../../types/components';
 
 const StateSearch: React.FC<StateSearchProps> = ({ locationError }) => {
   const { t } = useTranslation();
@@ -23,7 +21,6 @@ const StateSearch: React.FC<StateSearchProps> = ({ locationError }) => {
   const countryNames = ['Berlin'];
   /*
     useEffect(() => {
-      // Obtener estados de Alemania, utilizando el código ISO 'DE'
       const fetchedStates = State.getStatesOfCountry('DE') || [];
       setStates(fetchedStates);
     }, []);

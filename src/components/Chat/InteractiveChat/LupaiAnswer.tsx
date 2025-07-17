@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import LupaiResources from './LupaiResources';
 
 import {
-  RetrieverItem,
   selectStatusDisplay,
   selectOriginalStatus
 } from '../../../config/features/ChatSlice';
@@ -18,17 +17,7 @@ import theme from '../../../theme';
 import logo from '../../../assets/logo.png';
 import ErrorModal from '../ErrorModal/ErrorModal';
 
-interface LupaiAnswerProps {
-  content: string;
-  sources: RetrieverItem[];
-  answerFound?: boolean;
-  isFinalResponse: boolean;
-  isClarification?: boolean;
-  isWaitingForResponse?: boolean;
-  error?: string | null;
-  setIsOpen: (isOpen: boolean) => void;
-  open?: boolean;
-}
+import { LupaiAnswerProps } from '../../../types/components';
 
 const SpinnerContainer = styled(Box)({
   display: 'flex',
@@ -61,7 +50,7 @@ const LupaiAnswer: React.FC<LupaiAnswerProps> = ({
   }
 
 
-  // Simulamos "typo" del contenido
+  // Simulate typing of the content
   useEffect(() => {
     if (index < content.length) {
       const timeout = setTimeout(() => {

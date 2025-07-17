@@ -1,8 +1,5 @@
 import { createSlice, createAction } from '@reduxjs/toolkit';
-
-interface ErrorState {
-  hasError: boolean;
-}
+import { ErrorState } from '../../types/redux';
 
 const initialState: ErrorState = {
   hasError: false,

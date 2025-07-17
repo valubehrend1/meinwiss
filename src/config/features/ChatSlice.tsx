@@ -1,77 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface Message {
-  sender: 'user' | 'assistant';
-  content: string;
-  sources?: RetrieverItem[];
-  answerFound?: boolean;
-  isFinalResponse: boolean;
-  isClarification?: boolean;
-  error?: string;
-}
-
-export interface Organization {
-  name: string;
-  description: string;
-  website: string;
-}
-
-interface UserContext {
-  originCountry: string | null;
-  timeInGermany: string | null;
-  age: string | null;
-  location: string;
-}
-
-export interface RetrieverItem {
-  collection_metadata: {
-    source_type: string;
-    source_name?: string;
-    source_url?: string;
-    source_date?: string;
-  };
-  text: string;
-}
-
-interface AssistantResponse {
-  assistant_response: {
-    answer: string;
-    improved_answer: string;
-    answer_found: boolean;
-  };
-  retriever_items: RetrieverItem[];
-  status: unknown;
-  status_display: {
-    status: string;
-    display_message: string | null;
-  };
-  language: {
-    language_code: string;
-    language_name: string;
-  };
-  organizations: Organization[] | null;
-  domain: string;
-  improved_query: string | null;
-  is_final_response: boolean;
-  sensitive_topic: unknown;
-  is_clarification: boolean;
-  intent: string;
-  is_loading: boolean;
-  error: string | null;
-}
-
-interface ChatState {
-  userQuery: string;
-  userContext: UserContext;
-  isLoading: boolean;
-  error: string | null;
-  assistantResponse: AssistantResponse;
-  messages: Message[];
-  accumulatedOrganizations: Organization[];
-  originalStatus: string;
-  statusDisplay: string;
-  stepsCompleted: boolean;
-}
+import {
+  Message,
+  ChatState
+} from '../../types/redux/chat';
+import {
+  Organization
+} from '../../types/models';
 
 const initialState: ChatState = {
   userQuery: '',
@@ -136,14 +70,14 @@ const chatSlice = createSlice({
         error = null
       } = action.payload;
 
-      // Manejar payload nulo
+      // Handle null payload
       const safeAssistantResponse = assistant_response || { improved_answer: '', answer_found: false };
       const improvedAnswer = safeAssistantResponse.improved_answer || '';
 
-      // Asignar originalStatus (si es null, lo pasamos como string vacío)
+      // Assign originalStatus (if it's null, we pass it as an empty string)
       state.originalStatus = status || '';
 
-      // Solo actualizamos el estado si *no* es null/undefined
+      // We only update the status if it's *not* null/undefined
       if (
         status_display &&
         status_display.display_message !== null &&
@@ -152,7 +86,7 @@ const chatSlice = createSlice({
         state.statusDisplay = status_display.display_message;
       }
 
-      // Buscar si el último mensaje del asistente es parcial o final
+      // Check if the last assistant message is partial or final
       const lastMessage = state.messages[state.messages.length - 1];
       const isLastMessageAssistant =
         lastMessage && lastMessage.sender === 'assistant' && !lastMessage.isFinalResponse;
@@ -160,7 +94,7 @@ const chatSlice = createSlice({
       const messageError = safeAssistantResponse.error || error;
 
       if (isLastMessageAssistant) {
-        // Concatenamos (o sobrescribimos) el texto parcial
+        // We concatenate (or overwrite) the partial text
         lastMessage.content += improvedAnswer;
         lastMessage.answerFound = safeAssistantResponse.answer_found;
         lastMessage.isClarification = is_clarification;
@@ -168,7 +102,7 @@ const chatSlice = createSlice({
         lastMessage.sources = retriever_items;
         lastMessage.error = messageError || null;
       } else {
-        // Creamos un nuevo mensaje
+        // We create a new message
         const newMessage: Message = {
           sender: 'assistant',
           content: improvedAnswer,
@@ -176,15 +110,16 @@ const chatSlice = createSlice({
           answerFound: safeAssistantResponse.answer_found,
           isClarification: is_clarification,
           isFinalResponse: is_final_response,
+          error: messageError || undefined,
         };
         state.messages.push(newMessage);
       }
 
-      // Manejo de organizaciones
+      // Organizations handling
       if (Array.isArray(organizations) && organizations.length > 0) {
         organizations.forEach((newOrg: Organization) => {
           const orgAlreadyExists = state.accumulatedOrganizations.some(
-            (existingOrg) => existingOrg.name === newOrg.name
+            (existingOrg: Organization) => existingOrg.name === newOrg.name
           );
           if (!orgAlreadyExists) {
             state.accumulatedOrganizations.push(newOrg);

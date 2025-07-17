@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import Navbar from '../components/shared/Navbar/Navbar';
-import Footer from './shared/Footer/Footer';
+import Navbar from './pages/shared/Navbar/Navbar';
+import Footer from './pages/shared/Footer/Footer';
 import { Outlet } from 'react-router-dom';
 
 const Layout: React.FC = () => {

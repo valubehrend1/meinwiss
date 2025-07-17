@@ -1,10 +1,7 @@
 // src/features/language/languageSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Language } from '../../types';
-
-type LanguageState = {
-  current: Language;
-};
+import { LanguageState, RootStateWithLanguage } from '../../types/redux';
 
 const initialState: LanguageState = {
   current: Language.EN,
@@ -24,9 +21,8 @@ export const languageSlice = createSlice({
   },
 });
 
-export const selectCurrentLanguage = (state: {
-  language: { current: Language };
-}) => state.language.current;
+export const selectCurrentLanguage = (state: RootStateWithLanguage) =>
+  state.language.current;
 
 export const { setLanguage } = languageSlice.actions;
 export const languageReducer = languageSlice.reducer;

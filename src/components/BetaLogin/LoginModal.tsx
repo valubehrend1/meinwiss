@@ -1,5 +1,5 @@
 import React from 'react';
-import SharedModal from '../shared/SharedModal/SharedModal';
+import SharedModal from '../pages/shared/SharedModal/SharedModal';
 
 import { useTranslation } from 'react-i18next';
 

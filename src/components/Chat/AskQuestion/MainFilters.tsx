@@ -15,13 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAge, selectAge } from '../../../config/features/ChatSlice.tsx';
 
 import { useTranslation } from 'react-i18next';
-
-interface MainFiltersProps {
-  ageError: boolean;
-  countryError: boolean;
-  locationError: boolean;
-  timeError: boolean;
-}
+import { MainFiltersProps } from '../../../types/components';
 
 const MainFilters: React.FC<MainFiltersProps> = ({
   ageError,

@@ -4,17 +4,14 @@ import { Autocomplete } from '@mui/material';
 import {
   InputFieldAutoComplete,
   SearchBarError
-} from './AskQuestion/AskQuestionsStyle'; // Importa los estilos desde el archivo separado
+} from './AskQuestion/AskQuestionsStyle';
 
 import { countries } from 'countries-list';
 import { useDispatch } from 'react-redux';
 import { setOriginCountry } from '../../../config/features/ChatSlice';
 
 import { useTranslation } from 'react-i18next';
-
-interface CountriesSearchProps {
-  countryError: boolean;
-}
+import { CountriesSearchProps } from '../../../types/components';
 
 
 const CountriesSearch: React.FC<CountriesSearchProps> = ({ countryError }) => {

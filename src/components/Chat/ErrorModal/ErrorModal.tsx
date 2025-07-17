@@ -1,15 +1,7 @@
 import React from 'react';
-
 import { useNavigate } from 'react-router-dom'
-
-import SharedModal from '../../shared/SharedModal/SharedModal';
-
-interface ErrorModalProps {
-  isOpen: boolean;
-  setisOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  onClose: () => void;
-  content: string;
-}
+import SharedModal from '../../pages/shared/SharedModal/SharedModal';
+import { ErrorModalProps } from '../../../types/components';
 
 const ErrorModal: React.FC<ErrorModalProps> = ({ isOpen, onClose, content, setisOpen }) => {
   const navigate = useNavigate()

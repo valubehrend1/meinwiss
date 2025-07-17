@@ -6,7 +6,6 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 import { useTranslation } from 'react-i18next';
 
-
 import {
   PaginationButton,
   ResourceAccordion,
@@ -17,19 +16,7 @@ import {
   GeneralContainer,
 } from './LupaiResourcesStyles';
 
-export interface RetrieverItem {
-  collection_metadata: {
-    source_type: string;
-    source_name?: string;
-    source_url?: string;
-    source_date?: string;
-  };
-  text: string;
-}
-
-interface LupaiResourcesProps {
-  retrieverItems: RetrieverItem[];
-}
+import { LupaiResourcesProps } from '../../../types/components';
 
 // Component definition
 const LupaiResources: React.FC<LupaiResourcesProps> = ({ retrieverItems }) => {
