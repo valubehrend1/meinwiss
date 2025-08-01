@@ -11,11 +11,11 @@ import AskQuestionStep2 from './components/Chat/AskQuestion/AskQuestion/AskQuest
 import AskQuestionStep3 from './components/Chat/AskQuestion/AskQuestion/AskQuestionStep3';
 import ProcessingQuestion from './components/Chat/AskQuestion/AskQuestion/ProcessingQuestion';
 import Chat from './components/Chat/InteractiveChat/Chat';
-import LoginForm from './components/BetaLogin/LoginForm';
+import LoginPage from './components/Auth/LoginPage';
 import DataPrivacy from './components/Chat/DataPrivacy/DataPrivacy';
 import Impressum from './components/pages/Impressum/Impressum';
 import HowlupaiWorksSection from './components/pages/HowLupaiWorks/HowlupaiWorksSection';
-import PrivateRoute from './components/BetaLogin/PrivateRoute';
+import PrivateRoute from './components/Auth/PrivateRoute';
 import LupaiForOrganizations from './components/pages/LupaiForOrganizations/LupaiForOrganizations';
 
 const router = createBrowserRouter(
@@ -31,7 +31,7 @@ const router = createBrowserRouter(
             <Route path="/lupai-für-organisationen" element={<LupaiForOrganizations />} />
             <Route path="/how-lupai-works" element={<HowlupaiWorksSection />} />
             <Route path="/wie-lupai-funktioniert" element={<HowlupaiWorksSection />} />
-            <Route path="/login" element={<LoginForm />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/terms" element={<DataPrivacy />} />
             <Route path="/impressum" element={<Impressum />} />
 
