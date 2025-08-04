@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 
 
-//Navbar component
+// Navbar component
 
 export const LogoPlaceholder = styled('img')(({ theme }) => ({
   height: '35px',
@@ -32,7 +32,7 @@ export const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   },
 }));
 
-//NavbarItemDesktop component
+// NavbarItemDesktop component
 
 export const MenuItemsContainer = styled(Box)({
   display: 'flex',
@@ -79,7 +79,7 @@ export const DropdownSelect = styled(Select)({
   color: primary_color_dark,
   fontFamily: 'Haffer',
   '& .MuiSelect-select': {
-    border: 'none', // Elimina el borde
+    border: 'none', // Remove border
     fontSize: '1.125rem',
     color: primary_color_dark,
     fontFamily: 'Haffer',
@@ -91,7 +91,7 @@ export const DropdownSelect = styled(Select)({
     fontFamily: 'Haffer',
   },
   '& .MuiSvgIcon-root': {
-    display: 'none', // Esconde el icono predeterminado
+    display: 'none', // Hide default icon
   },
 });
 
@@ -114,7 +114,7 @@ export const Separator = styled(Box)({
 });
 
 
-//Shared styles
+// Shared styles
 
 export const BetaTag = styled(Box)({
   backgroundColor: theme.palette.secondary.main,
@@ -123,3 +123,14 @@ export const BetaTag = styled(Box)({
   color: theme.palette.primary.main,
   fontWeight: 900
 });
+
+// Mobile navbar styles
+export const MobileNavContainer = styled(Box)({
+  width: 250
+});
+
+export const AccountSectionTitle = styled(Typography)(({ theme }) => ({
+  padding: theme.spacing(0, 2, 1, 2),
+  paddingTop: theme.spacing(2),
+  color: theme.palette.text.secondary,
+}));

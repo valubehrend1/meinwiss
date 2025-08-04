@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import theme from '../../../../theme';
 
 import { LogoPlaceholder, StyledToolBar, DividerLine } from './NavbarStyles';
-import NavbarItesmDesktop from './NavbarItemsDesktop';
+import NavbarItemsDesktop from './NavbarItemsDesktop';
 import NavbarItemsMobile from './NavbarItemsMobile';
 
 import DonateBanner from '../../Home/DonateButton/DonateBanner';
@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
               </Drawer>
             </>
           ) : (
-            <NavbarItesmDesktop menuItems={menuItems} />
+            <NavbarItemsDesktop menuItems={menuItems} />
           )}
         </StyledToolBar>
       </AppBar>

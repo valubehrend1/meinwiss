@@ -17,6 +17,7 @@ import Impressum from './components/pages/Impressum/Impressum';
 import HowlupaiWorksSection from './components/pages/HowLupaiWorks/HowlupaiWorksSection';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import LupaiForOrganizations from './components/pages/LupaiForOrganizations/LupaiForOrganizations';
+import ProfileSettings from './components/Profile/ProfileSettings';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -43,6 +44,8 @@ const router = createBrowserRouter(
                 <Route path="/ask-lupai/step3" element={<AskQuestionStep3 />} />
                 <Route path="/ask-lupai/step4" element={<ProcessingQuestion />} />
                 <Route path="/ask-lupai/chat" element={<Chat />} />
+                <Route path="/profile-settings" element={<ProfileSettings />} />
+                <Route path="/chats-history" element={<Chat />} />
             </Route>
 
             {/* Not founded routes */}
