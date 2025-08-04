@@ -4,3 +4,4 @@ export * from './modals';
 export * from './lupai';
 export * from './askQuestion';
 export * from './auth';
+export * from './profile';

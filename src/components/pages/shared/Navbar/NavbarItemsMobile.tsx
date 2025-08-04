@@ -1,11 +1,14 @@
 import React from 'react';
+import { List, ListItem, ListItemText, ListItemIcon, Divider } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import HistoryIcon from '@mui/icons-material/History';
+import { useNavigate } from 'react-router-dom';
 
-import { Box, List, ListItem, ListItemText } from '@mui/material';
-
-import { LanguageContainer, /* BetaTag */ } from './NavbarStyles';
+import { LanguageContainer, MobileNavContainer, AccountSectionTitle } from './NavbarStyles';
 import { LanguageSelectorOrientation } from '../../../../types';
+import { isAuthenticated } from '../../../../utils/authUtils';
 import LanguageSelector from '../LanguageSelector';
-
+import { navigateToProfileSettings, navigateToChatsHistory } from './navbarUtils';
 
 interface NavbarItemsMobileProps {
   menuItems: { text: string }[];
@@ -13,25 +16,57 @@ interface NavbarItemsMobileProps {
 }
 
 const NavbarItemsMobile: React.FC<NavbarItemsMobileProps> = ({ menuItems, toggleDrawer }) => {
+  const navigate = useNavigate();
+  const userIsAuthenticated = isAuthenticated();
+
+  const handleProfileSettingsClick = () => {
+    const closeDrawer = toggleDrawer(false);
+    navigateToProfileSettings(navigate, closeDrawer);
+  };
+
+  const handleChatsHistoryClick = () => {
+    const closeDrawer = toggleDrawer(false);
+    navigateToChatsHistory(navigate, closeDrawer);
+  };
+
   return (
-    <Box onClick={toggleDrawer(false)} sx={{ width: 250 }}>
-      {/*       <BetaTag>
-        Beta version
-      </BetaTag> */}
+    <MobileNavContainer onClick={toggleDrawer(false)}>
       <List>
         {menuItems.map((item, index) => (
-          <ListItem key={index}>
+          <ListItem key={index} button component="a" href={`/${item.text.toLowerCase().replace(/\s+/g, '-')}`}>
             <ListItemText primary={item.text} />
           </ListItem>
         ))}
+
         <ListItem>
           <LanguageContainer>
             <LanguageSelector layout={LanguageSelectorOrientation.HORIZONTAL} />
           </LanguageContainer>
         </ListItem>
-      </List>
-    </Box>
-  );
-};
 
-export default NavbarItemsMobile;
+        {userIsAuthenticated && (
+          <>
+            <Divider />
+            <AccountSectionTitle variant="subtitle2">
+              My account
+            </AccountSectionTitle>
+
+            <ListItem button onClick={handleProfileSettingsClick}>
+              <ListItemIcon>
+                <SettingsIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Profile Settings" />
+            </ListItem>
+
+            <ListItem button onClick={handleChatsHistoryClick}>
+              <ListItemIcon>
+                <HistoryIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Chats History" />
+            </ListItem>
+          </>
+        )}
+      </List>
+    </MobileNavContainer>
+  );
+}; export default NavbarItemsMobile;
