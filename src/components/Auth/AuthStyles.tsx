@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, Button, Box, Typography } from '@mui/material';
 
 // Contenedor para la tarjeta de autenticación
 export const AuthContainer = styled(Box)(({ theme }) => ({
@@ -50,14 +50,16 @@ export const FormContainer = styled(Box)(() => ({
 // Contenedor para el enlace de cambio entre login/registro
 export const SwitchModeContainer = styled(Box)(({ theme }) => ({
     marginTop: theme.spacing(2),
-    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: theme.spacing(1),
     width: '100%',
 }));
 
 // Enlace estilizado
-export const StyledLink = styled('span')(({ theme }) => ({
+export const StyledLink = styled(Typography)(({ theme }) => ({
     color: theme.palette.primary.main,
-    marginLeft: theme.spacing(1),
     textDecoration: 'none',
     cursor: 'pointer',
     '&:hover': {
