@@ -75,13 +75,13 @@ const LoginForm: React.FC<LoginFormProps> = ({
             <SwitchModeContainer>
                 <Typography variant="body2" color="textSecondary">
                     Don't have an account?
-                    <StyledLink onClick={(e) => {
-                        e.preventDefault();
-                        onSwitchToRegister();
-                    }}>
-                        Sign up here
-                    </StyledLink>
                 </Typography>
+                <StyledLink onClick={(e) => {
+                    e.preventDefault();
+                    onSwitchToRegister();
+                }}>
+                    Sign up here
+                </StyledLink>
             </SwitchModeContainer>
         </FormContainer>
     );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Alert } from '@mui/material';
+import { Typography, Alert, FormControlLabel, Checkbox } from '@mui/material';
 import { RegisterFormProps } from '../../types/components';
 import {
     StyledTextField,
@@ -18,6 +18,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [acceptTerms, setAcceptTerms] = useState(false);
     const { loading, error, register, clearError } = useAuth();
 
     const handleSubmit = async (event: React.FormEvent) => {
@@ -26,6 +27,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
         if (password !== confirmPassword) {
             // This is also checked in the hook, but we can provide immediate feedback
+            return;
+        }
+
+        if (!acceptTerms) {
+            // Don't submit if terms are not accepted
             return;
         }
 
@@ -98,10 +104,39 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 }
             />
 
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={acceptTerms}
+                        onChange={(e) => setAcceptTerms(e.target.checked)}
+                        color="primary"
+                        disabled={loading}
+                    />
+                }
+                label={
+                    <Typography variant="body2">
+                        I have read and accept the
+                        <StyledLink
+                            onClick={(e) => {
+                                e.preventDefault();
+                                window.open('/terms', '_blank');
+                            }}
+                        >
+                            {' Data Privacy Conditions'}
+                        </StyledLink>
+                    </Typography>
+                }
+                sx={{ mb: 1 }}
+            />
+
             <SubmitButton
                 type="submit"
                 variant="contained"
-                disabled={loading || (password !== confirmPassword && confirmPassword !== '')}
+                disabled={
+                    loading ||
+                    (password !== confirmPassword && confirmPassword !== '') ||
+                    !acceptTerms
+                }
             >
                 {loading ? 'Registering...' : 'Register'}
             </SubmitButton>
@@ -109,13 +144,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             <SwitchModeContainer>
                 <Typography variant="body2" color="textSecondary">
                     Already have an account?
-                    <StyledLink onClick={(e) => {
-                        e.preventDefault();
-                        onSwitchToLogin();
-                    }}>
-                        Sign in here
-                    </StyledLink>
                 </Typography>
+                <StyledLink onClick={(e) => {
+                    e.preventDefault();
+                    onSwitchToLogin();
+                }}>
+                    Sign in here
+                </StyledLink>
             </SwitchModeContainer>
         </FormContainer>
     );
