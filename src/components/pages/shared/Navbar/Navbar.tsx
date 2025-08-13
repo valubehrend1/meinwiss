@@ -10,22 +10,16 @@ import { Menu as MenuIcon } from '@mui/icons-material';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { useTranslation } from 'react-i18next';
-
 import theme from '../../../../theme';
 
 import { LogoPlaceholder, StyledToolBar, DividerLine } from './NavbarStyles';
 import NavbarItemsDesktop from './NavbarItemsDesktop';
 import NavbarItemsMobile from './NavbarItemsMobile';
 
-import DonateBanner from '../../Home/DonateButton/DonateBanner';
-
 import logo from '../../../../assets/Lupai_Logo_Dark_Green.png';
 
 
 const Navbar: React.FC = () => {
-  /*   const imageSrc = '/src/assets/Lupai_Logo_Dark_Green.png'; */
-  const { t } = useTranslation();
   const isMobile = useMediaQuery(theme.breakpoints.down(980));
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -33,17 +27,11 @@ const Navbar: React.FC = () => {
     setDrawerOpen(open);
   };
 
-  const menuItems = [
-    /*   { text: t('ask_lupai') }, */
-    { text: t('how_lupai_works') },
-    { text: t('about') },
-    /*     { text: t('lupai_for_organizations') }, */
-    { text: t('contact') },
-  ];
+  // Array vacío de menuItems para eliminar todas las opciones del navbar
+  const menuItems: { text: string }[] = [];
 
   return (
     <>
-      {!isMobile ? <DonateBanner /> : null}
       <AppBar position="static" elevation={0} sx={{ backgroundColor: 'white' }}>
         <StyledToolBar>
           <IconButton edge="start" color="inherit" aria-label="logo" href='/' sx={{

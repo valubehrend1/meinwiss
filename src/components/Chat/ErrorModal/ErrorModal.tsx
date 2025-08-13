@@ -7,7 +7,7 @@ const ErrorModal: React.FC<ErrorModalProps> = ({ isOpen, onClose, content, setis
   const navigate = useNavigate()
 
   const handleError = () => {
-    navigate('/ask-lupai');
+    navigate('/chat');
     window.location.reload();
     onClose();
   }

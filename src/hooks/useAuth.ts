@@ -27,7 +27,7 @@ export const useAuth = (): UseAuthReturn => {
       clearError();
       const response = await loginUser(data);
       saveAuthToken(response.token);
-      navigate('/ask-lupai'); // Redirect to the main app
+      navigate('/chat'); // Redirect to the main app
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
     } finally {
@@ -46,7 +46,7 @@ export const useAuth = (): UseAuthReturn => {
 
       const response = await registerUser(data);
       saveAuthToken(response.token);
-      navigate('/ask-lupai'); // Redirect to the main app
+      navigate('/chat'); // Redirect to the main app
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed');
     } finally {

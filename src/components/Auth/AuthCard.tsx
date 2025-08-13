@@ -20,7 +20,7 @@ const AuthCard: React.FC<AuthCardProps> = ({ initialMode = 'login' }) => {
 
     const handleAuthSuccess = (token: string) => {
         saveAuthToken(token);
-        navigate('/ask-lupai');
+        navigate('/chat');
     };
 
     return (

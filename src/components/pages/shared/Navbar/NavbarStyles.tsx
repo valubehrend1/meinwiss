@@ -2,7 +2,6 @@ import { styled } from '@mui/system';
 
 import theme, { primary_color_dark } from '../../../../theme';
 import { Box, Button, Select, Toolbar, Typography } from '@mui/material';
-import { Link } from "react-router-dom";
 
 
 
@@ -39,16 +38,6 @@ export const MenuItemsContainer = styled(Box)({
   alignItems: 'center',
   gap: '2rem'
 });
-
-export const MenuItemLink = styled(Link)(({ theme }) => ({
-  textTransform: 'capitalize',
-  textDecoration: 'none',
-  color: primary_color_dark,
-  fontSize: '1.125rem',
-  [theme.breakpoints.between('sm', 'md')]: {
-    fontSize: '0.85rem',
-  },
-}));
 
 export const MenuItemLanguage = styled(Typography)(({ theme }) => ({
   textTransform: 'capitalize',

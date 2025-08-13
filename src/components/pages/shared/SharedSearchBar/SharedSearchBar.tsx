@@ -6,7 +6,7 @@ import EastIcon from '@mui/icons-material/East';
 import {
   SearchBar,
   SearchBarError
-} from '../../../Chat/AskQuestion/AskQuestion/AskQuestionsStyle';
+} from './SharedSearchBarStyles';
 
 import { useDispatch } from 'react-redux';
 import { setUserQuery } from '../../../../config/features/ChatSlice';

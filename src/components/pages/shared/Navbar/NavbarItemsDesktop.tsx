@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Typography, IconButton, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { IconButton, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HistoryIcon from '@mui/icons-material/History';
 import { useNavigate } from 'react-router-dom';
 
-import { MenuItemsContainer, MenuItemLink } from './NavbarStyles';
+import { MenuItemsContainer } from './NavbarStyles';
 
 import { LanguageSelectorOrientation } from '../../../../types';
 import { isAuthenticated } from '../../../../utils/authUtils';
@@ -14,10 +14,11 @@ import { navigateToProfileSettings, navigateToChatsHistory } from './navbarUtils
 import LanguageSelector from '../LanguageSelector'
 
 interface NavbarItemsDesktopProps {
-  menuItems: { text: string }[];
+  // El prop menuItems es opcional ya que no lo utilizamos en el componente
+  menuItems?: { text: string }[];
 }
 
-const NavbarItemsDesktop: React.FC<NavbarItemsDesktopProps> = ({ menuItems }) => {
+const NavbarItemsDesktop: React.FC<NavbarItemsDesktopProps> = () => {
   const navigate = useNavigate();
   const userIsAuthenticated = isAuthenticated();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -43,13 +44,6 @@ const NavbarItemsDesktop: React.FC<NavbarItemsDesktopProps> = ({ menuItems }) =>
 
   return (
     <MenuItemsContainer>
-      {menuItems.map((item, index) => (
-        <Typography key={index}>
-          <MenuItemLink to={`/${item.text.toLowerCase().replace(/\s+/g, '-')}`}>
-            {item.text}
-          </MenuItemLink>
-        </Typography>
-      ))}
       <LanguageSelector layout={LanguageSelectorOrientation.DROPDOWN} />
 
       {userIsAuthenticated && (

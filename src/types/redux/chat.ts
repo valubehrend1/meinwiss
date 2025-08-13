@@ -28,5 +28,4 @@ export interface ChatState {
   accumulatedOrganizations: Organization[];
   originalStatus: string;
   statusDisplay: string;
-  stepsCompleted: boolean;
 }

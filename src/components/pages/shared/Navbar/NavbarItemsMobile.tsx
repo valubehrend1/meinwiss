@@ -11,11 +11,12 @@ import LanguageSelector from '../LanguageSelector';
 import { navigateToProfileSettings, navigateToChatsHistory } from './navbarUtils';
 
 interface NavbarItemsMobileProps {
-  menuItems: { text: string }[];
+  // El prop menuItems es opcional ya que no lo utilizamos en el componente
+  menuItems?: { text: string }[];
   toggleDrawer: (open: boolean) => () => void;
 }
 
-const NavbarItemsMobile: React.FC<NavbarItemsMobileProps> = ({ menuItems, toggleDrawer }) => {
+const NavbarItemsMobile: React.FC<NavbarItemsMobileProps> = ({ toggleDrawer }) => {
   const navigate = useNavigate();
   const userIsAuthenticated = isAuthenticated();
 
@@ -32,12 +33,6 @@ const NavbarItemsMobile: React.FC<NavbarItemsMobileProps> = ({ menuItems, toggle
   return (
     <MobileNavContainer onClick={toggleDrawer(false)}>
       <List>
-        {menuItems.map((item, index) => (
-          <ListItem key={index} button component="a" href={`/${item.text.toLowerCase().replace(/\s+/g, '-')}`}>
-            <ListItemText primary={item.text} />
-          </ListItem>
-        ))}
-
         <ListItem>
           <LanguageContainer>
             <LanguageSelector layout={LanguageSelectorOrientation.HORIZONTAL} />
