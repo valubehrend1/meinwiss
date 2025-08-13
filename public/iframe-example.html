@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejemplo de Integración del Chat con iframe</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+
+      .main-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        min-height: 80vh;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      p {
+        line-height: 1.6;
+      }
+
+      .chat-iframe-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 500px;
+        height: 500px;
+        z-index: 1000;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .chat-iframe-container.minimized {
+        height: 50px;
+      }
+
+      .chat-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .toggle-chat-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #00301e;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 999;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .toggle-chat-btn:hover {
+        background-color: #004d31;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-content">
+      <h1>Sitio Web Principal</h1>
+      <p>
+        Este es un ejemplo de cómo integrar nuestro chat como un widget flotante
+        utilizando un iframe.
+      </p>
+      <p>
+        El chat se ubica en la esquina inferior derecha de la página y puede
+        minimizarse/maximizarse.
+      </p>
+
+      <h2>Características del Widget</h2>
+      <ul>
+        <li>Integración sencilla mediante iframe</li>
+        <li>Posicionamiento flotante en la esquina inferior derecha</li>
+        <li>Posibilidad de minimizar/maximizar</li>
+        <li>
+          Comunicación bidireccional entre la página principal y el iframe
+        </li>
+        <li>Adaptable a diferentes tamaños de pantalla</li>
+      </ul>
+
+      <h2>Instrucciones de Implementación</h2>
+      <p>
+        Para implementar este widget en tu sitio web, simplemente añade el
+        siguiente código HTML:
+      </p>
+      <pre><code>
+&lt;div id="chat-container" class="chat-iframe-container"&gt;
+    &lt;iframe src="https://tu-dominio.com/widget" class="chat-iframe" id="chat-iframe"&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;button id="toggle-chat-btn" class="toggle-chat-btn hidden"&gt;?&lt;/button&gt;
+
+&lt;script&gt;
+    // Código JavaScript para la interacción con el iframe
+    // (Ver el código fuente de esta página para detalles)
+&lt;/script&gt;
+        </code></pre>
+    </div>
+
+    <!-- Widget de Chat -->
+    <div id="chat-container" class="chat-iframe-container">
+      <iframe src="/widget" class="chat-iframe" id="chat-iframe"></iframe>
+    </div>
+
+    <button id="toggle-chat-btn" class="toggle-chat-btn hidden">?</button>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const chatContainer = document.getElementById('chat-container');
+        const chatIframe = document.getElementById('chat-iframe');
+        const toggleButton = document.getElementById('toggle-chat-btn');
+        let isChatVisible = true;
+
+        // Función para mostrar/ocultar el chat
+        function toggleChat() {
+          if (isChatVisible) {
+            chatContainer.classList.add('hidden');
+            toggleButton.classList.remove('hidden');
+          } else {
+            chatContainer.classList.remove('hidden');
+            toggleButton.classList.add('hidden');
+          }
+          isChatVisible = !isChatVisible;
+        }
+
+        // Escuchar mensajes desde el iframe
+        window.addEventListener('message', function (event) {
+          // Verificar origen por seguridad en producción
+          // if (event.origin !== "https://tu-dominio.com") return;
+
+          if (event.data.type === 'CHAT_WIDGET_TOGGLE') {
+            if (event.data.isMinimized) {
+              chatContainer.classList.add('minimized');
+            } else {
+              chatContainer.classList.remove('minimized');
+            }
+          }
+        });
+
+        // Click en el botón de toggle
+        toggleButton.addEventListener('click', toggleChat);
+
+        // Enviar comandos al iframe
+        function sendCommandToChat(command) {
+          chatIframe.contentWindow.postMessage(
+            {
+              type: 'PARENT_COMMAND',
+              command: command,
+            },
+            '*'
+          );
+        }
+
+        // Ejemplo: Minimizar el chat después de 10 segundos
+        // setTimeout(() => sendCommandToChat('minimize'), 10000);
+      });
+    </script>
+  </body>
+</html>

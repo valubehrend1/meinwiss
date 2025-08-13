@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 import Haffer from './assets/fonts/Haffer-Regular.woff';
 import MartinaPlantijn from './assets/fonts/MartinaPlantijn.woff2';
 
-export const primary_color_dark = '#00301E';
+export const primary_color_dark = 'rgb(207,46,46)';
 export const primary_color_lime = '#E2F389';
 
 export const gold = '#A98031';

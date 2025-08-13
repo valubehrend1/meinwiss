@@ -63,8 +63,18 @@ const SharedSearchBar: React.FC<SharedSearchBarProps> = ({ mainSearchPage, sendM
     ...(!mainSearchPage && {
       endAdornment: (
         <InputAdornment position="end">
-          <Button variant="contained" sx={{ color: 'white', boxShadow: 'none' }} onClick={handleSendMessage}>
-            <EastIcon />
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: '#333',
+              boxShadow: 'none',
+              '&:hover': {
+                backgroundColor: '#555',
+              }
+            }}
+            onClick={handleSendMessage}
+          >
+            <EastIcon style={{ color: 'white', fontSize: '20px' }} />
           </Button>
         </InputAdornment>
       ),

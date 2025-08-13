@@ -174,12 +174,23 @@ const chatSlice = createSlice({
       });
     },
     addUserMessage: (state, action) => {
-      state.messages.push({
-        sender: 'user',
-        content: action.payload,
-        isClarification: action.payload.is_clarification,
-        isFinalResponse: action.payload.is_final_response,
-      });
+      // Si el payload es un objeto completo, usarlo directamente
+      if (typeof action.payload === 'object' && action.payload !== null) {
+        state.messages.push({
+          sender: 'user',
+          content: action.payload.content || '',
+          isClarification: action.payload.isClarification || false,
+          isFinalResponse: action.payload.isFinalResponse || true,
+        });
+      } else {
+        // Si es un string, construir el objeto de mensaje
+        state.messages.push({
+          sender: 'user',
+          content: action.payload,
+          isClarification: false,
+          isFinalResponse: true,
+        });
+      }
     },
   },
 });

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejemplo de Integración del Chat Widget</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+
+      .content {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .main-content {
+        flex: 2;
+        min-width: 300px;
+        padding-right: 20px;
+      }
+
+      .sidebar {
+        flex: 1;
+        min-width: 250px;
+        background-color: #f5f5f5;
+        padding: 15px;
+        border-radius: 5px;
+      }
+
+      /* Estilos para el widget de chat */
+      .chat-widget-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 450px; /* Restaurado a 450px como estaba originalmente */
+        height: 500px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+
+      /* Estilo para el widget minimizado */
+      .chat-widget-minimized {
+        height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Página de ejemplo con Chat Widget</h1>
+
+      <div class="content">
+        <div class="main-content">
+          <h2>Contenido principal</h2>
+          <p>
+            Este es un ejemplo de cómo integrar el widget de chat en cualquier
+            página web. El widget aparece en la esquina inferior derecha y se
+            puede minimizar/maximizar.
+          </p>
+          <p>
+            El chat se carga en un iframe que apunta a la ruta '/widget' de tu
+            aplicación React.
+          </p>
+
+          <h3>Cómo funciona</h3>
+          <p>
+            El chat se comunica con la página principal a través de mensajes
+            postMessage, lo que permite controlar su estado desde la página
+            donde está embebido.
+          </p>
+
+          <h3>Características</h3>
+          <ul>
+            <li>
+              Diseño responsivo que se adapta a diferentes tamaños de pantalla
+            </li>
+            <li>Funcionalidad de minimizar/maximizar</li>
+            <li>
+              Comunicación bidireccional entre el iframe y la página principal
+            </li>
+            <li>Estilos personalizables</li>
+          </ul>
+        </div>
+
+        <div class="sidebar">
+          <h3>Información</h3>
+          <p>Puedes controlar el chat mediante JavaScript:</p>
+          <pre>
+// Minimizar el chat
+document.getElementById('minimizeChat').addEventListener('click', function() {
+    const chatFrame = document.getElementById('chatWidget');
+    chatFrame.contentWindow.postMessage({
+        type: 'PARENT_COMMAND',
+        command: 'minimize'
+    }, '*');
+    chatFrame.classList.add('chat-widget-minimized');
+});
+
+// Maximizar el chat
+document.getElementById('maximizeChat').addEventListener('click', function() {
+    const chatFrame = document.getElementById('chatWidget');
+    chatFrame.contentWindow.postMessage({
+        type: 'PARENT_COMMAND',
+        command: 'maximize'
+    }, '*');
+    chatFrame.classList.remove('chat-widget-minimized');
+});
+                </pre
+          >
+
+          <button id="minimizeChat">Minimizar Chat</button>
+          <button id="maximizeChat">Maximizar Chat</button>
+          <button id="resetChat">Reiniciar Chat</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Widget de chat (iframe) -->
+    <iframe
+      id="chatWidget"
+      src="http://localhost:5173/widget"
+      class="chat-widget-container"
+      title="Chat Widget"
+    >
+    </iframe>
+
+    <script>
+      // Inicialización y funciones de control
+      document.addEventListener('DOMContentLoaded', function () {
+        const chatFrame = document.getElementById('chatWidget');
+
+        // Escuchar mensajes del iframe
+        window.addEventListener('message', function (event) {
+          // Verificar origen por seguridad
+          if (event.origin !== 'http://localhost:5173') return;
+
+          // Manejar eventos del chat
+          if (event.data.type === 'CHAT_WIDGET_TOGGLE') {
+            if (event.data.isMinimized) {
+              chatFrame.classList.add('chat-widget-minimized');
+            } else {
+              chatFrame.classList.remove('chat-widget-minimized');
+            }
+          }
+        });
+
+        // Configurar botones de control
+        document
+          .getElementById('minimizeChat')
+          .addEventListener('click', function () {
+            chatFrame.contentWindow.postMessage(
+              {
+                type: 'PARENT_COMMAND',
+                command: 'minimize',
+              },
+              '*'
+            );
+            chatFrame.classList.add('chat-widget-minimized');
+          });
+
+        document
+          .getElementById('maximizeChat')
+          .addEventListener('click', function () {
+            chatFrame.contentWindow.postMessage(
+              {
+                type: 'PARENT_COMMAND',
+                command: 'maximize',
+              },
+              '*'
+            );
+            chatFrame.classList.remove('chat-widget-minimized');
+          });
+
+        document
+          .getElementById('resetChat')
+          .addEventListener('click', function () {
+            chatFrame.contentWindow.postMessage(
+              {
+                type: 'PARENT_COMMAND',
+                command: 'reset',
+              },
+              '*'
+            );
+          });
+      });
+    </script>
+  </body>
+</html>
