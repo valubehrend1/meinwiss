@@ -1,6 +1,6 @@
 {
   "name": "lupai-front",
-  "initializeCommand": "make build",
+  "initializeCommand": "cd ${localWorkspaceFolder} && make build",
   "dockerComposeFile": "docker-compose.yml",
   "service": "lupai-front-devcontainer",
   "workspaceFolder": "/workspace",

@@ -4,11 +4,10 @@ import { createBrowserRouter, createRoutesFromElements, Route } from 'react-rout
 import Layout from './components/Layout';
 import WidgetLayout from './components/WidgetLayout';
 import ErrorNotFoundPage from './components/pages/ErrorNotFound';
-import Chat from './components/Chat/InteractiveChat/Chat';
 import ChatWidget from './components/Chat/InteractiveChat/ChatWidget';
+import AuthenticatedChatWidget from './components/Chat/InteractiveChat/AuthenticatedChatWidget';
 import LoginPage from './components/Auth/LoginPage';
 import DataPrivacy from './components/Chat/DataPrivacy/DataPrivacy';
-import Impressum from './components/pages/Impressum/Impressum';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import ProfileSettings from './components/Profile/ProfileSettings';
 import ChatHistory from './components/ChatsHistory/ChatHistory';
@@ -23,11 +22,10 @@ const router = createBrowserRouter(
                 <Route index element={<HomeRedirect />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/terms" element={<DataPrivacy />} />
-                <Route path="/impressum" element={<Impressum />} />
 
                 {/* Private routes */}
                 <Route element={<PrivateRoute />}>
-                    <Route path="/chat" element={<Chat />} />
+                    <Route path="/chat" element={<ChatWidget />} />
                     <Route path="/profile-settings" element={<ProfileSettings />} />
                     <Route path="/chat-history" element={<ChatHistory />} />
                 </Route>
@@ -38,7 +36,7 @@ const router = createBrowserRouter(
 
             {/* Widget Layout (without navbar/footer) */}
             <Route path="/widget" element={<WidgetLayout />}>
-                <Route index element={<ChatWidget />} />
+                <Route index element={<AuthenticatedChatWidget />} />
             </Route>
         </>
     )

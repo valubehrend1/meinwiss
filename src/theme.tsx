@@ -3,10 +3,10 @@ import { createTheme } from '@mui/material/styles';
 import Haffer from './assets/fonts/Haffer-Regular.woff';
 import MartinaPlantijn from './assets/fonts/MartinaPlantijn.woff2';
 
-export const primary_color_dark = 'rgb(207,46,46)';
-export const primary_color_lime = '#E2F389';
+export const primary_color_dark = '#ff6900';
+export const primary_color_light = '#fcb900';
 
-export const gold = '#A98031';
+export const gold = '#22201cff';
 export const orange = '#F1683F';
 export const purple = '#A0004D';
 
@@ -61,7 +61,7 @@ const theme = createTheme({
       main: primary_color_dark,
     },
     secondary: {
-      main: primary_color_lime
+      main: primary_color_light
 
     },
   },

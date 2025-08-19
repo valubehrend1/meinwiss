@@ -11,6 +11,7 @@ const ErrorModal: React.FC<ErrorModalProps> = ({ isOpen, onClose, content, setis
     window.location.reload();
     onClose();
   }
+
   return (
     <SharedModal open={isOpen}
       onCancel={handleError}

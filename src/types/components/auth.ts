@@ -5,6 +5,7 @@
  */
 export interface AuthCardProps {
   initialMode?: 'login' | 'register';
+  onAuthSuccess?: (token: string) => void;
 }
 
 /**

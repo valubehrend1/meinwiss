@@ -1,24 +1,24 @@
 import { styled } from '@mui/system';
 import { Box, IconButton } from '@mui/material';
 
-// Contenedor principal del chat cuando se renderiza como widget
+// Main container for the chat when rendered as a widget
 export const ChatWidgetContainer = styled(Box)({
     position: 'fixed',
     bottom: 0,
     right: 0,
-    width: '100%', // Ocupará todo el ancho disponible en el iframe
-    height: '100%', // Ocupará todo el alto disponible en el iframe
+    width: '100%', // Will occupy all available width in the iframe
+    height: '100%', // Will occupy all available height in the iframe
     display: 'flex',
     flexDirection: 'column',
     borderRadius: '10px 10px 0 0',
     overflow: 'hidden',
     boxShadow: '0 -2px 10px rgba(252, 185, 0, 0.2)',
     backgroundColor: '#FFFFFF',
-    maxWidth: '500px', // Restaurado a 500px como estaba originalmente
-    margin: '0 auto', // Centrar si está en un contenedor más ancho
+    maxWidth: '500px', // Restored to 500px as it was originally
+    margin: '0 auto', // Center if in a wider container
 });
 
-// Cabecera del widget
+// Widget header
 export const ChatWidgetHeader = styled(Box)({
     padding: '10px 15px',
     backgroundColor: 'rgba(252, 185, 0, 1)',
@@ -30,31 +30,31 @@ export const ChatWidgetHeader = styled(Box)({
     minHeight: '50px',
 });
 
-// Área de mensajes con scroll
+// Scrollable messages area
 export const ChatWidgetMessages = styled(Box)({
     flex: '1',
     overflowY: 'auto',
     padding: '12px 16px',
     display: 'flex',
     flexDirection: 'column',
-    gap: '4px', // Reducido de 8px a 4px para disminuir el espacio entre mensajes
-    scrollBehavior: 'smooth', // Para hacer el scroll suave
+    gap: '4px', // Reduced from 8px to 4px to decrease space between messages
+    scrollBehavior: 'smooth', // For smooth scrolling
 });
 
-// Área de entrada para el widget
+// Input area for the widget
 export const ChatWidgetInputArea = styled(Box)({
     padding: '12px 16px',
     borderTop: '1px solid rgba(252, 185, 0, 0.3)',
     backgroundColor: '#FFFFFF',
 });
 
-// Botón para minimizar/maximizar
+// Minimize/maximize button
 export const MinimizeButton = styled(IconButton)({
     color: '#333',
     padding: '4px',
 });
 
-// Reutilizamos MessagesContainer pero ajustamos para el widget
+// Reuse MessagesContainer but adjust for the widget
 export const MessagesContainer = styled(Box)<{ sender: string }>(({ sender }) => ({
     display: 'flex',
     flexDirection: 'column',
@@ -64,14 +64,28 @@ export const MessagesContainer = styled(Box)<{ sender: string }>(({ sender }) =>
     alignSelf: sender === 'user' ? 'flex-end' : 'flex-start',
 }));
 
-// Indicador de typing ajustado para el widget
-export const TypingDotsContainer = styled('div')({
+// PDF download button
+export const DownloadButton = styled(IconButton)({
+    color: 'white',
+    marginRight: '4px',
+});
+
+// Empty message container
+export const EmptyMessageContainer = styled(Box)({
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: '5px 10px',
-    borderRadius: '10px',
-    backgroundColor: 'rgba(252, 185, 0, 0.1)',
-    marginBottom: '8px',
-    alignSelf: 'flex-start',
+    alignItems: 'center',
+    height: '100%',
+    opacity: 0.7,
+});
+
+// Scrollable messages container with forwarded ref support
+export const StyledScrollableMessagesContainer = styled(Box)({
+    flex: '1',
+    overflowY: 'auto',
+    padding: '12px 16px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px', // Reduced from 8px to 4px to decrease space between messages
+    scrollBehavior: 'smooth' // For smooth scrolling
 });

@@ -13,10 +13,7 @@ export const AuthContainer = styled(Box)(({ theme }) => ({
     boxShadow: theme.shadows[3],
     width: '100%',
     maxWidth: '400px',
-    margin: '50px auto',
-    position: 'relative',
-    top: '50%',
-    transform: 'translateY(-25%)',
+    // Eliminamos la altura 100% y el margen auto para que no interfieran con el centrado
 }));
 
 // Campos de texto estilizados

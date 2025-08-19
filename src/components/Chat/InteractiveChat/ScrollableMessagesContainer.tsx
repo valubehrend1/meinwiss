@@ -1,21 +1,11 @@
 import React, { forwardRef } from 'react';
-import { Box } from '@mui/material';
+import { StyledScrollableMessagesContainer } from './styles';
 
-// Componente de área de mensajes con soporte para refs
-export const ScrollableMessagesContainer = forwardRef<HTMLDivElement, React.ComponentProps<typeof Box>>(
+// Message area component with ref support
+export const ScrollableMessagesContainer = forwardRef<HTMLDivElement, React.ComponentPropsWithRef<typeof StyledScrollableMessagesContainer>>(
     (props, ref) => (
-        <Box
+        <StyledScrollableMessagesContainer
             ref={ref}
-            sx={{
-                flex: '1',
-                overflowY: 'auto',
-                padding: '12px 16px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '4px', // Reducido de 8px a 4px para disminuir el espacio entre mensajes
-                scrollBehavior: 'smooth', // Para hacer el scroll suave
-                ...props.sx
-            }}
             {...props}
         />
     )

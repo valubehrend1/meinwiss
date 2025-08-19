@@ -3,7 +3,7 @@ import { MenuItem, SelectChangeEvent, IconButton, Box } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { LanguageContainer, DropdownSelect, LanguageButton, Separator } from './Navbar/NavbarStyles.tsx';
+import { LanguageContainer, DropdownSelect, LanguageButton, Separator } from './NavbarStyles.tsx';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { LanguageSelectorOrientation, Language } from '../../../types.tsx';
 

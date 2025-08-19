@@ -1,6 +1,6 @@
-import React from 'react';
 import { Typography } from '@mui/material';
-import { WidgetUserQuestionContainer } from './WidgetMessageStyles';
+import React from 'react';
+import { WidgetUserQuestionContainer } from './styles';
 
 interface WidgetUserQuestionProps {
     content: string;

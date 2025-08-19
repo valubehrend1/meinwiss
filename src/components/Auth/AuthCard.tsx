@@ -6,7 +6,7 @@ import RegisterForm from './RegisterForm';
 import { saveAuthToken } from '../../utils/authUtils';
 import { useNavigate } from 'react-router-dom';
 
-const AuthCard: React.FC<AuthCardProps> = ({ initialMode = 'login' }) => {
+const AuthCard: React.FC<AuthCardProps> = ({ initialMode = 'login', onAuthSuccess }) => {
     const [mode, setMode] = useState<'login' | 'register'>(initialMode);
     const navigate = useNavigate();
 
@@ -20,7 +20,14 @@ const AuthCard: React.FC<AuthCardProps> = ({ initialMode = 'login' }) => {
 
     const handleAuthSuccess = (token: string) => {
         saveAuthToken(token);
-        navigate('/chat');
+
+        // If an onAuthSuccess callback is provided, call it
+        if (onAuthSuccess) {
+            onAuthSuccess(token);
+        } else {
+            // Otherwise use the default navigation behavior
+            navigate('/chat');
+        }
     };
 
     return (

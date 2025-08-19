@@ -1,14 +1,13 @@
+import { Typography } from '@mui/material';
 import React from 'react';
-import { Typography, Box } from '@mui/material';
-import { WidgetLupaiAnswerContainer } from './WidgetMessageStyles';
 import ReactMarkdown from 'react-markdown';
-import { RetrieverItem } from '../../../../types/api';
 import { useSelector } from 'react-redux';
 import {
-    selectStatusDisplay,
-    selectOriginalStatus
+    selectOriginalStatus,
+    selectStatusDisplay
 } from '../../../../config/features/ChatSlice';
-import theme from '../../../../theme';
+import { RetrieverItem } from '../../../../types/api';
+import { ContentContainer, LoadingStatus, WidgetLupaiAnswerContainer } from './styles';
 import WidgetLupaiResources from './WidgetLupaiResources';
 
 interface WidgetLupaiAnswerProps {
@@ -28,7 +27,6 @@ const WidgetLupaiAnswer: React.FC<WidgetLupaiAnswerProps> = ({
     const status = useSelector(selectOriginalStatus);
     const displayedStatus = useSelector(selectStatusDisplay);
 
-    // Función para determinar si mostrar el spinner/estado
     const showSpinner = (): boolean => {
         return status !== null && typeof displayedStatus === 'string' && displayedStatus.length > 0 && !isFinalResponse;
     };
@@ -36,31 +34,20 @@ const WidgetLupaiAnswer: React.FC<WidgetLupaiAnswerProps> = ({
     return (
         <WidgetLupaiAnswerContainer>
             {showSpinner() ? (
-                <Typography
-                    variant="body2"
-                    sx={{
-                        color: theme.palette.primary.main,
-                        animation: 'pulse 1.5s infinite',
-                        '@keyframes pulse': {
-                            '0%': { opacity: 0.5 },
-                            '50%': { opacity: 1 },
-                            '100%': { opacity: 0.5 },
-                        },
-                    }}
-                >
+                <LoadingStatus variant="body2">
                     {displayedStatus}
-                </Typography>
+                </LoadingStatus>
             ) : error ? (
                 <Typography variant="body2" color="error">
                     {error}
                 </Typography>
             ) : (
-                <Box sx={{ width: '100%' }}>
+                <ContentContainer>
                     <ReactMarkdown>{content}</ReactMarkdown>
                     {isFinalResponse && sources && sources.length > 0 && (
                         <WidgetLupaiResources sources={sources} />
                     )}
-                </Box>
+                </ContentContainer>
             )}
         </WidgetLupaiAnswerContainer>
     );
