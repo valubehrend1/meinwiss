@@ -29,7 +29,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const wsInstance = new WebSocket(`/lupai/multi_agent/chat?token=${import.meta.env.VITE_LUPAI_TOKEN}`);
+    const wsInstance = new WebSocket(`wss://api.lupai.de/lupai/multi_agent/chat?token=${import.meta.env.VITE_LUPAI_TOKEN}`);
     setWs(wsInstance);
 
     wsInstance.onopen = () => {
